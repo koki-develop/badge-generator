@@ -11,7 +11,7 @@ export const BadgeStyle = {
 export type BadgeStyle = typeof BadgeStyle[keyof typeof BadgeStyle];
 
 export type RenderBadgeOptions = {
-  logoSvg: string;
+  logoDataUrl: string;
   color: string;
   label: string;
   message: string;
@@ -20,9 +20,7 @@ export type RenderBadgeOptions = {
 
 export const renderBadge = (options: RenderBadgeOptions): string => {
   return makeBadge({
-    logo: `data:image/svg+xml;base64,${Buffer.from(
-      options.logoSvg.trim()
-    ).toString("base64")}`,
+    logo: options.logoDataUrl,
     color: options.color,
     label: options.label,
     message: options.message,
