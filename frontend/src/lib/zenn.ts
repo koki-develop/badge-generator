@@ -63,15 +63,15 @@ type User = {
 };
 
 const _getUser = async (username: string): Promise<User> => {
-  const cacheKey = username;
-  const cache = await loadCache<User>("zenn", cacheKey);
+  const cacheKey = `zenn_${username}`;
+  const cache = await loadCache<User>(cacheKey);
   if (cache) {
     return cache;
   }
 
   const endpoint = `https://zenn.dev/api/users/${username}`;
   const { data } = await axios.get<{ user: User }>(endpoint);
-  await saveCache("zenn", cacheKey, data.user);
+  await saveCache(cacheKey, data.user);
 
   return data.user;
 };

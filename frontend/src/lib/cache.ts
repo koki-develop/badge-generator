@@ -3,21 +3,15 @@ import * as admin from "firebase-admin";
 import { getFirestore, Timestamp } from "firebase-admin/firestore";
 import addHours from "date-fns/addHours";
 
-type Platform = "zenn";
-
 if (admin.apps.length === 0) {
   admin.initializeApp();
 }
 
 const db = getFirestore();
 
-export const saveCache = async <T>(
-  platform: Platform,
-  key: string,
-  data: T
-): Promise<void> => {
+export const saveCache = async <T>(key: string, data: T): Promise<void> => {
   await db
-    .collection(`platforms/${platform}/keys`)
+    .collection("caches")
     .doc(_md5(key))
     .set({
       ...data,
@@ -25,14 +19,8 @@ export const saveCache = async <T>(
     });
 };
 
-export const loadCache = async <T>(
-  platform: Platform,
-  key: string
-): Promise<T | null> => {
-  const doc = await db
-    .collection(`platforms/${platform}/keys`)
-    .doc(_md5(key))
-    .get();
+export const loadCache = async <T>(key: string): Promise<T | null> => {
+  const doc = await db.collection("caches").doc(_md5(key)).get();
   if (!doc.exists) {
     return null;
   }
