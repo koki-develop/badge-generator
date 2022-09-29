@@ -30,9 +30,9 @@ export const renderZennBadge = async (
 
   const svg = renderBadge({
     logoDataUrl: `data:image/svg+xml;base64,${logoBase64}`,
-    color: "#3EA8FF",
+    color: value ? "#3EA8FF" : "#D1654D",
     label: typeLabelMap["likes"],
-    message: value.toString(),
+    message: value?.toString() ?? "user not found",
     ...renderOptions,
   });
 
@@ -42,16 +42,16 @@ export const renderZennBadge = async (
 const _getValue = async (
   type: BadgeType,
   username: string
-): Promise<number> => {
+): Promise<number | null> => {
   switch (type) {
     case "likes":
       return _getLikesCount(username);
   }
 };
 
-const _getLikesCount = async (username: string): Promise<number> => {
-  const { total_liked_count } = await _getUser(username);
-  return total_liked_count;
+const _getLikesCount = async (username: string): Promise<number | null> => {
+  const user = await _getUser(username);
+  return user?.total_liked_count ?? null;
 };
 
 type User = {
@@ -62,16 +62,22 @@ type User = {
   total_liked_count: number;
 };
 
-const _getUser = async (username: string): Promise<User> => {
+const _getUser = async (username: string): Promise<User | null> => {
   const cacheKey = `zenn_${username}`;
   const cache = await loadCache<User>(cacheKey);
-  if (cache) {
-    return cache;
+  if (cache?.data) {
+    return cache.data;
   }
 
-  const endpoint = `https://zenn.dev/api/users/${username}`;
-  const { data } = await axios.get<{ user: User }>(endpoint);
-  await saveCache(cacheKey, data.user);
+  const endpoint = `https://zenn.dev/api/users/${encodeURIComponent(username)}`;
+  const resp = await axios.get<{ user: User }>(endpoint, {
+    validateStatus: (status) => [200, 404].includes(status),
+  });
+  if (resp.status === 404) {
+    await saveCache(cacheKey, null);
+    return null;
+  }
 
-  return data.user;
+  await saveCache(cacheKey, resp.data.user);
+  return resp.data.user;
 };

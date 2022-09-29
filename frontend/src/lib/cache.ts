@@ -9,33 +9,33 @@ if (admin.apps.length === 0) {
 
 const db = getFirestore();
 
+type Cache<T = any> = {
+  data: T | null;
+  expiration: Timestamp;
+};
+
 export const saveCache = async <T>(key: string, data: T): Promise<void> => {
   await db
     .collection("caches")
     .doc(_md5(key))
     .set({
-      ...data,
+      data,
       expiration: addHours(new Date(), 2),
     });
 };
 
-export const loadCache = async <T>(key: string): Promise<T | null> => {
+export const loadCache = async <T>(key: string): Promise<Cache<T> | null> => {
   const doc = await db.collection("caches").doc(_md5(key)).get();
   if (!doc.exists) {
     return null;
   }
 
-  const data = doc.data() as T & { expiration?: Timestamp };
-  if (!data.expiration) {
+  const cache = doc.data() as Cache;
+  if (new Date().getTime() > cache.expiration.toDate().getTime()) {
     return null;
   }
 
-  if (new Date().getTime() > data.expiration.toDate().getTime()) {
-    return null;
-  }
-
-  delete data.expiration;
-  return data;
+  return cache;
 };
 
 const _md5 = (str: string) =>
