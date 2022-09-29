@@ -2,6 +2,7 @@ import axios from "axios";
 import fs from "fs";
 import path from "path";
 import { renderBadge, RenderBadgeOptions } from "./badge";
+import { loadCache, saveCache } from "./cache";
 
 export type BadgeType = "likes";
 
@@ -61,10 +62,16 @@ type User = {
   total_liked_count: number;
 };
 
-// TODO: cache 処理実装
 const _getUser = async (username: string): Promise<User> => {
+  const cacheKey = username;
+  const cache = await loadCache<User>("zenn", cacheKey);
+  if (cache) {
+    return cache;
+  }
+
   const endpoint = `https://zenn.dev/api/users/${username}`;
   const { data } = await axios.get<{ user: User }>(endpoint);
+  await saveCache("zenn", cacheKey, data.user);
 
   return data.user;
 };
