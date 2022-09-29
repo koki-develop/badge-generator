@@ -1,5 +1,6 @@
 import axios from "axios";
-import zenn from "../logos/zenn.svg?raw";
+import fs from "fs";
+import path from "path";
 import { renderBadge, RenderBadgeOptions } from "./badge";
 
 export type BadgeType = "likes";
@@ -19,13 +20,15 @@ export type RenderZennBadgeOptions = Omit<
 export const renderZennBadge = async (
   options: RenderZennBadgeOptions
 ): Promise<string> => {
+  const logoBase64 = fs
+    .readFileSync(path.resolve(process.cwd(), "public/logos/zenn.svg"))
+    .toString("base64");
+
   const { type, username, ...renderOptions } = options;
   const value = await _getValue(type, username);
 
   const svg = renderBadge({
-    logoDataUrl: `data:image/svg+xml;base64,${Buffer.from(zenn).toString(
-      "base64"
-    )}`,
+    logoDataUrl: `data:image/svg+xml;base64,${logoBase64}`,
     color: "#3EA8FF",
     label: typeLabelMap["likes"],
     message: value.toString(),
