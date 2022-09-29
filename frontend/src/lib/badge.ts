@@ -1,11 +1,21 @@
 import makeBadge from "badge-maker/lib/make-badge";
 
+export const BadgeStyle = {
+  plastic: "plastic",
+  flat: "flat",
+  flatSquare: "flat-square",
+  social: "social",
+  forTheBadge: "for-the-badge",
+} as const;
+
+export type BadgeStyle = typeof BadgeStyle[keyof typeof BadgeStyle];
+
 export type RenderBadgeOptions = {
   logoSvg: string;
   color: string;
   label: string;
   message: string;
-  style: "plastic" | "flat" | "flat-square" | "social" | "for-the-badge";
+  style: BadgeStyle;
 };
 
 export const renderBadge = (options: RenderBadgeOptions): string => {
