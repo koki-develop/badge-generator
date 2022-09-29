@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import * as admin from "firebase-admin";
 import { getFirestore, Timestamp } from "firebase-admin/firestore";
-import differenceInHours from "date-fns/differenceInHours";
+import addHours from "date-fns/addHours";
 
 type Platform = "zenn";
 
@@ -21,7 +21,7 @@ export const saveCache = async <T>(
     .doc(_md5(key))
     .set({
       ...data,
-      timestamp: new Date(),
+      expiration: addHours(new Date(), 2),
     });
 };
 
@@ -37,16 +37,16 @@ export const loadCache = async <T>(
     return null;
   }
 
-  const data = doc.data() as T & { timestamp?: Timestamp };
-  if (!data.timestamp) {
+  const data = doc.data() as T & { expiration?: Timestamp };
+  if (!data.expiration) {
     return null;
   }
 
-  if (differenceInHours(new Date(), data.timestamp.toDate().getTime()) > 2) {
+  if (new Date().getTime() > data.expiration.toDate().getTime()) {
     return null;
   }
 
-  delete data.timestamp;
+  delete data.expiration;
   return data;
 };
 
