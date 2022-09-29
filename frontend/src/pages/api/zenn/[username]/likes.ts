@@ -1,11 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { BadgeStyle } from "../../../../lib/badge";
 import { renderZennBadge } from "../../../../lib/zenn";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const username = req.query.username as string;
+  const style = req.query.style as string;
 
   const svg = await renderZennBadge({
-    style: "social",
+    style: style as BadgeStyle,
     type: "likes",
     username: username,
   });

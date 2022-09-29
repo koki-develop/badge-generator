@@ -19,6 +19,10 @@ export type RenderBadgeOptions = {
 };
 
 export const renderBadge = (options: RenderBadgeOptions): string => {
+  if (!Object.values(BadgeStyle).includes(options.style)) {
+    options.style = "plastic";
+  }
+
   return makeBadge({
     logo: options.logoDataUrl,
     color: options.color,
