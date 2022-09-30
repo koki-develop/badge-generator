@@ -14,12 +14,12 @@ const InputWithCopy: React.FC<InputWithCopyProps> = memo((props) => {
     <div className={classNames(className)}>
       <label>{label}</label>
       <span className="flex">
-        <button className="rounded-l border border-r-0 p-2 outline-none hover:bg-gray-50 active:bg-gray-100">
+        <button className="rounded-l border border-r-0 px-3 outline-none hover:bg-gray-50 active:bg-gray-100">
           <AiOutlineCopy />
         </button>
         <input
           {...inputProps}
-          className={classNames("rounded-r border px-2 outline-none", {
+          className={classNames("rounded-r border p-2 outline-none", {
             "w-full": fullWidth,
           })}
           type="text"
