@@ -1,9 +1,15 @@
 import { RenderBadgeOptions } from "./badge";
 import { renderBadge } from "./renderBadge";
-import { getArticlesCount, getLikesCount } from "./zennApi";
+import {
+  getArticlesCount,
+  getBooksCount,
+  getFollowersCount,
+  getLikesCount,
+  getScrapssCount,
+} from "./zennApi";
 import { zenn } from "../logos.json";
 
-export type BadgeType = "likes" | "articles";
+export type BadgeType = "articles" | "books" | "followers" | "scraps" | "likes";
 
 export type RenderZennBadgeOptions = Omit<
   RenderBadgeOptions,
@@ -14,8 +20,11 @@ export type RenderZennBadgeOptions = Omit<
 };
 
 const typeLabelMap: Record<BadgeType, string> = {
-  likes: "Likes",
   articles: "Articles",
+  books: "Books",
+  followers: "Followers",
+  scraps: "Scraps",
+  likes: "Likes",
 };
 
 export const renderZennBadge = async (
@@ -39,10 +48,11 @@ const _getValue = async (
   type: BadgeType,
   username: string
 ): Promise<number | null> => {
-  switch (type) {
-    case "likes":
-      return getLikesCount(username);
-    case "articles":
-      return getArticlesCount(username);
-  }
+  return {
+    articles: getArticlesCount,
+    books: getBooksCount,
+    followers: getFollowersCount,
+    scraps: getScrapssCount,
+    likes: getLikesCount,
+  }[type](username);
 };

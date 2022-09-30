@@ -9,18 +9,39 @@ type ZennUser = {
   total_liked_count: number;
 };
 
-export const getLikesCount = async (
-  username: string
-): Promise<number | null> => {
-  const user = await _getUser(username);
-  return user?.total_liked_count ?? null;
-};
-
 export const getArticlesCount = async (
   username: string
 ): Promise<number | null> => {
   const user = await _getUser(username);
   return user?.articles_count ?? null;
+};
+
+export const getBooksCount = async (
+  username: string
+): Promise<number | null> => {
+  const user = await _getUser(username);
+  return user?.books_count ?? null;
+};
+
+export const getFollowersCount = async (
+  username: string
+): Promise<number | null> => {
+  const user = await _getUser(username);
+  return user?.follower_count ?? null;
+};
+
+export const getScrapssCount = async (
+  username: string
+): Promise<number | null> => {
+  const user = await _getUser(username);
+  return user?.scraps_count ?? null;
+};
+
+export const getLikesCount = async (
+  username: string
+): Promise<number | null> => {
+  const user = await _getUser(username);
+  return user?.total_liked_count ?? null;
 };
 
 const _getUser = async (username: string): Promise<ZennUser | null> => {

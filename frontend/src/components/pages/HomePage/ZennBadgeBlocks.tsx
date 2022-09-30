@@ -14,9 +14,24 @@ const usernameToBadges = (username: string, style: BadgeStyle): Badge[] => {
       link: `https://zenn.dev/${usernameOr}`,
     },
     {
+      name: "Followers",
+      src: zennBadgeUrl({ username: usernameOr, style, type: "followers" }),
+      link: `https://zenn.dev/${usernameOr}`,
+    },
+    {
       name: "Articles",
       src: zennBadgeUrl({ username: usernameOr, style, type: "articles" }),
       link: `https://zenn.dev/${usernameOr}`,
+    },
+    {
+      name: "Books",
+      src: zennBadgeUrl({ username: usernameOr, style, type: "books" }),
+      link: `https://zenn.dev/${usernameOr}?tab=books`,
+    },
+    {
+      name: "Scraps",
+      src: zennBadgeUrl({ username: usernameOr, style, type: "scraps" }),
+      link: `https://zenn.dev/${usernameOr}?tab=scraps`,
     },
   ];
 };
