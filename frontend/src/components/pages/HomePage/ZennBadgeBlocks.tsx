@@ -9,13 +9,13 @@ const usernameToBadges = (username: string, style: BadgeStyle): Badge[] => {
   return [
     {
       name: "Likes",
-      src: `/img/zenn/${encodedUsername}/likes?style=${style}`,
-      link: badgeUrl({ username, style, type: "likes" }),
+      src: badgeUrl({ username: encodedUsername, style, type: "likes" }),
+      link: `https://zenn.dev/${encodedUsername}`,
     },
     {
       name: "Articles",
-      src: `/img/zenn/${encodedUsername}/articles?style=${style}`,
-      link: badgeUrl({ username, style, type: "articles" }),
+      src: badgeUrl({ username: encodedUsername, style, type: "articles" }),
+      link: `https://zenn.dev/${encodedUsername}`,
     },
   ];
 };
