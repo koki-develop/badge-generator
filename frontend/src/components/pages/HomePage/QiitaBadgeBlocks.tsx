@@ -1,20 +1,21 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { BadgeStyle } from "../../../lib/badge";
 import { qiitaBadgeUrl } from "../../../lib/badgeUrl";
+import Input from "../../util/Input";
 import BadgeBlock, { Badge } from "./BadgeBlock";
 
 const usernameToBadges = (username: string, style: BadgeStyle): Badge[] => {
-  const encodedUsername = encodeURIComponent(username.trim() || "koki_develop");
+  const usernameOr = username || "koki_develop";
 
   return [
     {
       name: "Articles",
       src: qiitaBadgeUrl({
-        username: encodedUsername,
+        username: usernameOr,
         style,
         type: "articles",
       }),
-      link: `https://qiita.com/${encodedUsername}`,
+      link: `https://qiita.com/${usernameOr}`,
     },
   ];
 };
@@ -64,31 +65,29 @@ const QiitaBadgeBlocks: React.FC = memo(() => {
         <h2 className="text-2xl font-bold">Qiita</h2>
       </div>
 
-      <div className="mb-4">
-        <div className="mb-2 flex flex-col">
-          <label className="text-sm">ユーザー名</label>
-          <input
-            className="h-[38px] w-full rounded border px-2 outline-none sm:w-1/3"
-            type="text"
-            value={username}
-            onChange={handleChangeUsername}
-          />
-        </div>
+      <div className="mb-4 space-y-1">
+        <Input
+          className="text-sm"
+          inputClassname="w-full sm:w-1/3 text-base"
+          label="ユーザー名"
+          placeholder="koki_develop"
+          type="text"
+          value={username}
+          onChange={handleChangeUsername}
+        />
 
-        <div className="mb-2 flex flex-col">
-          <label className="text-sm">スタイル</label>
-          <select
-            className="h-[38px] w-full rounded border px-2 outline-none hover:bg-gray-50 sm:w-1/3"
-            value={style}
-            onChange={handleChangeStyle}
-          >
-            {Object.values(BadgeStyle).map((style) => (
-              <option key={style} value={style}>
-                {style}
-              </option>
-            ))}
-          </select>
-        </div>
+        <Input
+          className="text-sm"
+          inputClassname="w-full sm:w-1/3 text-base"
+          label="スタイル"
+          type="select"
+          options={Object.values(BadgeStyle).map((style) => ({
+            text: style,
+            value: style,
+          }))}
+          value={style}
+          onChange={handleChangeStyle}
+        />
       </div>
 
       {badges.map((badge) => (

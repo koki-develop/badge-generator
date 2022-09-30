@@ -5,18 +5,18 @@ import Input from "../../util/Input";
 import BadgeBlock, { Badge } from "./BadgeBlock";
 
 const usernameToBadges = (username: string, style: BadgeStyle): Badge[] => {
-  const encodedUsername = encodeURIComponent(username.trim() || "kou_pg_0131");
+  const usernameOr = username || "kou_pg_0131";
 
   return [
     {
       name: "Likes",
-      src: zennBadgeUrl({ username: encodedUsername, style, type: "likes" }),
-      link: `https://zenn.dev/${encodedUsername}`,
+      src: zennBadgeUrl({ username: usernameOr, style, type: "likes" }),
+      link: `https://zenn.dev/${usernameOr}`,
     },
     {
       name: "Articles",
-      src: zennBadgeUrl({ username: encodedUsername, style, type: "articles" }),
-      link: `https://zenn.dev/${encodedUsername}`,
+      src: zennBadgeUrl({ username: usernameOr, style, type: "articles" }),
+      link: `https://zenn.dev/${usernameOr}`,
     },
   ];
 };
