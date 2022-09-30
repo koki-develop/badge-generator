@@ -1,6 +1,9 @@
 import axios from "axios";
 import { saveCache, loadCache } from "./cache";
-import { QiitaUser } from "../models/qiita";
+
+type QiitaUser = {
+  items_count: number;
+};
 
 export const getArticlesCount = async (
   username: string
