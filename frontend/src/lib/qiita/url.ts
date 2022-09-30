@@ -10,7 +10,7 @@ export const badgeUrl = (options: RenderQiitaBadgeOptions): string => {
   url.pathname = path.join(
     url.pathname,
     "img/qiita",
-    options.userId,
+    options.username,
     options.type
   );
   url.search = new URLSearchParams({ style: options.style }).toString();

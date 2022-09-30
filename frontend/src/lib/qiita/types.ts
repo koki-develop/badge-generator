@@ -7,7 +7,7 @@ export type RenderQiitaBadgeOptions = Omit<
   "color" | "logoDataUrl" | "message" | "label"
 > & {
   type: BadgeType;
-  userId: string;
+  username: string;
 };
 
 export type User = {

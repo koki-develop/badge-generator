@@ -16,8 +16,8 @@ export const renderQiitaBadge = async (
     .readFileSync(path.resolve(process.cwd(), "public/logos/qiita.png"))
     .toString("base64");
 
-  const { type, userId, ...renderOptions } = options;
-  const value = await _getValue(type, userId);
+  const { type, username, ...renderOptions } = options;
+  const value = await _getValue(type, username);
 
   const svg = renderBadge({
     logoDataUrl: `data:image/png;base64,${logoBase64}`,

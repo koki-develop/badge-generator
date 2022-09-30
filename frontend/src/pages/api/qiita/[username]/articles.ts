@@ -3,13 +3,13 @@ import { BadgeStyle } from "../../../../lib/badge/types";
 import { renderQiitaBadge } from "../../../../lib/qiita/render";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const userId = req.query.userId as string;
+  const username = req.query.username as string;
   const style = req.query.style as BadgeStyle;
 
   const svg = await renderQiitaBadge({
     type: "articles",
     style,
-    userId,
+    username: username,
   });
 
   res.status(200).setHeader("content-type", "image/svg+xml").send(svg);
