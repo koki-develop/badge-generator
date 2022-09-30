@@ -5,6 +5,10 @@ resource "google_cloud_run_service" "main" {
     spec {
       containers {
         image = "asia-northeast1-docker.pkg.dev/${data.google_project.main.project_id}/${google_artifact_registry_repository.main.name}/frontend:latest"
+        env {
+          name  = "QIITA_ACCESS_TOKEN"
+          value = var.qiita_access_token
+        }
       }
     }
   }
