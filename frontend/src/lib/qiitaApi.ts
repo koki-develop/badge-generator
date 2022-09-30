@@ -2,7 +2,15 @@ import axios from "axios";
 import { saveCache, loadCache } from "./cache";
 
 type QiitaUser = {
+  followers_count: number;
   items_count: number;
+};
+
+export const getFollowersCount = async (
+  username: string
+): Promise<number | null> => {
+  const user = await _getUser(username);
+  return user?.followers_count ?? null;
 };
 
 export const getArticlesCount = async (
