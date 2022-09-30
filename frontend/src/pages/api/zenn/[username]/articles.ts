@@ -4,12 +4,12 @@ import { renderZennBadge } from "../../../../lib/zenn/render";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const username = req.query.username as string;
-  const style = req.query.style as string;
+  const style = req.query.style as BadgeStyle;
 
   const svg = await renderZennBadge({
-    style: style as BadgeStyle,
     type: "articles",
-    username: username,
+    style,
+    username,
   });
 
   res.status(200).setHeader("content-type", "image/svg+xml").send(svg);
