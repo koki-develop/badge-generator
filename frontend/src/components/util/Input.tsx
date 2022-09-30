@@ -2,21 +2,24 @@ import classNames from "classnames";
 import React, { memo } from "react";
 import { AiOutlineCopy } from "react-icons/ai";
 
-export type InputWithCopyProps = React.HTMLProps<HTMLInputElement> & {
+export type InputProps = React.HTMLProps<HTMLInputElement> & {
   label: string;
   fullWidth?: boolean;
+  withCopy?: boolean;
 };
 
-const InputWithCopy: React.FC<InputWithCopyProps> = memo((props) => {
-  const { label, fullWidth, className, ...inputProps } = props;
+const Input: React.FC<InputProps> = memo((props) => {
+  const { label, fullWidth, withCopy, className, ...inputProps } = props;
 
   return (
     <div className={classNames(className)}>
       <label>{label}</label>
       <span className="flex">
-        <button className="rounded-l border border-r-0 px-3 outline-none hover:bg-gray-50 active:bg-gray-100">
-          <AiOutlineCopy />
-        </button>
+        {withCopy && (
+          <button className="rounded-l border border-r-0 px-3 outline-none hover:bg-gray-50 active:bg-gray-100">
+            <AiOutlineCopy />
+          </button>
+        )}
         <input
           {...inputProps}
           className={classNames("rounded-r border p-2 outline-none", {
@@ -28,6 +31,6 @@ const InputWithCopy: React.FC<InputWithCopyProps> = memo((props) => {
   );
 });
 
-InputWithCopy.displayName = "BadgeBlock";
+Input.displayName = "Input";
 
-export default InputWithCopy;
+export default Input;
