@@ -21,6 +21,7 @@ const BadgeBlock: React.FC<BadgeBlockProps> = memo((props) => {
         <div className="flex items-center">
           <h3 className="mr-2 font-semibold">{badge.name}</h3>
           <span className="mr-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={badge.src} alt="Badge" />
           </span>
         </div>
