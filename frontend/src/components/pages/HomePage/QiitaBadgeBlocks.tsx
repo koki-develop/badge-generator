@@ -61,7 +61,7 @@ const QiitaBadgeBlocks: React.FC = memo(() => {
 
   return (
     <div>
-      <div>
+      <div className="mb-2">
         <h2 className="text-2xl font-bold">Qiita</h2>
       </div>
 

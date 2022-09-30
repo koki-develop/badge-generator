@@ -62,7 +62,7 @@ const ZennBadgeBlocks: React.FC = memo(() => {
 
   return (
     <div>
-      <div>
+      <div className="mb-2">
         <h2 className="text-2xl font-bold">Zenn</h2>
       </div>
 
