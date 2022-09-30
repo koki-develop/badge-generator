@@ -1,4 +1,5 @@
-import { renderBadge, RenderBadgeOptions } from "./badge";
+import { RenderBadgeOptions } from "./badge";
+import { renderBadge } from "./renderBadge";
 import { getArticlesCount } from "./qiitaApi";
 import { qiita } from "../logos.json";
 
