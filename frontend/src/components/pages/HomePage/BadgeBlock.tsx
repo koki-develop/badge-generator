@@ -4,14 +4,18 @@ import React, { memo } from "react";
 import { AiOutlineCopy } from "react-icons/ai";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 
-export type BadgeBlockProps = {
+export type Badge = {
   name: string;
   src: string;
   link: string;
 };
 
+export type BadgeBlockProps = {
+  badge: Badge;
+};
+
 const BadgeBlock: React.FC<BadgeBlockProps> = memo((props) => {
-  const { name, src, link } = props;
+  const { badge } = props;
 
   return (
     <Disclosure>
@@ -24,9 +28,9 @@ const BadgeBlock: React.FC<BadgeBlockProps> = memo((props) => {
             )}
           >
             <div className="flex items-center">
-              <h3 className="mr-2">{name}</h3>
+              <h3 className="mr-2">{badge.name}</h3>
               <span className="mr-2">
-                <img src={src} alt="Badge" />
+                <img src={badge.src} alt="Badge" />
               </span>
             </div>
             <span className="text-sm">
@@ -45,7 +49,7 @@ const BadgeBlock: React.FC<BadgeBlockProps> = memo((props) => {
                   className="grow rounded-r border px-2 py-1 text-sm outline-none"
                   style={{ outline: "none" }}
                   type="text"
-                  value={`[![${name}](${src})](${link})`}
+                  value={`[![${badge.name}](${badge.src})](${badge.link})`}
                   disabled
                 />
               </div>
@@ -59,7 +63,7 @@ const BadgeBlock: React.FC<BadgeBlockProps> = memo((props) => {
                   className="grow rounded-r border px-2 py-1 text-sm outline-none"
                   style={{ outline: "none" }}
                   type="text"
-                  value={`<a href="${link}"><img src="${src}" alt="${name}" /></a>`}
+                  value={`<a href="${badge.link}"><img src="${badge.src}" alt="${name}" /></a>`}
                   disabled
                 />
               </div>

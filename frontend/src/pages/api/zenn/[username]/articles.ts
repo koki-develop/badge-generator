@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { BadgeStyle } from "../../../../lib/badge";
+import { BadgeStyle } from "../../../../lib/badge/types";
 import { renderZennBadge } from "../../../../lib/zenn";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

@@ -1,7 +1,7 @@
 import axios from "axios";
 import fs from "fs";
 import path from "path";
-import { renderBadge, RenderBadgeOptions } from "./badge";
+import { renderBadge, RenderBadgeOptions } from "./badge/render";
 import { loadCache, saveCache } from "./cache";
 
 export type BadgeType = "likes" | "articles";
