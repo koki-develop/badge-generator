@@ -1,13 +1,13 @@
-import { RenderBadgeOptions } from "./badge";
-import { renderBadge } from "./renderBadge";
+import { RenderBadgeOptions } from "@/lib/badge";
+import { renderBadge } from "@/lib/renderBadge";
 import {
   getArticlesCount,
   getBooksCount,
   getFollowersCount,
   getLikesCount,
   getScrapssCount,
-} from "./zennApi";
-import { zenn } from "../logos.json";
+} from "@/lib/zennApi";
+import { zenn } from "@/logos.json";
 
 export type BadgeType = "articles" | "books" | "followers" | "scraps" | "likes";
 

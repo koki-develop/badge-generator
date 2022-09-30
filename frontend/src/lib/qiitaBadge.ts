@@ -1,11 +1,11 @@
-import { RenderBadgeOptions } from "./badge";
-import { renderBadge } from "./renderBadge";
+import { RenderBadgeOptions } from "@/lib/badge";
+import { renderBadge } from "@/lib/renderBadge";
 import {
   getArticlesCount,
   getContributions,
   getFollowersCount,
-} from "./qiitaApi";
-import { qiita } from "../logos.json";
+} from "@/lib/qiitaApi";
+import { qiita } from "@/logos.json";
 
 export type BadgeType = "contributions" | "followers" | "articles";
 
