@@ -1,6 +1,6 @@
 import React, { memo } from "react";
-import Disclosure from "../../util/Disclosure";
-import Input from "../../util/Input";
+import Disclosure from "./Disclosure";
+import Input from "./Input";
 
 export type Badge = {
   name: string;

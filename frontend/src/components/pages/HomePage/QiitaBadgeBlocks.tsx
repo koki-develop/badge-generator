@@ -2,7 +2,7 @@ import React, { memo, useCallback, useEffect, useState } from "react";
 import { BadgeStyle } from "../../../lib/badge";
 import { qiitaBadgeUrl } from "../../../lib/badgeUrl";
 import Input from "../../util/Input";
-import BadgeBlock, { Badge } from "./BadgeBlock";
+import BadgeBlock, { Badge } from "../../util/BadgeBlock";
 
 const usernameToBadges = (username: string, style: BadgeStyle): Badge[] => {
   const usernameOr = username || "koki_develop";
