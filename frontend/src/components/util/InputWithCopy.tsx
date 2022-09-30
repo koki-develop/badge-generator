@@ -22,7 +22,6 @@ const InputWithCopy: React.FC<InputWithCopyProps> = memo((props) => {
           className={classNames("rounded-r border p-2 outline-none", {
             "w-full": fullWidth,
           })}
-          type="text"
         />
       </span>
     </div>
