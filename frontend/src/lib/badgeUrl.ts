@@ -1,5 +1,5 @@
 import path from "path";
-import { RenderQiitaBadgeOptions } from "./qiita/types";
+import { RenderQiitaBadgeOptions } from "./qiitaBadge";
 import { RenderZennBadgeOptions } from "./zennBadge";
 
 const baseUrl =
