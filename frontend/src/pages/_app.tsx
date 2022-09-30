@@ -5,7 +5,7 @@ import "../styles/global.css";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen py-4">
       <div className="px-4">
         <div className="container mx-auto">
           <Link href="/">
