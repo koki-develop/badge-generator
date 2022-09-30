@@ -1,4 +1,5 @@
 import type { AppProps } from "next/app";
+import Head from "next/head";
 import Link from "next/link";
 import { BsGithub } from "react-icons/bs";
 import "../styles/global.css";
@@ -6,6 +7,10 @@ import "../styles/global.css";
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <div className="min-h-screen py-4">
+      <Head>
+        <title>Badge Generator</title>
+      </Head>
+
       <div className="px-4">
         <div className="container mx-auto">
           <Link href="/">
