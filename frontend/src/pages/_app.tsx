@@ -1,19 +1,20 @@
-import { Footer, Navbar } from "flowbite-react";
 import type { AppProps } from "next/app";
 import Link from "next/link";
-import { BsGithub, BsTwitter } from "react-icons/bs";
+import { BsGithub } from "react-icons/bs";
 import "../styles/global.css";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <div className="min-h-screen">
-      <Navbar rounded>
-        <Link href="/" passHref>
-          <Navbar.Brand>
-            <h1 className="text-xl font-semibold">Badge Generator</h1>
-          </Navbar.Brand>
-        </Link>
-      </Navbar>
+      <div className="px-2 sm:px-4">
+        <div className="container mx-auto">
+          <Link href="/">
+            <a>
+              <h1 className="text-2xl font-semibold">Badge Generator</h1>
+            </a>
+          </Link>
+        </div>
+      </div>
 
       <main className="mb-4 px-2 sm:px-4">
         <div className="container mx-auto">
