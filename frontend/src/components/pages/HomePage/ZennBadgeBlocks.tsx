@@ -1,5 +1,6 @@
 import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { BadgeStyle } from "../../../lib/badge/types";
+import { badgeUrl } from "../../../lib/zenn/url";
 import BadgeBlock, { Badge } from "./BadgeBlock";
 
 const usernameToBadges = (username: string, style: BadgeStyle): Badge[] => {
@@ -9,12 +10,12 @@ const usernameToBadges = (username: string, style: BadgeStyle): Badge[] => {
     {
       name: "Likes",
       src: `/img/zenn/${encodedUsername}/likes?style=${style}`,
-      link: `https://zenn.dev/${encodedUsername}`,
+      link: badgeUrl({ username, style, type: "likes" }),
     },
     {
       name: "Articles",
       src: `/img/zenn/${encodedUsername}/articles?style=${style}`,
-      link: `https://zenn.dev/${encodedUsername}`,
+      link: badgeUrl({ username, style, type: "articles" }),
     },
   ];
 };

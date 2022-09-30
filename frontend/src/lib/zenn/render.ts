@@ -1,22 +1,13 @@
 import axios from "axios";
 import fs from "fs";
 import path from "path";
-import { renderBadge, RenderBadgeOptions } from "./badge/render";
-import { loadCache, saveCache } from "./cache";
-
-export type BadgeType = "likes" | "articles";
+import { BadgeType, RenderZennBadgeOptions, User } from "./types";
+import { renderBadge } from "../badge/render";
+import { loadCache, saveCache } from "../cache";
 
 const typeLabelMap: Record<BadgeType, string> = {
   likes: "Likes",
   articles: "Articles",
-};
-
-export type RenderZennBadgeOptions = Omit<
-  RenderBadgeOptions,
-  "color" | "logoDataUrl" | "message" | "label"
-> & {
-  type: BadgeType;
-  username: string;
 };
 
 export const renderZennBadge = async (
@@ -60,14 +51,6 @@ const _getLikesCount = async (username: string): Promise<number | null> => {
 const _getArticlesCount = async (username: string): Promise<number | null> => {
   const user = await _getUser(username);
   return user?.articles_count ?? null;
-};
-
-type User = {
-  articles_count: number;
-  books_count: number;
-  follower_count: number;
-  scraps_count: number;
-  total_liked_count: number;
 };
 
 const _getUser = async (username: string): Promise<User | null> => {

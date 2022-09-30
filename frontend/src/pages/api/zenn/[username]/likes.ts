@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { BadgeStyle } from "../../../../lib/badge/types";
-import { renderZennBadge } from "../../../../lib/zenn";
+import { renderZennBadge } from "../../../../lib/zenn/render";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const username = req.query.username as string;
