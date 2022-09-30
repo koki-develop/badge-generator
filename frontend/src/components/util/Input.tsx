@@ -1,6 +1,7 @@
 import classNames from "classnames";
-import React, { memo } from "react";
+import React, { memo, useCallback } from "react";
 import { AiOutlineCopy } from "react-icons/ai";
+import copy from "copy-to-clipboard";
 
 type BaseProps = {
   inputClassname?: string;
@@ -57,12 +58,20 @@ const Input: React.FC<InputProps> = memo((props) => {
     ...inputProps
   } = props;
 
+  const handleCopy = useCallback(() => {
+    const value = inputProps.value?.toString() ?? "";
+    copy(value);
+  }, [inputProps.value]);
+
   return (
     <div className={classNames(className)}>
       <label>{label}</label>
       <span className="flex">
         {withCopy && (
-          <button className="rounded-l border border-r-0 px-3 outline-none hover:bg-gray-50 active:bg-gray-100">
+          <button
+            className="rounded-l border border-r-0 px-3 outline-none hover:bg-gray-50 active:bg-gray-100"
+            onClick={handleCopy}
+          >
             <AiOutlineCopy />
           </button>
         )}
