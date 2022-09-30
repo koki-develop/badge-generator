@@ -7,6 +7,7 @@ FROM node:16-alpine AS builder
 WORKDIR /app
 ENV NODE_ENV production
 COPY --from=deps /app/node_modules ./node_modules
+COPY .env.local ./
 COPY . .
 RUN yarn build
 
