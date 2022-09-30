@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "build:logos": "yarn run ts-node ./src/tasks/buildLogos.ts",
+    "prebuild": "yarn build:logos",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
