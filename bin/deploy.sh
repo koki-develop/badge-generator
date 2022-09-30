@@ -15,4 +15,7 @@ gcloud run deploy frontend \
   --image="${DOCKER_IMAGE}" \
   --region="${REGION}" \
   --project="${GCP_PROJECT_ID}"
-gcloud run services update-traffic frontend --to-latest --region="${REGION}"
+gcloud run services update-traffic frontend \
+  --to-latest \
+  --region="${REGION}" \
+  --project="${GCP_PROJECT_ID}"
