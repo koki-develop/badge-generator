@@ -1,6 +1,6 @@
 import path from "path";
 import { RenderQiitaBadgeOptions } from "./qiita/types";
-import { RenderZennBadgeOptions } from "./zenn/types";
+import { RenderZennBadgeOptions } from "./zennBadge";
 
 const baseUrl =
   process.env.NODE_ENV === "production"
