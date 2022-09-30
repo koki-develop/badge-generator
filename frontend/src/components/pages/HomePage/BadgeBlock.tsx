@@ -1,8 +1,6 @@
-import classNames from "classnames";
-import { Disclosure } from "@headlessui/react";
 import React, { memo } from "react";
 import { AiOutlineCopy } from "react-icons/ai";
-import { BsChevronDown, BsChevronUp } from "react-icons/bs";
+import Disclosure from "../../util/Disclosure";
 
 export type Badge = {
   name: string;
@@ -18,59 +16,45 @@ const BadgeBlock: React.FC<BadgeBlockProps> = memo((props) => {
   const { badge } = props;
 
   return (
-    <Disclosure>
-      {({ open }) => (
-        <>
-          <Disclosure.Button
-            className={classNames(
-              "flex w-full items-center justify-between rounded border px-4 py-2 hover:bg-gray-50 active:bg-gray-100",
-              { "rounded-b-none": open }
-            )}
-          >
-            <div className="flex items-center">
-              <h3 className="mr-2">{badge.name}</h3>
-              <span className="mr-2">
-                <img src={badge.src} alt="Badge" />
-              </span>
-            </div>
-            <span className="text-sm">
-              {open && <BsChevronUp />}
-              {!open && <BsChevronDown />}
-            </span>
-          </Disclosure.Button>
-          <Disclosure.Panel className="rounded-b border border-t-0 p-4 pt-2">
-            <div>
-              <label className="text-xs">Markdown</label>
-              <div className="mb-1 flex">
-                <button className="rounded-l border border-r-0 p-2 outline-none hover:bg-gray-50 active:bg-gray-100">
-                  <AiOutlineCopy />
-                </button>
-                <input
-                  className="grow rounded-r border px-2 py-1 text-sm outline-none"
-                  style={{ outline: "none" }}
-                  type="text"
-                  value={`[![${badge.name}](${badge.src})](${badge.link})`}
-                  disabled
-                />
-              </div>
+    <Disclosure
+      button={
+        <div className="flex items-center">
+          <h3 className="mr-2">{badge.name}</h3>
+          <span className="mr-2">
+            <img src={badge.src} alt="Badge" />
+          </span>
+        </div>
+      }
+    >
+      <div>
+        <label className="text-xs">Markdown</label>
+        <div className="mb-1 flex">
+          <button className="rounded-l border border-r-0 p-2 outline-none hover:bg-gray-50 active:bg-gray-100">
+            <AiOutlineCopy />
+          </button>
+          <input
+            className="grow rounded-r border px-2 py-1 text-sm outline-none"
+            style={{ outline: "none" }}
+            type="text"
+            value={`[![${badge.name}](${badge.src})](${badge.link})`}
+            disabled
+          />
+        </div>
 
-              <label className="text-xs">HTML</label>
-              <div className="flex">
-                <button className="rounded-l border border-r-0 p-2 outline-none hover:bg-gray-100 active:bg-gray-200">
-                  <AiOutlineCopy />
-                </button>
-                <input
-                  className="grow rounded-r border px-2 py-1 text-sm outline-none"
-                  style={{ outline: "none" }}
-                  type="text"
-                  value={`<a href="${badge.link}"><img src="${badge.src}" alt="${name}" /></a>`}
-                  disabled
-                />
-              </div>
-            </div>
-          </Disclosure.Panel>
-        </>
-      )}
+        <label className="text-xs">HTML</label>
+        <div className="flex">
+          <button className="rounded-l border border-r-0 p-2 outline-none hover:bg-gray-100 active:bg-gray-200">
+            <AiOutlineCopy />
+          </button>
+          <input
+            className="grow rounded-r border px-2 py-1 text-sm outline-none"
+            style={{ outline: "none" }}
+            type="text"
+            value={`<a href="${badge.link}"><img src="${badge.src}" alt="${badge.name}" /></a>`}
+            disabled
+          />
+        </div>
+      </div>
     </Disclosure>
   );
 });
