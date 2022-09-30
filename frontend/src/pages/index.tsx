@@ -3,8 +3,6 @@ import React from "react";
 import BadgeBlock from "../components/BadgeBlock/BadgeBlock";
 
 const Home: NextPage = () => {
-  const source = "https://badgen.org/img/zenn/kou_pg_0131/likes";
-
   return (
     <div className="pt-4">
       <div>
@@ -32,11 +30,21 @@ const Home: NextPage = () => {
           </div>
         </div>
 
-        <BadgeBlock
-          name="Likes"
-          src={source}
-          link="https://zenn.dev/kou_pg_0131"
-        />
+        <div className="mb-2">
+          <BadgeBlock
+            name="Likes"
+            src="/img/zenn/kou_pg_0131/likes"
+            link="https://zenn.dev/kou_pg_0131"
+          />
+        </div>
+
+        <div className="mb-2">
+          <BadgeBlock
+            name="Articles"
+            src="/img/zenn/kou_pg_0131/articles"
+            link="https://zenn.dev/kou_pg_0131"
+          />
+        </div>
       </div>
     </div>
   );

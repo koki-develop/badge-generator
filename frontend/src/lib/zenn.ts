@@ -4,10 +4,11 @@ import path from "path";
 import { renderBadge, RenderBadgeOptions } from "./badge";
 import { loadCache, saveCache } from "./cache";
 
-export type BadgeType = "likes";
+export type BadgeType = "likes" | "articles";
 
 const typeLabelMap: Record<BadgeType, string> = {
   likes: "Likes",
+  articles: "Articles",
 };
 
 export type RenderZennBadgeOptions = Omit<
@@ -31,7 +32,7 @@ export const renderZennBadge = async (
   const svg = renderBadge({
     logoDataUrl: `data:image/svg+xml;base64,${logoBase64}`,
     color: value ? "#3EA8FF" : "#D1654D",
-    label: typeLabelMap["likes"],
+    label: typeLabelMap[options.type],
     message: value?.toString() ?? "user not found",
     ...renderOptions,
   });
@@ -46,12 +47,19 @@ const _getValue = async (
   switch (type) {
     case "likes":
       return _getLikesCount(username);
+    case "articles":
+      return _getArticlesCount(username);
   }
 };
 
 const _getLikesCount = async (username: string): Promise<number | null> => {
   const user = await _getUser(username);
   return user?.total_liked_count ?? null;
+};
+
+const _getArticlesCount = async (username: string): Promise<number | null> => {
+  const user = await _getUser(username);
+  return user?.articles_count ?? null;
 };
 
 type User = {
