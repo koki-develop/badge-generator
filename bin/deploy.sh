@@ -13,6 +13,7 @@ docker push "${DOCKER_IMAGE}"
 
 gcloud run deploy frontend \
   --image="${DOCKER_IMAGE}" \
+  --set-env-vars=QIITA_ACCESS_TOKEN="${QIITA_ACCESS_TOKEN}" \
   --region="${REGION}" \
   --project="${GCP_PROJECT_ID}"
 gcloud run services update-traffic frontend \
