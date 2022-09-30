@@ -31,6 +31,9 @@ const _getUser = async (username: string): Promise<QiitaUser | null> => {
     username
   )}`;
   const resp = await axios.get<QiitaUser>(endpoint, {
+    headers: {
+      authorization: `Bearer ${process.env.QIITA_ACCESS_TOKEN}`,
+    },
     validateStatus: (status) => [200, 404].includes(status),
   });
   if (resp.status === 404) {
