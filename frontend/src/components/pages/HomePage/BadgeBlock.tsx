@@ -19,25 +19,26 @@ const BadgeBlock: React.FC<BadgeBlockProps> = memo((props) => {
     <Disclosure
       button={
         <div className="flex items-center">
-          <h3 className="mr-2">{badge.name}</h3>
+          <h3 className="mr-2 font-semibold">{badge.name}</h3>
           <span className="mr-2">
             <img src={badge.src} alt="Badge" />
           </span>
         </div>
       }
     >
-      <div>
-        <label className="text-xs">Markdown</label>
+      <div className="space-y-1">
         <InputWithCopy
-          className="w-full text-sm"
+          className="text-sm"
+          label="Markdown"
+          fullWidth
           type="text"
           value={`[![${badge.name}](${badge.src})](${badge.link})`}
           disabled
         />
-
-        <label className="text-xs">HTML</label>
         <InputWithCopy
-          className="w-full text-sm"
+          className="text-sm"
+          label="HTML"
+          fullWidth
           type="text"
           value={`<a href="${badge.link}"><img src="${badge.src}" alt="${badge.name}" /></a>`}
           disabled
