@@ -1,6 +1,6 @@
 import classNames from "classnames";
-import React, { memo, useCallback } from "react";
-import { AiOutlineCopy } from "react-icons/ai";
+import React, { memo, useCallback, useEffect, useState } from "react";
+import { AiOutlineCheck, AiOutlineCopy } from "react-icons/ai";
 import copy from "copy-to-clipboard";
 
 type BaseProps = {
@@ -58,10 +58,25 @@ const Input: React.FC<InputProps> = memo((props) => {
     ...inputProps
   } = props;
 
+  const [copied, setCopied] = useState<boolean>(false);
+
   const handleCopy = useCallback(() => {
     const value = inputProps.value?.toString() ?? "";
-    copy(value);
+    if (copy(value)) {
+      setCopied(true);
+    }
   }, [inputProps.value]);
+
+  useEffect(() => {
+    if (!copied) return;
+
+    const timeoutId = setTimeout(() => {
+      setCopied(false);
+    }, 1000);
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [copied]);
 
   return (
     <div className={classNames(className)}>
@@ -72,7 +87,11 @@ const Input: React.FC<InputProps> = memo((props) => {
             className="rounded-l border border-r-0 px-3 outline-none hover:bg-gray-50 active:bg-gray-100"
             onClick={handleCopy}
           >
-            <AiOutlineCopy />
+            {copied ? (
+              <AiOutlineCheck className="text-green-600" />
+            ) : (
+              <AiOutlineCopy />
+            )}
           </button>
         )}
         {inputProps.type == "text" && (
