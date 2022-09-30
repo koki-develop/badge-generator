@@ -1,6 +1,6 @@
-import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { BadgeStyle } from "../../../lib/badge";
-import { badgeUrl } from "../../../lib/qiita/url";
+import { qiitaBadgeUrl } from "../../../lib/badgeUrl";
 import BadgeBlock, { Badge } from "./BadgeBlock";
 
 const usernameToBadges = (username: string, style: BadgeStyle): Badge[] => {
@@ -9,7 +9,11 @@ const usernameToBadges = (username: string, style: BadgeStyle): Badge[] => {
   return [
     {
       name: "Articles",
-      src: badgeUrl({ username: encodedUsername, style, type: "articles" }),
+      src: qiitaBadgeUrl({
+        username: encodedUsername,
+        style,
+        type: "articles",
+      }),
       link: `https://qiita.com/${encodedUsername}`,
     },
   ];
