@@ -1,9 +1,13 @@
 import { RenderBadgeOptions } from "./badge";
 import { renderBadge } from "./renderBadge";
-import { getArticlesCount, getFollowersCount } from "./qiitaApi";
+import {
+  getArticlesCount,
+  getContributions,
+  getFollowersCount,
+} from "./qiitaApi";
 import { qiita } from "../logos.json";
 
-export type BadgeType = "followers" | "articles";
+export type BadgeType = "contributions" | "followers" | "articles";
 
 export type RenderQiitaBadgeOptions = Omit<
   RenderBadgeOptions,
@@ -14,6 +18,7 @@ export type RenderQiitaBadgeOptions = Omit<
 };
 
 const typeLabelMap: Record<BadgeType, string> = {
+  contributions: "Contributions",
   followers: "Followers",
   articles: "Articles",
 };
@@ -40,6 +45,8 @@ const _getValue = async (
   username: string
 ): Promise<number | null> => {
   switch (type) {
+    case "contributions":
+      return getContributions(username);
     case "followers":
       return getFollowersCount(username);
     case "articles":

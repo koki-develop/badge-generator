@@ -9,6 +9,15 @@ const usernameToBadges = (username: string, style: BadgeStyle): Badge[] => {
 
   return [
     {
+      name: "Contributions",
+      src: qiitaBadgeUrl({
+        username: usernameOr,
+        style,
+        type: "contributions",
+      }),
+      link: `https://qiita.com/${usernameOr}`,
+    },
+    {
       name: "Followers",
       src: qiitaBadgeUrl({
         username: usernameOr,

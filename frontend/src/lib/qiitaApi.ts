@@ -1,9 +1,43 @@
 import axios from "axios";
+import { load } from "cheerio";
 import { saveCache, loadCache } from "./cache";
 
 type QiitaUser = {
   followers_count: number;
   items_count: number;
+};
+
+export const getContributions = async (
+  username: string
+): Promise<number | null> => {
+  const cacheKey = `qiita_contributions_${username}`;
+  const cache = await loadCache<number>(cacheKey);
+  if (cache?.data != null) {
+    return cache.data;
+  }
+
+  const endpoint = `https://qiita.com/${encodeURIComponent(
+    username
+  )}/contributions`;
+  const resp = await axios.get(endpoint, {
+    validateStatus: (status) => [200, 404].includes(status),
+  });
+  const $ = load(resp.data);
+
+  const text = $('a:contains("Contributions")').text();
+  if (!text.endsWith("Contributions")) {
+    await saveCache(cacheKey, null);
+    return null;
+  }
+
+  const contributions = Number(text.replaceAll("Contributions", ""));
+  if (Number.isNaN(contributions)) {
+    await saveCache(cacheKey, null);
+    return null;
+  }
+
+  await saveCache(cacheKey, contributions);
+  return contributions;
 };
 
 export const getFollowersCount = async (
