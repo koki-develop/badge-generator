@@ -1,5 +1,22 @@
 import makeBadge from "badge-maker/lib/make-badge";
-import { BadgeStyle, RenderBadgeOptions } from "./types";
+
+export const BadgeStyle = {
+  plastic: "plastic",
+  flat: "flat",
+  flatSquare: "flat-square",
+  social: "social",
+  forTheBadge: "for-the-badge",
+} as const;
+
+export type BadgeStyle = typeof BadgeStyle[keyof typeof BadgeStyle];
+
+export type RenderBadgeOptions = {
+  logoDataUrl: string;
+  color: string;
+  label: string;
+  message: string;
+  style: BadgeStyle;
+};
 
 export const renderBadge = (options: RenderBadgeOptions): string => {
   if (!Object.values(BadgeStyle).includes(options.style)) {

@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
-import { BadgeStyle } from "../../../lib/badge/types";
+import { BadgeStyle } from "../../../lib/badge";
 import { badgeUrl } from "../../../lib/qiita/url";
 import BadgeBlock, { Badge } from "./BadgeBlock";
 

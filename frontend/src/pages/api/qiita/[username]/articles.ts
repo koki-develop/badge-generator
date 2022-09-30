@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { BadgeStyle } from "../../../../lib/badge/types";
+import { BadgeStyle } from "../../../../lib/badge";
 import { renderQiitaBadge } from "../../../../lib/qiita/render";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

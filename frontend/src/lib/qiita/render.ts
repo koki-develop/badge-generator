@@ -2,7 +2,7 @@ import axios from "axios";
 import fs from "fs";
 import path from "path";
 import { BadgeType, RenderQiitaBadgeOptions, User } from "./types";
-import { renderBadge } from "../badge/render";
+import { renderBadge } from "../badge";
 import { loadCache, saveCache } from "../cache";
 
 const typeLabelMap: Record<BadgeType, string> = {

@@ -1,4 +1,4 @@
-import { RenderBadgeOptions } from "../badge/types";
+import { RenderBadgeOptions } from "../badge";
 
 export type BadgeType = "likes" | "articles";
 
