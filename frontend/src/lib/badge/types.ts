@@ -7,3 +7,11 @@ export const BadgeStyle = {
 } as const;
 
 export type BadgeStyle = typeof BadgeStyle[keyof typeof BadgeStyle];
+
+export type RenderBadgeOptions = {
+  logoDataUrl: string;
+  color: string;
+  label: string;
+  message: string;
+  style: BadgeStyle;
+};
