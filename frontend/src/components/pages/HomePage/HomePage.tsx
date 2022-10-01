@@ -100,18 +100,21 @@ const HomePage: NextPage = () => {
 
       <BadgeBlocks
         title="Zenn"
+        serviceUrl="https://zenn.dev"
         defaultUsername="kou_pg_0131"
         usernameToBadges={usernameToZennBadges}
       />
       <Divider />
       <BadgeBlocks
         title="Qiita"
+        serviceUrl="https://qiita.com"
         defaultUsername="koki_develop"
         usernameToBadges={usernameToQiitaBadges}
       />
       <Divider />
       <BadgeBlocks
         title="AtCoder"
+        serviceUrl="https://atcoder.jp"
         defaultUsername="chokudai"
         usernameToBadges={usernameToAtCoderBadge}
       />

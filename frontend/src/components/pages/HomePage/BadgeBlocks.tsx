@@ -1,16 +1,18 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
+import { GoLinkExternal } from "react-icons/go";
 import BadgeBlock, { Badge } from "@/components/util/BadgeBlock";
 import Input from "@/components/util/Input";
 import { BadgeStyle } from "@/lib/badge";
 
 export type BadgeBlocksProps = {
   title: string;
+  serviceUrl: string;
   defaultUsername: string;
   usernameToBadges: (username: string, style: BadgeStyle) => Badge[];
 };
 
 const BadgeBlocks: React.FC<BadgeBlocksProps> = memo((props) => {
-  const { title, defaultUsername, usernameToBadges } = props;
+  const { title, serviceUrl, defaultUsername, usernameToBadges } = props;
 
   const [username, setUsername] = useState<string>("");
   const [style, setStyle] = useState<BadgeStyle>(BadgeStyle.plastic);
@@ -51,7 +53,17 @@ const BadgeBlocks: React.FC<BadgeBlocksProps> = memo((props) => {
 
   return (
     <div>
-      <h2 className="mb-2 text-2xl font-bold">{title}</h2>
+      <h2 className="mb-2 inline-block font-semibold">
+        <a
+          className="flex items-center space-x-1"
+          href={serviceUrl}
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          <span className="text-2xl">{title}</span>
+          <GoLinkExternal />
+        </a>
+      </h2>
 
       <div className="mb-4 space-y-1">
         <Input
