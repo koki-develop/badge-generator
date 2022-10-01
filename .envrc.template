@@ -1,1 +1,2 @@
 export QIITA_ACCESS_TOKEN=""
+export GA_MEASUREMENT_ID=""
