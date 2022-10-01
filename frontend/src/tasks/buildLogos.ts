@@ -9,6 +9,10 @@ const load = (pathname: string): string => {
 
 const zenn = load("public/logos/zenn.svg");
 const qiita = load("public/logos/qiita.png");
-const atcoder = load("public/logos/atcoder.svg");
+const atcoderBlack = load("public/logos/atcoder_black.svg");
+const atcoderWhite = load("public/logos/atcoder_white.svg");
 
-fs.writeFileSync("src/logos.json", JSON.stringify({ zenn, qiita, atcoder }));
+fs.writeFileSync(
+  "src/logos.json",
+  JSON.stringify({ zenn, qiita, atcoderBlack, atcoderWhite })
+);

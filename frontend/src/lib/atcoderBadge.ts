@@ -2,7 +2,7 @@ import { ApiResult } from "@/lib/api";
 import { getAlgorithmRating, getHeuristicRating } from "@/lib/atcoderApi";
 import { RenderBadgeOptions } from "@/lib/badge";
 import { renderBadge } from "@/lib/renderBadge";
-import { atcoder } from "@/logos.json";
+import { atcoderBlack, atcoderWhite } from "@/logos.json";
 import { ApiError } from "./errors";
 
 export type BadgeType = "algorithm_rating" | "heuristic_rating";
@@ -58,8 +58,17 @@ export const renderAtCoderBadge = async (
     return [data.toString(), color];
   })();
 
+  const logo = (() => {
+    switch (renderOptions.style) {
+      case "social":
+        return atcoderBlack;
+      default:
+        return atcoderWhite;
+    }
+  })();
+
   const svg = renderBadge({
-    logoDataUrl: `data:image/svg+xml;base64,${atcoder}`,
+    logoDataUrl: `data:image/svg+xml;base64,${logo}`,
     color,
     label: typeLabelMap[options.type],
     message,
