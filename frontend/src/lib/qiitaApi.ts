@@ -22,8 +22,12 @@ export const getContributions = async (
   const resp = await axios.get(endpoint, {
     validateStatus: (status) => [200, 404].includes(status),
   });
-  const $ = load(resp.data);
+  if (resp.status === 404) {
+    await saveCache(cacheKey, null);
+    return null;
+  }
 
+  const $ = load(resp.data);
   const text = $('a:contains("Contributions")').text();
   if (!text.endsWith("Contributions")) {
     await saveCache(cacheKey, null);
