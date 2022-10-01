@@ -14,7 +14,7 @@ const Layout: React.FC<LayoutProps> = memo((props) => {
       <LayoutHeader />
 
       <main className="mb-4 px-4">
-        <div className="container mx-auto">{children}</div>
+        <div className="container mx-auto py-4">{children}</div>
       </main>
 
       <LayoutFooter />

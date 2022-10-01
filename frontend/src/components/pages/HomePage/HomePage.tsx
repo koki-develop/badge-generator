@@ -6,7 +6,7 @@ import type { NextPage } from "next";
 
 const HomePage: NextPage = () => {
   return (
-    <div className="pt-4">
+    <div>
       <Head>
         <title>Badge Generator</title>
       </Head>
