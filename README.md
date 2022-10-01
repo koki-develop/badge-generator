@@ -3,7 +3,7 @@
 
 # Badge Generator
 
-シンプルなバッジ生成サービス。
+[badgen.org](https://badgen.org) - シンプルなバッジ生成サービス。
 
 ## Badges
 
