@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useMemo } from "react";
 import Disclosure from "./Disclosure";
 import Input from "./Input";
 
@@ -15,6 +15,19 @@ export type BadgeBlockProps = {
 const BadgeBlock: React.FC<BadgeBlockProps> = memo((props) => {
   const { badge } = props;
 
+  const inputs = useMemo(() => {
+    return [
+      {
+        label: "Markdown",
+        value: `[![${badge.name}](${badge.src})](${badge.link})`,
+      },
+      {
+        label: "HTML",
+        value: `<a href="${badge.link}"><img src="${badge.src}" alt="${badge.name}" /></a>`,
+      },
+    ];
+  }, [badge.link, badge.name, badge.src]);
+
   return (
     <Disclosure
       button={
@@ -28,24 +41,18 @@ const BadgeBlock: React.FC<BadgeBlockProps> = memo((props) => {
       }
     >
       <div className="space-y-1">
-        <Input
-          className="text-sm"
-          label="Markdown"
-          fullWidth
-          withCopy
-          type="text"
-          value={`[![${badge.name}](${badge.src})](${badge.link})`}
-          disabled
-        />
-        <Input
-          className="text-sm"
-          label="HTML"
-          fullWidth
-          withCopy
-          type="text"
-          value={`<a href="${badge.link}"><img src="${badge.src}" alt="${badge.name}" /></a>`}
-          disabled
-        />
+        {inputs.map((input) => (
+          <Input
+            key={input.label}
+            className="text-sm"
+            label={input.label}
+            fullWidth
+            withCopy
+            type="text"
+            value={input.value}
+            disabled
+          />
+        ))}
       </div>
     </Disclosure>
   );
