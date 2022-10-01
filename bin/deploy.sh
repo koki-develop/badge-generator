@@ -11,7 +11,7 @@ gcloud auth configure-docker "${REGISTRY_HOST}" --quiet
 docker build \
   -t "${DOCKER_IMAGE}" \
   --platform=linux/amd64 \
-  --build-arg GA_MEASUREMENT_ID="${GA_MEASUREMENT_ID}"
+  --build-arg GA_MEASUREMENT_ID="${GA_MEASUREMENT_ID}" \
   ./frontend
 docker push "${DOCKER_IMAGE}"
 
