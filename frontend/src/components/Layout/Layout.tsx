@@ -1,6 +1,6 @@
 import React, { memo } from "react";
-import LayoutFooter from "./LayoutFooter";
-import LayoutHeader from "./LayoutHeader";
+import LayoutFooter from "@/components/Layout/LayoutFooter";
+import LayoutHeader from "@/components/Layout/LayoutHeader";
 
 export type LayoutProps = {
   children: React.ReactNode;

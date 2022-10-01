@@ -1,6 +1,6 @@
 import axios from "axios";
 import { load } from "cheerio";
-import { saveCache, loadCache } from "./cache";
+import { saveCache, loadCache } from "@/lib/cache";
 
 type QiitaUser = {
   followers_count: number;

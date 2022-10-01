@@ -4,7 +4,7 @@ import { Badge } from "@/components/util/BadgeBlock";
 import Divider from "@/components/util/Divider";
 import { BadgeStyle } from "@/lib/badge";
 import { qiitaBadgeUrl, zennBadgeUrl } from "@/lib/badgeUrl";
-import BadgeBlocks from "./BadgeBlocks";
+import BadgeBlocks from "@/components/pages/HomePage/BadgeBlocks";
 import type { NextPage } from "next";
 
 const usernameToZennBadges = (username: string, style: BadgeStyle): Badge[] => {

@@ -1,5 +1,5 @@
 import makeBadge from "badge-maker/lib/make-badge";
-import { BadgeStyle, RenderBadgeOptions } from "./badge";
+import { BadgeStyle, RenderBadgeOptions } from "@/lib/badge";
 
 export const renderBadge = (options: RenderBadgeOptions): string => {
   if (!Object.values(BadgeStyle).includes(options.style)) {

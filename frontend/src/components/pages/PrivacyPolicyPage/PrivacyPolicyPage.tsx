@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import React from "react";
-import PrivacyPolicyItem from "./PrivacyPolicyItem";
+import PrivacyPolicyItem from "@/components/pages/PrivacyPolicyPage/PrivacyPolicyItem";
 
 const PrivacyPolicyPage: NextPage = () => {
   return (
