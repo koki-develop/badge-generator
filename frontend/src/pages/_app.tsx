@@ -15,7 +15,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <div className="container mx-auto">
           <Link href="/">
             <a>
-              <h1 className="text-2xl font-semibold">Badge Generator</h1>
+              <h1 className="inline-block text-2xl font-semibold">
+                Badge Generator
+              </h1>
             </a>
           </Link>
         </div>
