@@ -95,6 +95,7 @@ const HomePage: NextPage = () => {
     <div>
       <Head>
         <title>Badge Generator</title>
+        <meta name="description" content="シンプルなバッジ生成サービス。" />
       </Head>
 
       <BadgeBlocks
