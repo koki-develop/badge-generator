@@ -1,6 +1,6 @@
-import type { NextApiRequest, NextApiResponse } from "next";
 import { BadgeStyle } from "@/lib/badge";
 import { renderQiitaBadge } from "@/lib/qiitaBadge";
+import type { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const username = req.query.username as string;

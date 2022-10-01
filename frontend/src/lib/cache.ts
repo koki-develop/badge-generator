@@ -1,7 +1,7 @@
 import crypto from "crypto";
+import addHours from "date-fns/addHours";
 import * as admin from "firebase-admin";
 import { getFirestore, Timestamp } from "firebase-admin/firestore";
-import addHours from "date-fns/addHours";
 
 if (admin.apps.length === 0) {
   admin.initializeApp();

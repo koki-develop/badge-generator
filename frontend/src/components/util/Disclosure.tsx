@@ -1,5 +1,5 @@
-import classNames from "classnames";
 import { Disclosure as HeadlessDisclosure } from "@headlessui/react";
+import classNames from "classnames";
 import React, { memo } from "react";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 

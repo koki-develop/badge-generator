@@ -1,7 +1,7 @@
 import classNames from "classnames";
+import copy from "copy-to-clipboard";
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { AiOutlineCheck, AiOutlineCopy } from "react-icons/ai";
-import copy from "copy-to-clipboard";
 
 type BaseProps = {
   inputClassname?: string;
