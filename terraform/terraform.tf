@@ -1,4 +1,8 @@
 terraform {
+  backend "gcs" {
+    bucket = "badge-generator-tfstates"
+  }
+
   required_providers {
     google = {
       source  = "hashicorp/google"
