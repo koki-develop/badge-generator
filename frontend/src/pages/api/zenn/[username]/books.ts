@@ -1,18 +1,5 @@
-import { BadgeStyle } from "@/lib/badge";
-import { renderZennBadge } from "@/lib/zennBadge";
-import type { NextApiRequest, NextApiResponse } from "next";
+import { books } from "@/api/zenn";
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const username = req.query.username as string;
-  const style = req.query.style as BadgeStyle;
-
-  const svg = await renderZennBadge({
-    type: "books",
-    style,
-    username,
-  });
-
-  res.status(200).setHeader("content-type", "image/svg+xml").send(svg);
-};
+const handler = books;
 
 export default handler;
