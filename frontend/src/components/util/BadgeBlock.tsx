@@ -46,12 +46,11 @@ const BadgeBlock: React.FC<BadgeBlockProps> = memo((props) => {
         url.searchParams.set("label", trimmedLabel);
       }
       setBadgeSrc(url.href);
-    }, 250);
+    }, 500);
     return () => {
       clearTimeout(timeoutId);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [label]);
+  }, [badge.src, label]);
 
   return (
     <Disclosure

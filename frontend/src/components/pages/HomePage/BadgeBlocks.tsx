@@ -44,13 +44,7 @@ const BadgeBlocks: React.FC<BadgeBlocksProps> = memo((props) => {
 
   useEffect(() => {
     const badges = usernameToBadges(username.trim() || defaultUsername, style);
-
-    const timeoutId = setTimeout(() => {
-      setBadges(badges);
-    }, 500);
-    return () => {
-      clearTimeout(timeoutId);
-    };
+    setBadges(badges);
   }, [defaultUsername, style, username, usernameToBadges]);
 
   return (
