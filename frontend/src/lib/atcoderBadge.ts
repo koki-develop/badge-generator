@@ -13,6 +13,7 @@ export type RenderAtCoderBadgeOptions = Omit<
 > & {
   type: BadgeType;
   username: string;
+  label?: string;
 };
 
 const typeLabelMap: Record<BadgeType, string> = {
@@ -23,7 +24,7 @@ const typeLabelMap: Record<BadgeType, string> = {
 export const renderAtCoderBadge = async (
   options: RenderAtCoderBadgeOptions
 ): Promise<string> => {
-  const { type, username, ...renderOptions } = options;
+  const { type, label, username, ...renderOptions } = options;
   const { data, error } = await _getValue(type, username);
 
   const [message, color] = (() => {
@@ -70,7 +71,7 @@ export const renderAtCoderBadge = async (
   const svg = renderBadge({
     logoDataUrl: `data:image/svg+xml;base64,${logo}`,
     color,
-    label: typeLabelMap[options.type],
+    label: label?.trim() || typeLabelMap[options.type],
     message,
     ...renderOptions,
   });

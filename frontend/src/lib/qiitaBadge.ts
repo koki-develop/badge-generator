@@ -15,6 +15,7 @@ export type RenderQiitaBadgeOptions = Omit<
 > & {
   type: BadgeType;
   username: string;
+  label?: string;
 };
 
 const typeLabelMap: Record<BadgeType, string> = {
@@ -26,13 +27,13 @@ const typeLabelMap: Record<BadgeType, string> = {
 export const renderQiitaBadge = async (
   options: RenderQiitaBadgeOptions
 ): Promise<string> => {
-  const { type, username, ...renderOptions } = options;
+  const { type, label, username, ...renderOptions } = options;
   const value = await _getValue(type, username);
 
   const svg = renderBadge({
     logoDataUrl: `data:image/png;base64,${qiita}`,
     color: value == null ? "#D1654D" : "#55C500",
-    label: typeLabelMap[options.type],
+    label: label?.trim() || typeLabelMap[options.type],
     message: value?.toString() ?? "user not found",
     ...renderOptions,
   });

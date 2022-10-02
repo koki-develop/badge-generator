@@ -18,18 +18,24 @@ export const likes = async (req: NextApiRequest, res: NextApiResponse) =>
 export const scraps = async (req: NextApiRequest, res: NextApiResponse) =>
   _render("scraps", req, res);
 
+type Query = {
+  username: string;
+  style?: BadgeStyle;
+  label?: string;
+};
+
 export const _render = async (
   type: BadgeType,
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const username = req.query.username as string;
-  const style = req.query.style as BadgeStyle;
+  const { username, style = "plastic", label } = req.query as Query;
 
   const svg = await renderZennBadge({
     type,
     style,
     username,
+    label,
   });
 
   return renderSvg(res, svg);

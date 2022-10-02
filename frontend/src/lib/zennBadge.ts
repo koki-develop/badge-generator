@@ -17,6 +17,7 @@ export type RenderZennBadgeOptions = Omit<
 > & {
   type: BadgeType;
   username: string;
+  label?: string;
 };
 
 const typeLabelMap: Record<BadgeType, string> = {
@@ -30,13 +31,13 @@ const typeLabelMap: Record<BadgeType, string> = {
 export const renderZennBadge = async (
   options: RenderZennBadgeOptions
 ): Promise<string> => {
-  const { type, username, ...renderOptions } = options;
+  const { type, label, username, ...renderOptions } = options;
   const value = await _getValue(type, username);
 
   const svg = renderBadge({
     logoDataUrl: `data:image/svg+xml;base64,${zenn}`,
     color: value == null ? "#D1654D" : "#3EA8FF",
-    label: typeLabelMap[options.type],
+    label: label?.trim() || typeLabelMap[options.type],
     message: value?.toString() ?? "user not found",
     ...renderOptions,
   });

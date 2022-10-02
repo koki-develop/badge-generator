@@ -13,18 +13,24 @@ export const heuristicRating = async (
   res: NextApiResponse
 ) => _render("heuristic_rating", req, res);
 
+type Query = {
+  username: string;
+  style?: BadgeStyle;
+  label?: string;
+};
+
 export const _render = async (
   type: BadgeType,
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const username = req.query.username as string;
-  const style = req.query.style as BadgeStyle;
+  const { username, style = "plastic", label } = req.query as Query;
 
   const svg = await renderAtCoderBadge({
     type,
     style,
     username,
+    label,
   });
 
   return renderSvg(res, svg);
