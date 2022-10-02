@@ -1,12 +1,11 @@
 import Head from "next/head";
-import Image from "next/image";
 import React, { useMemo } from "react";
-import * as Scroll from "react-scroll";
 import BadgeBlocks from "@/components/pages/HomePage/BadgeBlocks";
 import { Badge } from "@/components/util/BadgeBlock";
 import Divider from "@/components/util/Divider";
 import { BadgeStyle } from "@/lib/badge";
 import { atcoderBadgeUrl, qiitaBadgeUrl, zennBadgeUrl } from "@/lib/badgeUrl";
+import ServiceCard from "./ServiceCard";
 import type { NextPage } from "next";
 
 const usernameToZennBadges = (username: string, style: BadgeStyle): Badge[] => {
@@ -110,16 +109,7 @@ const HomePage: NextPage = () => {
 
       <div className="grid grid-cols-2 gap-4">
         {cards.map((card) => (
-          <Scroll.Link
-            key={card.name}
-            to={card.name}
-            smooth
-            duration={300}
-            className="flex cursor-pointer flex-col items-center justify-center rounded border py-4 hover:bg-gray-50 active:bg-gray-100"
-          >
-            <Image width={80} height={80} src={card.imgSrc} alt="" />
-            <span>{card.name}</span>
-          </Scroll.Link>
+          <ServiceCard key={card.name} name={card.name} imgSrc={card.imgSrc} />
         ))}
       </div>
 
