@@ -102,6 +102,7 @@ const Input: React.FC<InputProps> = memo((props) => {
               "rounded-r border p-2 outline-none",
               {
                 "w-full": fullWidth,
+                rounded: !withCopy,
               }
             )}
           />
