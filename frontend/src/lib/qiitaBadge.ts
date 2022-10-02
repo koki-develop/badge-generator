@@ -31,7 +31,7 @@ export const renderQiitaBadge = async (
   const value = await _getValue(type, username);
 
   const svg = renderBadge({
-    logoDataUrl: `data:image/png;base64,${logos.qiita}`,
+    logoDataUrl: logos.qiita,
     color: value == null ? "#D1654D" : "#55C500",
     label: label?.trim() || typeLabelMap[options.type],
     message: value?.toString() ?? "user not found",

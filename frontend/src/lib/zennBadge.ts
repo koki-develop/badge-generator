@@ -35,7 +35,7 @@ export const renderZennBadge = async (
   const value = await _getValue(type, username);
 
   const svg = renderBadge({
-    logoDataUrl: `data:image/svg+xml;base64,${logos.zenn}`,
+    logoDataUrl: logos.zenn,
     color: value == null ? "#D1654D" : "#3EA8FF",
     label: label?.trim() || typeLabelMap[options.type],
     message: value?.toString() ?? "user not found",

@@ -69,7 +69,7 @@ export const renderAtCoderBadge = async (
   })();
 
   const svg = renderBadge({
-    logoDataUrl: `data:image/svg+xml;base64,${logo}`,
+    logoDataUrl: logo,
     color,
     label: label?.trim() || typeLabelMap[options.type],
     message,
