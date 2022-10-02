@@ -82,6 +82,7 @@ function commands_contains() {
 # main process
 # ----------
 
-if commands_contains "build"; then build; fi
-if commands_contains "push"; then push; fi
-if commands_contains "deploy"; then deploy; fi
+readonly VALID_COMMANDS=( "build" "push" "deploy" )
+for _valid_command in "${VALID_COMMANDS[@]}"; do
+  if commands_contains "${_valid_command}"; then $_valid_command; fi
+done
