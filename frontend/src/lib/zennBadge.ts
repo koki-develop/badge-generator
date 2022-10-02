@@ -7,7 +7,7 @@ import {
   getLikesCount,
   getScrapssCount,
 } from "@/lib/zennApi";
-import { zenn } from "@/logos.json";
+import logos from "@/logos.json";
 
 export type BadgeType = "articles" | "books" | "followers" | "scraps" | "likes";
 
@@ -35,7 +35,7 @@ export const renderZennBadge = async (
   const value = await _getValue(type, username);
 
   const svg = renderBadge({
-    logoDataUrl: `data:image/svg+xml;base64,${zenn}`,
+    logoDataUrl: `data:image/svg+xml;base64,${logos.zenn}`,
     color: value == null ? "#D1654D" : "#3EA8FF",
     label: label?.trim() || typeLabelMap[options.type],
     message: value?.toString() ?? "user not found",
