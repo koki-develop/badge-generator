@@ -1,5 +1,6 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { GoLinkExternal } from "react-icons/go";
+import * as Scroll from "react-scroll";
 import BadgeBlock, { Badge } from "@/components/util/BadgeBlock";
 import Input from "@/components/util/Input";
 import { BadgeStyle } from "@/lib/badge";
@@ -53,6 +54,7 @@ const BadgeBlocks: React.FC<BadgeBlocksProps> = memo((props) => {
 
   return (
     <div>
+      <Scroll.Element name={title} />
       <h2 className="mb-2 inline-block font-semibold">
         <a
           className="flex items-center space-x-1"
