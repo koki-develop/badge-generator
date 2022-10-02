@@ -2,10 +2,11 @@
 
 set -euo pipefail
 
+IMAGE_TAG=$(git rev-parse HEAD); readonly IMAGE_TAG
 readonly GCP_PROJECT_ID=badge-generator
 readonly REGION=asia-northeast1
 readonly REGISTRY_HOST=${REGION}-docker.pkg.dev
-readonly DOCKER_IMAGE=${REGISTRY_HOST}/${GCP_PROJECT_ID}/app/frontend:latest
+readonly DOCKER_IMAGE=${REGISTRY_HOST}/${GCP_PROJECT_ID}/app/frontend:${IMAGE_TAG}
 
 gcloud auth configure-docker "${REGISTRY_HOST}" --quiet
 docker build \
