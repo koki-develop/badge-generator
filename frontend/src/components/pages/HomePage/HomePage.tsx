@@ -1,11 +1,12 @@
 import Head from "next/head";
-import React, { useMemo } from "react";
+import React from "react";
 import BadgeBlocks from "@/components/pages/HomePage/BadgeBlocks";
+import ServiceCard from "@/components/pages/HomePage/ServiceCard";
 import { Badge } from "@/components/util/BadgeBlock";
 import Divider from "@/components/util/Divider";
 import { BadgeStyle } from "@/lib/badge";
 import { atcoderBadgeUrl, qiitaBadgeUrl, zennBadgeUrl } from "@/lib/badgeUrl";
-import ServiceCard from "./ServiceCard";
+import logos from "@/logos.json";
 import type { NextPage } from "next";
 
 const usernameToZennBadges = (username: string, style: BadgeStyle): Badge[] => {
@@ -91,15 +92,13 @@ const usernameToAtCoderBadge = (
   ];
 };
 
-const HomePage: NextPage = () => {
-  const cards = useMemo(() => {
-    return [
-      { name: "Zenn", imgSrc: "/logos/zenn.svg" },
-      { name: "Qiita", imgSrc: "/logos/qiita.png" },
-      { name: "AtCoder", imgSrc: "/logos/atcoder_black.svg" },
-    ];
-  }, []);
+const cards = [
+  { name: "Zenn", imgSrc: logos.zenn },
+  { name: "Qiita", imgSrc: logos.qiita },
+  { name: "AtCoder", imgSrc: logos.atcoderBlack },
+];
 
+const HomePage: NextPage = () => {
   return (
     <div>
       <Head>
