@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import Head from "next/head";
 import React from "react";
 import PrivacyPolicyItem from "@/components/pages/PrivacyPolicyPage/PrivacyPolicyItem";
+import Link from "@/components/util/Link";
 
 const PrivacyPolicyPage: NextPage = () => {
   return (
@@ -18,14 +19,13 @@ const PrivacyPolicyPage: NextPage = () => {
           を使用しています。このトラフィックデータは匿名で収集されており、個人を特定するものではありません。この機能は
           Cookie
           を無効にすることで収集を拒否することが出来ますので、お使いのブラウザの設定をご確認ください。この規約に関して、詳しくは{" "}
-          <a
+          <Link
             className="text-blue-600"
+            external
             href="https://marketingplatform.google.com/about/analytics/terms/jp/"
-            target="_blank"
-            rel="noreferrer noopener"
           >
             Google アナリティクス利用規約
-          </a>{" "}
+          </Link>{" "}
           を参照してください。
         </PrivacyPolicyItem>
         <PrivacyPolicyItem title="プライバシーポリシーの変更について">

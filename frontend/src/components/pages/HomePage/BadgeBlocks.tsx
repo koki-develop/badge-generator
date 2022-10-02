@@ -3,6 +3,7 @@ import { GoLinkExternal } from "react-icons/go";
 import * as Scroll from "react-scroll";
 import BadgeBlock, { Badge } from "@/components/util/BadgeBlock";
 import Input from "@/components/util/Input";
+import Link from "@/components/util/Link";
 import { BadgeStyle } from "@/lib/badge";
 
 export type BadgeBlocksProps = {
@@ -56,15 +57,14 @@ const BadgeBlocks: React.FC<BadgeBlocksProps> = memo((props) => {
     <div>
       <Scroll.Element name={title} />
       <h2 className="mb-2 inline-block font-semibold">
-        <a
+        <Link
           className="flex items-center space-x-1"
+          external
           href={serviceUrl}
-          target="_blank"
-          rel="noreferrer noopener"
         >
           <span className="text-2xl">{title}</span>
           <GoLinkExternal />
-        </a>
+        </Link>
       </h2>
 
       <div className="mb-4 space-y-1">

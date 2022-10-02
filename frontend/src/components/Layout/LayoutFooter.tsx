@@ -1,6 +1,6 @@
-import Link from "next/link";
 import React, { memo } from "react";
 import { BsGithub } from "react-icons/bs";
+import Link from "@/components/util/Link";
 
 const LayoutFooter: React.FC = memo(() => {
   return (
@@ -11,19 +11,16 @@ const LayoutFooter: React.FC = memo(() => {
             <p>&copy;2022 Koki Sato</p>
           </li>
           <li>
-            <Link href="/privacy">
-              <a>プライバシーポリシー</a>
-            </Link>
+            <Link href="/privacy">プライバシーポリシー</Link>
           </li>
           <li>
-            <a
+            <Link
               className="text-2xl"
+              external
               href="https://github.com/koki-develop/badge-generator"
-              target="_blank"
-              rel="noreferrer noopener"
             >
               <BsGithub />
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
