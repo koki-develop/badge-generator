@@ -1,29 +1,35 @@
-name: build
+name: main
 
 on:
   push:
+    branches:
+      - main
 
 jobs:
+  test:
+    uses: ./.github/workflows/_test.yml
+
   build:
+    needs:
+      - test
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
     steps:
       - name: checkout
         uses: actions/checkout@v3
-      - name: setup node
-        uses: actions/setup-node@v3
+      - name: build docker image
+        run: ./bin/ctrl.sh build
+        env:
+          GA_MEASUREMENT_ID: ${{ secrets.GA_MEASUREMENT_ID }}
+      - uses: google-github-actions/auth@v0
         with:
-          node-version: 16
-          cache: yarn
-          cache-dependency-path: frontend/yarn.lock
-      - name: install dependencies
-        run: yarn install --frozen-lockfile
-      - name: build
-        run: yarn run build
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+      - name: push docker image
+        run: ./bin/ctrl.sh push
 
   deploy:
+    needs:
+      - build
     permissions:
       contents: 'read'
       id-token: 'write'
@@ -36,7 +42,6 @@ jobs:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
       - name: deploy
-        run: ./bin/deploy.sh
+        run: ./bin/ctrl.sh deploy
         env:
           QIITA_ACCESS_TOKEN: ${{ secrets.QIITA_ACCESS_TOKEN }}
-          GA_MEASUREMENT_ID: ${{ secrets.GA_MEASUREMENT_ID }}
