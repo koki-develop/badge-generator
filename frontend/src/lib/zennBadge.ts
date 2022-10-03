@@ -9,18 +9,23 @@ import {
 } from "@/lib/zennApi";
 import logos from "@/logos.json";
 
-export type BadgeType = "articles" | "books" | "followers" | "scraps" | "likes";
+export type ZennBadgeType =
+  | "articles"
+  | "books"
+  | "followers"
+  | "scraps"
+  | "likes";
 
 export type RenderZennBadgeOptions = Omit<
   RenderBadgeOptions,
   "color" | "logoDataUrl" | "message" | "label"
 > & {
-  type: BadgeType;
+  type: ZennBadgeType;
   username: string;
   label?: string;
 };
 
-const typeLabelMap: Record<BadgeType, string> = {
+const typeLabelMap: Record<ZennBadgeType, string> = {
   articles: "Articles",
   books: "Books",
   followers: "Followers",
@@ -46,7 +51,7 @@ export const renderZennBadge = async (
 };
 
 const _getValue = async (
-  type: BadgeType,
+  type: ZennBadgeType,
   username: string
 ): Promise<number | null> => {
   return {

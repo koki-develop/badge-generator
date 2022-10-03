@@ -7,18 +7,18 @@ import {
 import { renderBadge } from "@/lib/renderBadge";
 import logos from "@/logos.json";
 
-export type BadgeType = "contributions" | "followers" | "articles";
+export type QiitaBadgeType = "contributions" | "followers" | "articles";
 
 export type RenderQiitaBadgeOptions = Omit<
   RenderBadgeOptions,
   "color" | "logoDataUrl" | "message" | "label"
 > & {
-  type: BadgeType;
+  type: QiitaBadgeType;
   username: string;
   label?: string;
 };
 
-const typeLabelMap: Record<BadgeType, string> = {
+const typeLabelMap: Record<QiitaBadgeType, string> = {
   contributions: "Contributions",
   followers: "Followers",
   articles: "Articles",
@@ -42,7 +42,7 @@ export const renderQiitaBadge = async (
 };
 
 const _getValue = async (
-  type: BadgeType,
+  type: QiitaBadgeType,
   username: string
 ): Promise<number | null> => {
   switch (type) {

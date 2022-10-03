@@ -5,18 +5,18 @@ import { renderBadge } from "@/lib/renderBadge";
 import logos from "@/logos.json";
 import { ApiError } from "./errors";
 
-export type BadgeType = "algorithm_rating" | "heuristic_rating";
+export type AtCoderBadgeType = "algorithm_rating" | "heuristic_rating";
 
 export type RenderAtCoderBadgeOptions = Omit<
   RenderBadgeOptions,
   "color" | "logoDataUrl" | "message" | "label"
 > & {
-  type: BadgeType;
+  type: AtCoderBadgeType;
   username: string;
   label?: string;
 };
 
-const typeLabelMap: Record<BadgeType, string> = {
+const typeLabelMap: Record<AtCoderBadgeType, string> = {
   algorithm_rating: "Rating",
   heuristic_rating: "Rating(Heuristic)",
 };
@@ -80,7 +80,7 @@ export const renderAtCoderBadge = async (
 };
 
 const _getValue = async (
-  type: BadgeType,
+  type: AtCoderBadgeType,
   username: string
 ): Promise<ApiResult<number>> => {
   switch (type) {

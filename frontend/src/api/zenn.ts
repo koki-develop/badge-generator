@@ -7,10 +7,10 @@ import {
   getLikesCount,
   getScrapssCount,
 } from "@/lib/zennApi";
-import { BadgeType } from "@/lib/zennBadge";
+import { ZennBadgeType } from "@/lib/zennBadge";
 import logos from "@/logos.json";
 
-const _selectLabel = (type: BadgeType): string =>
+const _selectLabel = (type: ZennBadgeType): string =>
   ({
     articles: "Articles",
     books: "Books",
@@ -19,7 +19,7 @@ const _selectLabel = (type: BadgeType): string =>
     likes: "Likes",
   }[type]);
 
-const _handler = (type: BadgeType): NextApiHandler =>
+const _handler = (type: ZennBadgeType): NextApiHandler =>
   render(async (query) => {
     const value = await {
       articles: getArticlesCount,

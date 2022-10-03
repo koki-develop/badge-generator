@@ -5,17 +5,17 @@ import {
   getContributions,
   getFollowersCount,
 } from "@/lib/qiitaApi";
-import { BadgeType } from "@/lib/qiitaBadge";
+import { QiitaBadgeType } from "@/lib/qiitaBadge";
 import logos from "@/logos.json";
 
-const _selectLabel = (type: BadgeType): string =>
+const _selectLabel = (type: QiitaBadgeType): string =>
   ({
     articles: "Articles",
     followers: "followers",
     contributions: "Contributions",
   }[type]);
 
-const _handler = (type: BadgeType): NextApiHandler =>
+const _handler = (type: QiitaBadgeType): NextApiHandler =>
   render(async (query) => {
     const value = await {
       articles: getArticlesCount,

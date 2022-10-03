@@ -2,11 +2,11 @@ import { NextApiHandler } from "next";
 import { render } from "@/api/api";
 import { ApiResult } from "@/lib/api";
 import { getAlgorithmRating, getHeuristicRating } from "@/lib/atcoderApi";
-import { BadgeType } from "@/lib/atcoderBadge";
+import { AtCoderBadgeType } from "@/lib/atcoderBadge";
 import { ApiError } from "@/lib/errors";
 import logos from "@/logos.json";
 
-const _selectLabel = (type: BadgeType): string =>
+const _selectLabel = (type: AtCoderBadgeType): string =>
   ({
     algorithm_rating: "Rating",
     heuristic_rating: "Rating(Heuristic)",
@@ -31,7 +31,7 @@ const _selectColor = (result: ApiResult<number>): string => {
   return "#808080"; // 灰
 };
 
-const _handler = (type: BadgeType): NextApiHandler =>
+const _handler = (type: AtCoderBadgeType): NextApiHandler =>
   render(async (query) => {
     const result = await {
       algorithm_rating: getAlgorithmRating,

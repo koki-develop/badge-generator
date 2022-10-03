@@ -9,7 +9,10 @@ import { atcoderBadgeUrl, qiitaBadgeUrl, zennBadgeUrl } from "@/lib/badgeUrl";
 import logos from "@/logos.json";
 import type { NextPage } from "next";
 
-const usernameToZennBadges = (username: string, style: BadgeStyle): Badge[] => {
+const usernameToZennBadges = (
+  username: string,
+  style: BadgeStyle
+): Badge<>[] => {
   return [
     {
       name: "Likes",
