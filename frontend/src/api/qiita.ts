@@ -5,8 +5,9 @@ import {
   getContributions,
   getFollowersCount,
 } from "@/lib/qiitaApi";
-import { QiitaBadgeType } from "@/lib/qiitaBadge";
 import logos from "@/logos.json";
+
+export type QiitaBadgeType = "contributions" | "followers" | "articles";
 
 const _selectLabel = (type: QiitaBadgeType): string =>
   ({

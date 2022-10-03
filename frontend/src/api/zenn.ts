@@ -7,8 +7,14 @@ import {
   getLikesCount,
   getScrapssCount,
 } from "@/lib/zennApi";
-import { ZennBadgeType } from "@/lib/zennBadge";
 import logos from "@/logos.json";
+
+export type ZennBadgeType =
+  | "articles"
+  | "books"
+  | "followers"
+  | "scraps"
+  | "likes";
 
 const _selectLabel = (type: ZennBadgeType): string =>
   ({

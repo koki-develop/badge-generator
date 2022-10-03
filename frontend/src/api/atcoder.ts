@@ -2,9 +2,10 @@ import { NextApiHandler } from "next";
 import { render } from "@/api/api";
 import { ApiResult } from "@/lib/api";
 import { getAlgorithmRating, getHeuristicRating } from "@/lib/atcoderApi";
-import { AtCoderBadgeType } from "@/lib/atcoderBadge";
 import { ApiError } from "@/lib/errors";
 import logos from "@/logos.json";
+
+export type AtCoderBadgeType = "algorithm_rating" | "heuristic_rating";
 
 const _selectLabel = (type: AtCoderBadgeType): string =>
   ({

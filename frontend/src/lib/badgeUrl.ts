@@ -1,8 +1,8 @@
 import path from "path";
 import { Query } from "@/api/api";
-import { AtCoderBadgeType } from "@/lib/atcoderBadge";
-import { QiitaBadgeType } from "@/lib/qiitaBadge";
-import { ZennBadgeType } from "@/lib/zennBadge";
+import { AtCoderBadgeType } from "@/api/atcoder";
+import { QiitaBadgeType } from "@/api/qiita";
+import { ZennBadgeType } from "@/api/zenn";
 
 const baseUrl =
   process.env.NODE_ENV === "production"
