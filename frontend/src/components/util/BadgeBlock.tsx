@@ -51,7 +51,14 @@ const BadgeBlock: React.FC<BadgeBlockProps> = memo((props) => {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [badge, label, style, username]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [badge, label, username]);
+
+  // style の変更だけ即時反映させる
+  useEffect(() => {
+    setBadgeSrc(badge.buildUrl({ username, style, label }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [badge, style]);
 
   return (
     <Disclosure
