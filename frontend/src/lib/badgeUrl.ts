@@ -9,9 +9,9 @@ const baseUrl =
     ? "https://badgen.org"
     : "http://localhost:3000";
 
-export const buildZennBadgeUrl = (type: ZennBadgeType) => (query: Query) => {
+const _buildBadgeUrl = (paths: string[], query: Query) => {
   const url = new URL(baseUrl);
-  url.pathname = path.join(url.pathname, "img/zenn", query.username, type);
+  url.pathname = path.join(url.pathname, ...paths);
 
   if (query.style) url.searchParams.set("style", query.style);
   if (query.label?.trim()) url.searchParams.set("label", query.label);
@@ -19,14 +19,12 @@ export const buildZennBadgeUrl = (type: ZennBadgeType) => (query: Query) => {
   return url.href;
 };
 
+export const buildZennBadgeUrl = (type: ZennBadgeType) => (query: Query) => {
+  return _buildBadgeUrl(["img/zenn", query.username, type], query);
+};
+
 export const buildQiitaBadgeUrl = (type: QiitaBadgeType) => (query: Query) => {
-  const url = new URL(baseUrl);
-  url.pathname = path.join(url.pathname, "img/qiita", query.username, type);
-
-  if (query.style) url.searchParams.set("style", query.style);
-  if (query.label?.trim()) url.searchParams.set("label", query.label);
-
-  return url.href;
+  return _buildBadgeUrl(["img/qiita", query.username, type], query);
 };
 
 export const buildAtCoderBadgeUrl =
@@ -36,16 +34,5 @@ export const buildAtCoderBadgeUrl =
       heuristic_rating: "rating/heuristic",
     }[type];
 
-    const url = new URL(baseUrl);
-    url.pathname = path.join(
-      url.pathname,
-      "img/atcoder",
-      query.username,
-      suffix
-    );
-
-    if (query.style) url.searchParams.set("style", query.style);
-    if (query.label?.trim()) url.searchParams.set("label", query.label);
-
-    return url.href;
+    return _buildBadgeUrl(["img/atcoder", query.username, suffix], query);
   };
