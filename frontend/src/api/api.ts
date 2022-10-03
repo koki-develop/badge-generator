@@ -29,8 +29,3 @@ export const render =
 const _renderSvg = (res: NextApiResponse, svg: string) => {
   return res.status(200).setHeader("content-type", "image/svg+xml").send(svg);
 };
-
-// TODO: 削除
-export const renderSvg = (res: NextApiResponse, svg: string) => {
-  return res.status(200).setHeader("content-type", "image/svg+xml").send(svg);
-};
