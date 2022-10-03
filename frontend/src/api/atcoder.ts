@@ -1,34 +1,10 @@
-import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import { render, renderSvg } from "@/api/api";
+import { NextApiHandler } from "next";
+import { render } from "@/api/api";
 import { ApiResult } from "@/lib/api";
 import { getAlgorithmRating, getHeuristicRating } from "@/lib/atcoderApi";
-import { BadgeType, renderAtCoderBadge } from "@/lib/atcoderBadge";
-import { BadgeStyle } from "@/lib/badge";
+import { BadgeType } from "@/lib/atcoderBadge";
 import { ApiError } from "@/lib/errors";
 import logos from "@/logos.json";
-
-type Query = {
-  username: string;
-  style?: BadgeStyle;
-  label?: string;
-};
-
-export const _render = async (
-  type: BadgeType,
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
-  const { username, style = "plastic", label } = req.query as Query;
-
-  const svg = await renderAtCoderBadge({
-    type,
-    style,
-    username,
-    label,
-  });
-
-  return renderSvg(res, svg);
-};
 
 const _selectLabel = (type: BadgeType): string =>
   ({
