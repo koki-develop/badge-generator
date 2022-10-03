@@ -58,7 +58,7 @@ const BadgeBlock: React.FC<BadgeBlockProps> = memo((props) => {
   useEffect(() => {
     setBadgeSrc(badge.buildUrl({ username, style, label }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [badge, style]);
+  }, [style]);
 
   return (
     <Disclosure
