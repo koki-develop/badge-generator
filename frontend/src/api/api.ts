@@ -8,6 +8,13 @@ export type Query = {
   label?: string;
 };
 
+const _selectStyle = (style?: BadgeStyle): BadgeStyle => {
+  const defaultStyle = BadgeStyle.plastic;
+  if (!style) return defaultStyle;
+  if (Object.values(BadgeStyle).includes(style)) return style;
+  return defaultStyle;
+};
+
 export const render =
   (
     queryToRenderOptions: (
@@ -21,11 +28,8 @@ export const render =
     const svg = renderBadge({
       ...options,
       label: query.label?.trim() || options.label,
-      style: query.style,
+      style: _selectStyle(query.style),
     });
-    return _renderSvg(res, svg);
-  };
 
-const _renderSvg = (res: NextApiResponse, svg: string) => {
-  return res.status(200).setHeader("content-type", "image/svg+xml").send(svg);
-};
+    return res.status(200).setHeader("content-type", "image/svg+xml").send(svg);
+  };
