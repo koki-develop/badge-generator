@@ -1,38 +1,39 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { renderSvg } from "@/api/api";
-import { BadgeStyle } from "@/lib/badge";
-import { BadgeType, renderQiitaBadge } from "@/lib/qiitaBadge";
+import { NextApiHandler } from "next";
+import { render } from "@/api/api";
+import {
+  getArticlesCount,
+  getContributions,
+  getFollowersCount,
+} from "@/lib/qiitaApi";
+import { BadgeType } from "@/lib/qiitaBadge";
+import logos from "@/logos.json";
 
-export const contributions = async (
-  req: NextApiRequest,
-  res: NextApiResponse
-) => _render("contributions", req, res);
+const _selectLabel = (type: BadgeType): string =>
+  ({
+    articles: "Articles",
+    followers: "followers",
+    contributions: "Contributions",
+  }[type]);
 
-export const articles = async (req: NextApiRequest, res: NextApiResponse) =>
-  _render("articles", req, res);
+const _handler = (type: BadgeType): NextApiHandler =>
+  render(async (query) => {
+    const label = query.label?.trim() || _selectLabel(type);
 
-export const followers = async (req: NextApiRequest, res: NextApiResponse) =>
-  _render("followers", req, res);
+    const value = await {
+      articles: getArticlesCount,
+      followers: getFollowersCount,
+      contributions: getContributions,
+    }[type](query.username);
 
-type Query = {
-  username: string;
-  style?: BadgeStyle;
-  label?: string;
-};
-
-const _render = async (
-  type: BadgeType,
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
-  const { username, style = "plastic", label } = req.query as Query;
-
-  const svg = await renderQiitaBadge({
-    type,
-    style,
-    username,
-    label,
+    return {
+      logoDataUrl: logos.qiita,
+      color: value == null ? "#D1654D" : "#55C500",
+      label,
+      message: value?.toString() ?? "user not found",
+      style: query.style,
+    };
   });
 
-  return renderSvg(res, svg);
-};
+export const articles = _handler("articles");
+export const followers = _handler("followers");
+export const contributions = _handler("contributions");
