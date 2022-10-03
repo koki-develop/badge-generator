@@ -1,22 +1,28 @@
 import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
+import { Query } from "@/api/api";
 import Disclosure from "@/components/util/Disclosure";
 import Input from "@/components/util/Input";
+import { BadgeStyle } from "@/lib/badge";
 
 export type Badge = {
   name: string;
-  src: string;
+  buildUrl: (options: Query) => string;
   link: string;
 };
 
 export type BadgeBlockProps = {
   badge: Badge;
+  username: string;
+  style: BadgeStyle;
 };
 
 const BadgeBlock: React.FC<BadgeBlockProps> = memo((props) => {
-  const { badge } = props;
+  const { badge, username, style } = props;
 
   const [label, setLabel] = useState<string>("");
-  const [badgeSrc, setBadgeSrc] = useState<string>(badge.src);
+  const [badgeSrc, setBadgeSrc] = useState<string>(
+    badge.buildUrl({ username, style, label })
+  );
 
   const inputs = useMemo(() => {
     return [
@@ -40,17 +46,12 @@ const BadgeBlock: React.FC<BadgeBlockProps> = memo((props) => {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      const url = new URL(badge.src);
-      const trimmedLabel = label.trim();
-      if (trimmedLabel !== "") {
-        url.searchParams.set("label", trimmedLabel);
-      }
-      setBadgeSrc(url.href);
+      setBadgeSrc(badge.buildUrl({ username, style, label }));
     }, 500);
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [badge.src, label]);
+  }, [badge, label, style, username]);
 
   return (
     <Disclosure

@@ -4,92 +4,74 @@ import BadgeBlocks from "@/components/pages/HomePage/BadgeBlocks";
 import ServiceCard from "@/components/pages/HomePage/ServiceCard";
 import { Badge } from "@/components/util/BadgeBlock";
 import Divider from "@/components/util/Divider";
-import { BadgeStyle } from "@/lib/badge";
-import { atcoderBadgeUrl, qiitaBadgeUrl, zennBadgeUrl } from "@/lib/badgeUrl";
+import {
+  buildAtCoderBadgeUrl,
+  buildQiitaBadgeUrl,
+  buildZennBadgeUrl,
+} from "@/lib/badgeUrl";
 import logos from "@/logos.json";
 import type { NextPage } from "next";
 
-const usernameToZennBadges = (
-  username: string,
-  style: BadgeStyle
-): Badge<>[] => {
+const usernameToZennBadges = (username: string): Badge[] => {
   return [
     {
       name: "Likes",
-      src: zennBadgeUrl({ username, style, type: "likes" }),
+      buildUrl: buildZennBadgeUrl("likes"),
       link: `https://zenn.dev/${username}`,
     },
     {
       name: "Followers",
-      src: zennBadgeUrl({ username, style, type: "followers" }),
+      buildUrl: buildZennBadgeUrl("followers"),
       link: `https://zenn.dev/${username}`,
     },
     {
       name: "Articles",
-      src: zennBadgeUrl({ username, style, type: "articles" }),
+      buildUrl: buildZennBadgeUrl("articles"),
       link: `https://zenn.dev/${username}`,
     },
     {
       name: "Books",
-      src: zennBadgeUrl({ username, style, type: "books" }),
+      buildUrl: buildZennBadgeUrl("books"),
       link: `https://zenn.dev/${username}?tab=books`,
     },
     {
       name: "Scraps",
-      src: zennBadgeUrl({ username, style, type: "scraps" }),
+      buildUrl: buildZennBadgeUrl("scraps"),
       link: `https://zenn.dev/${username}?tab=scraps`,
     },
   ];
 };
 
-const usernameToQiitaBadges = (
-  username: string,
-  style: BadgeStyle
-): Badge[] => {
+const usernameToQiitaBadges = (username: string): Badge[] => {
   return [
     {
       name: "Contributions",
-      src: qiitaBadgeUrl({
-        username,
-        style,
-        type: "contributions",
-      }),
+      buildUrl: buildQiitaBadgeUrl("contributions"),
       link: `https://qiita.com/${username}`,
     },
     {
       name: "Followers",
-      src: qiitaBadgeUrl({
-        username,
-        style,
-        type: "followers",
-      }),
+      buildUrl: buildQiitaBadgeUrl("followers"),
       link: `https://qiita.com/${username}`,
     },
     {
       name: "Articles",
-      src: qiitaBadgeUrl({
-        username,
-        style,
-        type: "articles",
-      }),
+      buildUrl: buildQiitaBadgeUrl("articles"),
       link: `https://qiita.com/${username}`,
     },
   ];
 };
 
-const usernameToAtCoderBadge = (
-  username: string,
-  style: BadgeStyle
-): Badge[] => {
+const usernameToAtCoderBadge = (username: string): Badge[] => {
   return [
     {
       name: "Rating",
-      src: atcoderBadgeUrl({ username, style, type: "algorithm_rating" }),
+      buildUrl: buildAtCoderBadgeUrl("algorithm_rating"),
       link: `https://atcoder.jp/users/${username}?contestType=algo`,
     },
     {
       name: "Rating(Heuristic)",
-      src: atcoderBadgeUrl({ username, style, type: "heuristic_rating" }),
+      buildUrl: buildAtCoderBadgeUrl("heuristic_rating"),
       link: `https://atcoder.jp/users/${username}?contestType=heuristic`,
     },
   ];

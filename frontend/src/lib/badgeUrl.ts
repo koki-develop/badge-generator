@@ -1,57 +1,51 @@
 import path from "path";
-import { RenderAtCoderBadgeOptions } from "@/lib/atcoderBadge";
-import { RenderQiitaBadgeOptions } from "@/lib/qiitaBadge";
-import { RenderZennBadgeOptions } from "@/lib/zennBadge";
+import { Query } from "@/api/api";
+import { AtCoderBadgeType } from "@/lib/atcoderBadge";
+import { QiitaBadgeType } from "@/lib/qiitaBadge";
+import { ZennBadgeType } from "@/lib/zennBadge";
 
 const baseUrl =
   process.env.NODE_ENV === "production"
     ? "https://badgen.org"
     : "http://localhost:3000";
 
-export const zennBadgeUrl = (options: RenderZennBadgeOptions): string => {
+export const buildZennBadgeUrl = (type: ZennBadgeType) => (query: Query) => {
   const url = new URL(baseUrl);
-  url.pathname = path.join(
-    url.pathname,
-    "img/zenn",
-    options.username,
-    options.type
-  );
-  url.search = new URLSearchParams({ style: options.style }).toString();
+  url.pathname = path.join(url.pathname, "img/zenn", query.username, type);
+
+  if (query.style) url.searchParams.set("style", query.style);
+  if (query.label?.trim()) url.searchParams.set("label", query.label);
 
   return url.href;
 };
 
-export const qiitaBadgeUrl = (options: RenderQiitaBadgeOptions): string => {
+export const buildQiitaBadgeUrl = (type: QiitaBadgeType) => (query: Query) => {
   const url = new URL(baseUrl);
-  url.pathname = path.join(
-    url.pathname,
-    "img/qiita",
-    options.username,
-    options.type
-  );
-  url.search = new URLSearchParams({ style: options.style }).toString();
+  url.pathname = path.join(url.pathname, "img/qiita", query.username, type);
+
+  if (query.style) url.searchParams.set("style", query.style);
+  if (query.label?.trim()) url.searchParams.set("label", query.label);
 
   return url.href;
 };
 
-export const atcoderBadgeUrl = (options: RenderAtCoderBadgeOptions): string => {
-  const suffix = (() => {
-    switch (options.type) {
-      case "algorithm_rating":
-        return "rating/algorithm";
-      case "heuristic_rating":
-        return "rating/heuristic";
-    }
-  })();
+export const buildAtCoderBadgeUrl =
+  (type: AtCoderBadgeType) => (query: Query) => {
+    const suffix = {
+      algorithm_rating: "rating/algorithm",
+      heuristic_rating: "rating/heuristic",
+    }[type];
 
-  const url = new URL(baseUrl);
-  url.pathname = path.join(
-    url.pathname,
-    "img/atcoder",
-    options.username,
-    suffix
-  );
-  url.search = new URLSearchParams({ style: options.style }).toString();
+    const url = new URL(baseUrl);
+    url.pathname = path.join(
+      url.pathname,
+      "img/atcoder",
+      query.username,
+      suffix
+    );
 
-  return url.href;
-};
+    if (query.style) url.searchParams.set("style", query.style);
+    if (query.label?.trim()) url.searchParams.set("label", query.label);
+
+    return url.href;
+  };

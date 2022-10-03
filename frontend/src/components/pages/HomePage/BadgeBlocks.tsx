@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { GoLinkExternal } from "react-icons/go";
 import * as Scroll from "react-scroll";
 import BadgeBlock, { Badge } from "@/components/util/BadgeBlock";
@@ -10,7 +10,7 @@ export type BadgeBlocksProps = {
   title: string;
   serviceUrl: string;
   defaultUsername: string;
-  usernameToBadges: (username: string, style: BadgeStyle) => Badge[];
+  usernameToBadges: (username: string) => Badge[];
 };
 
 const BadgeBlocks: React.FC<BadgeBlocksProps> = memo((props) => {
@@ -19,7 +19,7 @@ const BadgeBlocks: React.FC<BadgeBlocksProps> = memo((props) => {
   const [username, setUsername] = useState<string>("");
   const [style, setStyle] = useState<BadgeStyle>(BadgeStyle.plastic);
   const [badges, setBadges] = useState<Badge[]>(
-    usernameToBadges(defaultUsername, style)
+    usernameToBadges(defaultUsername)
   );
 
   const handleChangeUsername = useCallback(
@@ -31,21 +31,18 @@ const BadgeBlocks: React.FC<BadgeBlocksProps> = memo((props) => {
 
   const handleChangeStyle = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
-      const style = event.currentTarget.value as BadgeStyle;
-      const badges = usernameToBadges(
-        username.trim() || defaultUsername,
-        style
-      );
-      setStyle(style);
-      setBadges(badges);
+      setStyle(event.currentTarget.value as BadgeStyle);
     },
-    [defaultUsername, username, usernameToBadges]
+    []
   );
 
+  const badgeUsername = useMemo(() => {
+    return username.trim() || defaultUsername;
+  }, [defaultUsername, username]);
+
   useEffect(() => {
-    const badges = usernameToBadges(username.trim() || defaultUsername, style);
-    setBadges(badges);
-  }, [defaultUsername, style, username, usernameToBadges]);
+    setBadges(usernameToBadges(badgeUsername));
+  }, [badgeUsername, usernameToBadges]);
 
   return (
     <div>
@@ -88,7 +85,7 @@ const BadgeBlocks: React.FC<BadgeBlocksProps> = memo((props) => {
 
       {badges.map((badge) => (
         <div key={badge.name} className="mb-2">
-          <BadgeBlock badge={badge} />
+          <BadgeBlock username={badgeUsername} style={style} badge={badge} />
         </div>
       ))}
     </div>
