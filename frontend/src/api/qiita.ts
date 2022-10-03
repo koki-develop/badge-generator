@@ -17,8 +17,6 @@ const _selectLabel = (type: BadgeType): string =>
 
 const _handler = (type: BadgeType): NextApiHandler =>
   render(async (query) => {
-    const label = query.label?.trim() || _selectLabel(type);
-
     const value = await {
       articles: getArticlesCount,
       followers: getFollowersCount,
@@ -28,9 +26,8 @@ const _handler = (type: BadgeType): NextApiHandler =>
     return {
       logoDataUrl: logos.qiita,
       color: value == null ? "#D1654D" : "#55C500",
-      label,
+      label: _selectLabel(type),
       message: value?.toString() ?? "user not found",
-      style: query.style,
     };
   });
 

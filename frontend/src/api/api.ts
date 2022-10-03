@@ -10,12 +10,19 @@ export type Query = {
 
 export const render =
   (
-    queryToRenderOptions: (query: Query) => Promise<RenderBadgeOptions>
+    queryToRenderOptions: (
+      query: Query
+    ) => Promise<Omit<RenderBadgeOptions, "style">>
   ): NextApiHandler =>
   async (req: NextApiRequest, res: NextApiResponse) => {
     const query = req.query as Query;
     const options = await queryToRenderOptions(query);
-    const svg = renderBadge(options);
+
+    const svg = renderBadge({
+      ...options,
+      label: query.label?.trim() || options.label,
+      style: query.style,
+    });
     return _renderSvg(res, svg);
   };
 

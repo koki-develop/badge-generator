@@ -21,8 +21,6 @@ const _selectLabel = (type: BadgeType): string =>
 
 const _handler = (type: BadgeType): NextApiHandler =>
   render(async (query) => {
-    const label = query.label?.trim() || _selectLabel(type);
-
     const value = await {
       articles: getArticlesCount,
       books: getBooksCount,
@@ -34,9 +32,8 @@ const _handler = (type: BadgeType): NextApiHandler =>
     return {
       logoDataUrl: logos.zenn,
       color: value == null ? "#D1654D" : "#3EA8FF",
-      label,
+      label: _selectLabel(type),
       message: value?.toString() ?? "user not found",
-      style: query.style,
     };
   });
 
