@@ -1,8 +1,7 @@
 import axios from "axios";
 import { load } from "cheerio";
-import { ApiResult } from "@/lib/api";
+import { ApiResult, ApiError } from "@/lib/api";
 import { loadCache, saveCache } from "@/lib/cache";
-import { ApiError } from "@/lib/errors";
 
 export const getAlgorithmRating = async (
   username: string
