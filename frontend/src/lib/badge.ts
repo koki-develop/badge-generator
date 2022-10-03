@@ -13,5 +13,5 @@ export type RenderBadgeOptions = {
   color: string;
   label: string;
   message: string;
-  style: BadgeStyle;
+  style?: BadgeStyle;
 };

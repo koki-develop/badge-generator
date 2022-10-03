@@ -1,42 +1,47 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { renderSvg } from "@/api/renderer";
-import { BadgeStyle } from "@/lib/badge";
-import { BadgeType, renderZennBadge } from "@/lib/zennBadge";
+import { NextApiHandler } from "next";
+import { render } from "@/api/api";
+import {
+  getArticlesCount,
+  getBooksCount,
+  getFollowersCount,
+  getLikesCount,
+  getScrapssCount,
+} from "@/lib/zennApi";
+import { BadgeType } from "@/lib/zennBadge";
+import logos from "@/logos.json";
 
-export const articles = async (req: NextApiRequest, res: NextApiResponse) =>
-  _render("articles", req, res);
+const _selectLabel = (type: BadgeType): string =>
+  ({
+    articles: "Articles",
+    books: "Books",
+    followers: "Followers",
+    scraps: "Scraps",
+    likes: "Likes",
+  }[type]);
 
-export const books = async (req: NextApiRequest, res: NextApiResponse) =>
-  _render("books", req, res);
+const _handler = (type: BadgeType): NextApiHandler =>
+  render(async (query) => {
+    const label = query.label?.trim() || _selectLabel(type);
 
-export const followers = async (req: NextApiRequest, res: NextApiResponse) =>
-  _render("followers", req, res);
+    const value = await {
+      articles: getArticlesCount,
+      books: getBooksCount,
+      followers: getFollowersCount,
+      scraps: getScrapssCount,
+      likes: getLikesCount,
+    }[type](query.username);
 
-export const likes = async (req: NextApiRequest, res: NextApiResponse) =>
-  _render("likes", req, res);
-
-export const scraps = async (req: NextApiRequest, res: NextApiResponse) =>
-  _render("scraps", req, res);
-
-type Query = {
-  username: string;
-  style?: BadgeStyle;
-  label?: string;
-};
-
-export const _render = async (
-  type: BadgeType,
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
-  const { username, style = "plastic", label } = req.query as Query;
-
-  const svg = await renderZennBadge({
-    type,
-    style,
-    username,
-    label,
+    return {
+      logoDataUrl: logos.zenn,
+      color: value == null ? "#D1654D" : "#3EA8FF",
+      label,
+      message: value?.toString() ?? "user not found",
+      style: query.style,
+    };
   });
 
-  return renderSvg(res, svg);
-};
+export const articles = _handler("articles");
+export const books = _handler("books");
+export const followers = _handler("followers");
+export const likes = _handler("likes");
+export const scraps = _handler("scraps");

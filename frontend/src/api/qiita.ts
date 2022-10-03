@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { renderSvg } from "@/api/renderer";
+import { renderSvg } from "@/api/api";
 import { BadgeStyle } from "@/lib/badge";
 import { BadgeType, renderQiitaBadge } from "@/lib/qiitaBadge";
 

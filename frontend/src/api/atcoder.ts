@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { renderSvg } from "@/api/renderer";
+import { renderSvg } from "@/api/api";
 import { BadgeType, renderAtCoderBadge } from "@/lib/atcoderBadge";
 import { BadgeStyle } from "@/lib/badge";
 
