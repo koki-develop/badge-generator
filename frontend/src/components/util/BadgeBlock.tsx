@@ -91,7 +91,7 @@ const BadgeBlock: React.FC<BadgeBlockProps> = memo((props) => {
             withCopy
             type="text"
             value={input.value}
-            disabled
+            readOnly
           />
         ))}
       </div>

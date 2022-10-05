@@ -103,6 +103,7 @@ const Input: React.FC<InputProps> = memo((props) => {
               {
                 "w-full": fullWidth,
                 rounded: !withCopy,
+                "bg-gray-50": inputProps.readOnly,
               }
             )}
           />
