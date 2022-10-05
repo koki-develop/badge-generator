@@ -17,15 +17,15 @@ const Disclosure: React.FC<DisclosureProps> = memo((props) => {
         <>
           <HeadlessDisclosure.Button
             className={classNames(
-              "flex w-full items-center justify-between rounded border px-4 py-2 hover:bg-gray-50 active:bg-gray-100",
+              "flex w-full items-center space-x-2 rounded border px-4 py-2 hover:bg-gray-50 active:bg-gray-100",
               { "rounded-b-none": open }
             )}
           >
-            {button}
             <span className="text-sm">
               {open && <BsChevronUp />}
               {!open && <BsChevronDown />}
             </span>
+            {button}
           </HeadlessDisclosure.Button>
           <HeadlessDisclosure.Panel className="rounded-b border border-t-0 p-4 pt-2">
             {children}
