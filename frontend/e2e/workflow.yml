@@ -1,0 +1,66 @@
+version: "1.0"
+name: Test Badges
+env:
+  host: badgen.org
+  zennUsername: kou_pg_0131
+  qiitaUsername: koki_develop
+  atcoderUsername: chokudai
+tests:
+  zenn:
+    steps:
+      - name: Zenn - Likes
+        url: https://{{env.host}}/img/zenn/{{env.zennUsername}}/likes
+        method: GET
+        check:
+          status: 200
+      - name: Zenn - Followers
+        url: https://{{env.host}}/img/zenn/{{env.zennUsername}}/followers
+        method: GET
+        check:
+          status: 200
+      - name: Zenn - Articles
+        url: https://{{env.host}}/img/zenn/{{env.zennUsername}}/articles
+        method: GET
+        check:
+          status: 200
+      - name: Zenn - Books
+        url: https://{{env.host}}/img/zenn/{{env.zennUsername}}/books
+        method: GET
+        check:
+          status: 200
+      - name: Zenn - Scraps
+        url: https://{{env.host}}/img/zenn/{{env.zennUsername}}/scraps
+        method: GET
+        check:
+          status: 200
+
+  qiita:
+    steps:
+      - name: Qiita - Contributions
+        url: https://{{env.host}}/img/qiita/{{env.qiitaUsername}}/contributions
+        method: GET
+        check:
+          status: 200
+      - name: Qiita - Followers
+        url: https://{{env.host}}/img/qiita/{{env.qiitaUsername}}/followers
+        method: GET
+        check:
+          status: 200
+      - name: Qiita - Articles
+        url: https://{{env.host}}/img/qiita/{{env.qiitaUsername}}/articles
+        method: GET
+        check:
+          status: 200
+
+  atcoder:
+    steps:
+      - name: AtCoder - Rating
+        url: https://{{env.host}}/img/atcoder/{{env.atcoderUsername}}/rating/algorithm
+        method: GET
+        check:
+          status: 200
+      - name: AtCoder - Rating(Heuristic)
+        url: https://{{env.host}}/img/atcoder/{{env.atcoderUsername}}/rating/heuristic
+        method: GET
+        check:
+          status: 200
