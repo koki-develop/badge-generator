@@ -2,6 +2,9 @@
   "name": "frontend",
   "license": "MIT",
   "private": true,
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "dev": "next dev",
     "build:logos": "yarn run ts-node ./src/tasks/buildLogos.ts",
