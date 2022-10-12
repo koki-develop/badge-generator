@@ -8,7 +8,8 @@
     "prebuild": "yarn build:logos",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "e2e": "stepci run e2e/workflow.yml"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.2",
