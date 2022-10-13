@@ -52,20 +52,4 @@ jobs:
   e2e:
     needs:
       - deploy
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
-    steps:
-      - name: checkout
-        uses: actions/checkout@v3
-      - name: setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: "frontend/package.json"
-          cache: yarn
-          cache-dependency-path: frontend/yarn.lock
-      - name: install dependencies
-        run: yarn install --frozen-lockfile
-      - name: e2e
-        run: yarn e2e
+    uses: ./.github/workflows/_e2e.yml
