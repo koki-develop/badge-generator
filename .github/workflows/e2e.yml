@@ -1,0 +1,9 @@
+name: e2e
+
+on:
+  schedule:
+    - cron: '0 3,6,9,12,15,18,21 * * *'
+
+jobs:
+  e2e:
+    uses: ./.github/workflows/_e2e.yml
