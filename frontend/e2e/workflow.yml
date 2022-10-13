@@ -7,6 +7,23 @@ env:
   qiitaUsername: koki_develop
   atcoderUsername: chokudai
 tests:
+  app:
+    steps:
+      - name: Home
+        url: /
+        method: GET
+        check:
+          status: 200
+          headers:
+            content-type: text/html; charset=utf-8
+      - name: Privacy Policy
+        url: /privacy
+        method: GET
+        check:
+          status: 200
+          headers:
+            content-type: text/html; charset=utf-8
+
   zenn:
     steps:
       - name: Zenn - Likes
@@ -14,26 +31,36 @@ tests:
         method: GET
         check:
           status: 200
+          headers:
+            content-type: image/svg+xml
       - name: Zenn - Followers
         url: /img/zenn/{{env.zennUsername}}/followers
         method: GET
         check:
           status: 200
+          headers:
+            content-type: image/svg+xml
       - name: Zenn - Articles
         url: /img/zenn/{{env.zennUsername}}/articles
         method: GET
         check:
           status: 200
+          headers:
+            content-type: image/svg+xml
       - name: Zenn - Books
         url: /img/zenn/{{env.zennUsername}}/books
         method: GET
         check:
           status: 200
+          headers:
+            content-type: image/svg+xml
       - name: Zenn - Scraps
         url: /img/zenn/{{env.zennUsername}}/scraps
         method: GET
         check:
           status: 200
+          headers:
+            content-type: image/svg+xml
 
   qiita:
     steps:
@@ -42,16 +69,22 @@ tests:
         method: GET
         check:
           status: 200
+          headers:
+            content-type: image/svg+xml
       - name: Qiita - Followers
         url: /img/qiita/{{env.qiitaUsername}}/followers
         method: GET
         check:
           status: 200
+          headers:
+            content-type: image/svg+xml
       - name: Qiita - Articles
         url: /img/qiita/{{env.qiitaUsername}}/articles
         method: GET
         check:
           status: 200
+          headers:
+            content-type: image/svg+xml
 
   atcoder:
     steps:
@@ -60,8 +93,12 @@ tests:
         method: GET
         check:
           status: 200
+          headers:
+            content-type: image/svg+xml
       - name: AtCoder - Rating(Heuristic)
         url: /img/atcoder/{{env.atcoderUsername}}/rating/heuristic
         method: GET
         check:
           status: 200
+          headers:
+            content-type: image/svg+xml
