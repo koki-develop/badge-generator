@@ -1,5 +1,3 @@
-# TODO: vitest 経由で実行するようにしたい
-#       参考: https://github.com/stepci/stepci/blob/main/docs/using-test-tools.md
 version: "1.0"
 name: Test Badges
 config:
