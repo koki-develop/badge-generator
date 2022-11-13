@@ -63,7 +63,8 @@
 
 ### AtCoder
 
-NOTE: [chokudai](https://atcoder.jp/users/chokudai) さんのバッジを表示しています。僕のではありません。
+> **Note**
+> [chokudai](https://atcoder.jp/users/chokudai) さんのバッジを表示しています。僕のではありません。
 
 [![Rating](https://badgen.org/img/atcoder/chokudai/rating/algorithm?style=plastic)](https://atcoder.jp/users/chokudai?contestType=algo)
 [![Rating(Heuristic)](https://badgen.org/img/atcoder/chokudai/rating/heuristic?style=plastic)](https://atcoder.jp/users/chokudai?contestType=heuristic)
