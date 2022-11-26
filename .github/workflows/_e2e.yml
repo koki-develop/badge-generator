@@ -21,4 +21,6 @@ jobs:
       - name: install dependencies
         run: yarn install --frozen-lockfile
       - name: e2e
+        env:
+          STEPCI_DISABLE_ANALYTICS: "1"
         run: yarn e2e
