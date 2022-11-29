@@ -1486,10 +1486,10 @@
     js-yaml "^4.1.0"
     json-schema-faker "^0.5.0-rcv.44"
 
-"@stepci/runner@^1.7.3":
-  version "1.7.4"
-  resolved "https://registry.yarnpkg.com/@stepci/runner/-/runner-1.7.4.tgz#c41c806d16144742e1949e99f968c5874de587b9"
-  integrity sha512-nmIqTqt2x4MFVOfss4F9LJKZX47Z1U4WwhY5dvZhrV/y4Up/5KJCweJbGQown381H15ml0lvMnw+EaN4tgUfUw==
+"@stepci/runner@^1.7.5":
+  version "1.7.5"
+  resolved "https://registry.yarnpkg.com/@stepci/runner/-/runner-1.7.5.tgz#b1085784e1d8f25ce692e1a99a201bfe492bffff"
+  integrity sha512-JvBCu5nslCaQg3Z0+sIY5Iiz8LFuqQINfhyzHCrflMClUM0Y0PGSeV4BfK3RKOEb0KgPZQsOx8SI5fzXGDAC1Q==
   dependencies:
     "@fast-csv/parse" "^4.3.6"
     "@tgwf/co2" "^0.11.3"
@@ -4884,10 +4884,10 @@ postcss@^8.4.14, postcss@^8.4.16:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
-posthog-node@^2.1.0:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/posthog-node/-/posthog-node-2.2.1.tgz#80bba74c1bae3da9bc504a74a47d79df435ce28c"
-  integrity sha512-ESRrAgLMHOXjNg465TBY4YnLcwneAzmIfr99yZZXEr5EJP3yfPy12BSMnhyzXB+qRgDPhTIFFKNrwKRR0yThfg==
+posthog-node@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/posthog-node/-/posthog-node-2.2.2.tgz#c4688381e6e6bc38b1f9f0ace963cbd89646b8cd"
+  integrity sha512-aXYe/D+28kF63W8Cz53t09ypEORz+ULeDCahdAqhVrRm2scbOXFbtnn0GGhvMpYe45grepLKuwui9KxrZ2ZuMw==
   dependencies:
     axios "^0.27.0"
 
@@ -5311,20 +5311,20 @@ stable@^0.1.8:
   resolved "https://registry.yarnpkg.com/stable/-/stable-0.1.8.tgz#836eb3c8382fe2936feaf544631017ce7d47a3cf"
   integrity sha512-ji9qxRnOVfcuLDySj9qzhGSEFVobyt1kIOSkj1qZzYLzq7Tos/oUUWvotUPQLlrsidqsK6tBH89Bc9kL5zHA6w==
 
-stepci@^2.5.4:
-  version "2.5.4"
-  resolved "https://registry.yarnpkg.com/stepci/-/stepci-2.5.4.tgz#579dc5d326470bb13d04e95b02569390d1cceb01"
-  integrity sha512-TkvBtsySfrXgxs540IXrIz30+icV8kparMpSEauJbCX+qDxQz3/eaEWPxb9mRBzwgeYJqxiGw4UnPAZ/LJCBAA==
+stepci@^2.5.6:
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/stepci/-/stepci-2.5.6.tgz#088b82479df90df79b21f8abeaa4e86f564f6dc3"
+  integrity sha512-xiPoadGPcl3Dvm/yUwpT7Xs4SDbsAb0Anlubt03hWScQFkqi0dQAV6PkWysUr16cN0mYf7DqYjYr6uNTcWFG9Q==
   dependencies:
     "@stepci/plugin-openapi" "^0.3.5"
-    "@stepci/runner" "^1.7.3"
+    "@stepci/runner" "^1.7.5"
     chalk "^4.1.2"
     ci-info "^3.5.0"
     cli-highlight "^2.1.11"
     conf "^10.2.0"
     exit "^0.1.2"
     is-docker "^2.2.1"
-    posthog-node "^2.1.0"
+    posthog-node "^2.2.2"
     yargs "^17.5.1"
 
 stream-events@^1.0.5:
