@@ -1,10 +1,10 @@
 resource "google_cloud_run_service" "main" {
   name     = "frontend"
-  location = "asia-northeast1"
+  location = local.region
   template {
     spec {
       containers {
-        image = "asia-northeast1-docker.pkg.dev/${data.google_project.main.project_id}/${google_artifact_registry_repository.main.name}/frontend:latest"
+        image = "${local.region}-docker.pkg.dev/${data.google_project.main.project_id}/${google_artifact_registry_repository.main.name}/frontend:latest"
       }
     }
   }

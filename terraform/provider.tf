@@ -1,4 +1,4 @@
 provider "google" {
   project = "badge-generator"
-  region  = "asia-northeast1"
+  region  = local.region
 }
