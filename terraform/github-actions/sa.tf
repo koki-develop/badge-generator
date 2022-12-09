@@ -10,10 +10,10 @@ locals {
   ]
 }
 
-resource "google_project_iam_binding" "service_account" {
+resource "google_project_iam_member" "service_account" {
   for_each = toset(local.sa_roles)
 
   project = data.google_project.main.id
   role    = each.value
-  members = ["serviceAccount:${google_service_account.main.email}"]
+  member  = "serviceAccount:${google_service_account.main.email}"
 }
