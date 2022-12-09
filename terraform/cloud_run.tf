@@ -8,6 +8,12 @@ resource "google_cloud_run_service" "main" {
       }
     }
   }
+
+  lifecycle {
+    ignore_changes = [
+      template,
+    ]
+  }
 }
 
 data "google_iam_role" "run_invoker" {
