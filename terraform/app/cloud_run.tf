@@ -3,6 +3,7 @@ resource "google_cloud_run_service" "main" {
   location = local.region
   template {
     spec {
+      service_account_name = google_service_account.main.name
       containers {
         image = "${local.region}-docker.pkg.dev/${data.google_project.main.project_id}/${google_artifact_registry_repository.main.name}/frontend:latest"
       }
