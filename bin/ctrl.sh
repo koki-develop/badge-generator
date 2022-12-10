@@ -30,12 +30,14 @@ readonly GCP_PROJECT_ID=badge-generator
 readonly REGION=asia-northeast1
 readonly REGISTRY_HOST=${REGION}-docker.pkg.dev
 readonly DOCKER_IMAGE=${REGISTRY_HOST}/${GCP_PROJECT_ID}/app/frontend:latest
+readonly SERVICE_ACCOUNT=badge-generator-frontend@${GCP_PROJECT_ID}.iam.gserviceaccount.com
 
 echo "Constants:"
 echo "  GCP_PROJECT_ID=${GCP_PROJECT_ID}"
 echo "  REGION=${REGION}"
 echo "  REGISTRY_HOST=${REGISTRY_HOST}"
 echo "  DOCKER_IMAGE=${DOCKER_IMAGE}"
+echo "  SERVICE_ACCOUNT=${SERVICE_ACCOUNT}"
 echo ""
 
 # ----------
@@ -60,7 +62,8 @@ function deploy() {
     --image="${DOCKER_IMAGE}" \
     --set-env-vars=QIITA_ACCESS_TOKEN="${QIITA_ACCESS_TOKEN}" \
     --region="${REGION}" \
-    --project="${GCP_PROJECT_ID}"
+    --project="${GCP_PROJECT_ID}" \
+    --service-account="${SERVICE_ACCOUNT}"
   gcloud run services update-traffic frontend \
     --to-latest \
     --region="${REGION}" \
