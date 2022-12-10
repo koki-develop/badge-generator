@@ -29,7 +29,7 @@ echo ""
 readonly GCP_PROJECT_ID=badge-generator
 readonly REGION=asia-northeast1
 readonly REGISTRY_HOST=${REGION}-docker.pkg.dev
-readonly DOCKER_IMAGE=${REGISTRY_HOST}/${GCP_PROJECT_ID}/app/frontend:latest
+readonly DOCKER_IMAGE=${REGISTRY_HOST}/${GCP_PROJECT_ID}/app/frontend
 readonly SERVICE_ACCOUNT=badge-generator-frontend@${GCP_PROJECT_ID}.iam.gserviceaccount.com
 
 echo "Constants:"
@@ -46,7 +46,7 @@ echo ""
 
 function build() {
   docker build \
-    -t "${DOCKER_IMAGE}" \
+    -t "${DOCKER_IMAGE}:latest" \
     --platform=linux/amd64 \
     --build-arg GA_MEASUREMENT_ID="${GA_MEASUREMENT_ID}" \
     ./frontend
@@ -54,12 +54,12 @@ function build() {
 
 function push() {
   gcloud auth configure-docker "${REGISTRY_HOST}" --quiet
-  docker push "${DOCKER_IMAGE}"
+  docker push "${DOCKER_IMAGE}:latest"
 }
 
 function deploy() {
   gcloud run deploy frontend \
-    --image="${DOCKER_IMAGE}" \
+    --image="${DOCKER_IMAGE}:latest" \
     --set-env-vars=QIITA_ACCESS_TOKEN="${QIITA_ACCESS_TOKEN}" \
     --region="${REGION}" \
     --project="${GCP_PROJECT_ID}" \
@@ -68,6 +68,19 @@ function deploy() {
     --to-latest \
     --region="${REGION}" \
     --project="${GCP_PROJECT_ID}"
+}
+
+function list_old_image_digests() {
+  gcloud artifacts docker images list "${DOCKER_IMAGE}" \
+    --include-tags \
+    --filter="TAGS!=latest" \
+    --format="value(DIGEST)"
+}
+
+function clean_images() {
+  for _digest in $(list_old_image_digests); do
+    gcloud artifacts docker images delete "${DOCKER_IMAGE}@${_digest}" --quiet
+  done
 }
 
 function commands_contains() {
@@ -85,7 +98,7 @@ function commands_contains() {
 # main process
 # ----------
 
-readonly VALID_COMMANDS=( "build" "push" "deploy" )
+readonly VALID_COMMANDS=( "build" "push" "deploy" "clean_images" )
 for _valid_command in "${VALID_COMMANDS[@]}"; do
   if commands_contains "${_valid_command}"; then $_valid_command; fi
 done
