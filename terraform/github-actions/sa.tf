@@ -5,7 +5,7 @@ resource "google_service_account" "main" {
 locals {
   sa_roles = [
     "roles/iam.serviceAccountUser",
-    "roles/artifactregistry.writer",
+    "roles/artifactregistry.repoAdmin",
     "roles/run.developer",
   ]
 }
