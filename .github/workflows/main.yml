@@ -48,6 +48,8 @@ jobs:
         run: ./bin/ctrl.sh deploy
         env:
           QIITA_ACCESS_TOKEN: ${{ secrets.QIITA_ACCESS_TOKEN }}
+      - name: clean images
+        run: ./bin/ctrl.sh clean_images
 
   e2e:
     needs:
