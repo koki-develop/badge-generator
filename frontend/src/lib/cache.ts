@@ -2,6 +2,7 @@ import crypto from "crypto";
 import { addHours } from "date-fns";
 import * as admin from "firebase-admin";
 import { getFirestore, Timestamp } from "firebase-admin/firestore";
+import { logger } from "@/lib/logger";
 
 if (admin.apps.length === 0) {
   admin.initializeApp();
@@ -45,10 +46,15 @@ export const withCache = async <T>(
   func: () => Promise<T>
 ): Promise<T> => {
   const cache = await loadCache<T>(key);
-  if (cache != null) return cache.data;
+  if (cache != null) {
+    logger.info("cache found.", { key });
+    return cache.data;
+  }
+  logger.info("cache not found.", { key });
 
   const value = await func();
   await saveCache(key, value);
+  logger.info("cache saved.", { key });
 
   return value;
 };
