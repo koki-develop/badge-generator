@@ -1,7 +1,7 @@
-import type { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import { ApiError } from "@/lib/api/api";
 import { BadgeStyle } from "@/lib/badge";
 import { renderBadge } from "@/lib/renderBadge";
+import type { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 
 export type Query = {
   username: string;
