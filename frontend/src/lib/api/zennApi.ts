@@ -1,7 +1,8 @@
 import axios from "axios";
-import { loadCache, saveCache } from "@/lib/api/cache";
+import { ApiError, ApiResult } from "@/lib/api/api";
+import { withCache } from "@/lib/api/cache";
 
-type ZennUser = {
+export type ZennUser = {
   articles_count: number;
   books_count: number;
   follower_count: number;
@@ -9,61 +10,25 @@ type ZennUser = {
   total_liked_count: number;
 };
 
-export const getArticlesCount = async (
+export const getUser = async (username: string) => _getUserWithCache(username);
+
+const _getUserWithCache = async (
   username: string
-): Promise<number | null> => {
-  const user = await _getUser(username);
-  return user?.articles_count ?? null;
+): Promise<ApiResult<ZennUser>> => {
+  const cacheKey = `zenn_${username}`;
+  return withCache(cacheKey, () => _getUser(username));
 };
 
-export const getBooksCount = async (
-  username: string
-): Promise<number | null> => {
-  const user = await _getUser(username);
-  return user?.books_count ?? null;
-};
-
-export const getFollowersCount = async (
-  username: string
-): Promise<number | null> => {
-  const user = await _getUser(username);
-  return user?.follower_count ?? null;
-};
-
-export const getScrapssCount = async (
-  username: string
-): Promise<number | null> => {
-  const user = await _getUser(username);
-  return user?.scraps_count ?? null;
-};
-
-export const getLikesCount = async (
-  username: string
-): Promise<number | null> => {
-  const user = await _getUser(username);
-  return user?.total_liked_count ?? null;
-};
-
-const _getUser = async (username: string): Promise<ZennUser | null> => {
-  const cacheKey = _cacheKey(username);
-  const cache = await loadCache<ZennUser>(cacheKey);
-  if (cache?.data) {
-    return cache.data;
-  }
-
-  const endpoint = `https://zenn.dev/api/users/${encodeURIComponent(username)}`;
-  const resp = await axios.get<{ user: ZennUser }>(endpoint, {
+const _getUser = async (username: string): Promise<ApiResult<ZennUser>> => {
+  const url = new URL(
+    `https://zenn.dev/api/users/${encodeURIComponent(username)}`
+  );
+  const resp = await axios.get<{ user: ZennUser }>(url.href, {
     validateStatus: (status) => [200, 404].includes(status),
   });
   if (resp.status === 404) {
-    await saveCache(cacheKey, null);
-    return null;
+    return { data: null, error: ApiError.UserNotFound };
   }
 
-  await saveCache(cacheKey, resp.data.user);
-  return resp.data.user;
-};
-
-const _cacheKey = (username: string): string => {
-  return `zenn_${username}`;
+  return { data: resp.data.user };
 };
