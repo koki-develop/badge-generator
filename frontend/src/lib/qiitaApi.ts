@@ -1,88 +1,73 @@
 import axios from "axios";
 import { load } from "cheerio";
-import { saveCache, loadCache } from "@/lib/cache";
+import { ApiError, ApiResult } from "@/lib/api";
+import { withCache } from "@/lib/cache";
 
-type QiitaUser = {
+export type QiitaUser = {
   followers_count: number;
   items_count: number;
 };
 
 export const getContributions = async (
   username: string
-): Promise<number | null> => {
-  const cacheKey = `qiita_contributions_${username}`;
-  const cache = await loadCache<number>(cacheKey);
-  if (cache?.data != null) {
-    return cache.data;
-  }
+): Promise<ApiResult<number>> => _getContributionsWithCache(username);
 
-  const endpoint = `https://qiita.com/${encodeURIComponent(
-    username
-  )}/contributions`;
-  const resp = await axios.get(endpoint, {
+export const getUser = async (
+  username: string
+): Promise<ApiResult<QiitaUser>> => _getUserWithCache(username);
+
+const _getUserWithCache = async (
+  username: string
+): Promise<ApiResult<QiitaUser>> => {
+  const cacheKey = `qiita_${username}`;
+  return withCache(cacheKey, () => _getUser(username));
+};
+
+const _getUser = async (username: string): Promise<ApiResult<QiitaUser>> => {
+  const url = new URL(
+    `https://qiita.com/api/v2/users/${encodeURIComponent(username)}`
+  );
+  const resp = await axios.get<QiitaUser>(url.href, {
+    headers: { authorization: `Bearer ${process.env.QIITA_ACCESS_TOKEN}` },
     validateStatus: (status) => [200, 404].includes(status),
   });
   if (resp.status === 404) {
-    await saveCache(cacheKey, null);
-    return null;
+    return { data: null, error: ApiError.UserNotFound };
+  }
+
+  return { data: resp.data };
+};
+
+const _getContributionsWithCache = async (
+  username: string
+): Promise<ApiResult<number>> => {
+  const cacheKey = `qiita_contributions_${username}`;
+  return withCache(cacheKey, () => _getContributions(username));
+};
+
+const _getContributions = async (
+  username: string
+): Promise<ApiResult<number>> => {
+  const url = new URL(
+    `https://qiita.com/${encodeURIComponent(username)}/contributions`
+  );
+  const resp = await axios.get(url.href, {
+    validateStatus: (status) => [200, 404].includes(status),
+  });
+  if (resp.status === 404) {
+    return { data: null, error: ApiError.UserNotFound };
   }
 
   const $ = load(resp.data);
   const text = $('a:contains("Contributions")').text();
   if (!text.endsWith("Contributions")) {
-    await saveCache(cacheKey, null);
-    return null;
+    return { data: null, error: ApiError.DataNotFound };
   }
 
   const contributions = Number(text.replaceAll("Contributions", ""));
   if (Number.isNaN(contributions)) {
-    await saveCache(cacheKey, null);
-    return null;
+    return { data: null, error: ApiError.DataNotFound };
   }
 
-  await saveCache(cacheKey, contributions);
-  return contributions;
-};
-
-export const getFollowersCount = async (
-  username: string
-): Promise<number | null> => {
-  const user = await _getUser(username);
-  return user?.followers_count ?? null;
-};
-
-export const getArticlesCount = async (
-  username: string
-): Promise<number | null> => {
-  const user = await _getUser(username);
-  return user?.items_count ?? null;
-};
-
-const _getUser = async (username: string): Promise<QiitaUser | null> => {
-  const cacheKey = _cacheKey(username);
-  const cache = await loadCache<QiitaUser>(cacheKey);
-  if (cache?.data) {
-    return cache.data;
-  }
-
-  const endpoint = `https://qiita.com/api/v2/users/${encodeURIComponent(
-    username
-  )}`;
-  const resp = await axios.get<QiitaUser>(endpoint, {
-    headers: {
-      authorization: `Bearer ${process.env.QIITA_ACCESS_TOKEN}`,
-    },
-    validateStatus: (status) => [200, 404].includes(status),
-  });
-  if (resp.status === 404) {
-    await saveCache(cacheKey, null);
-    return null;
-  }
-
-  await saveCache(cacheKey, resp.data);
-  return resp.data;
-};
-
-const _cacheKey = (username: string): string => {
-  return `qiita_${username}`;
+  return { data: contributions };
 };
