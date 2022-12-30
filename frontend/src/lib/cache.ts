@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import addHours from "date-fns/addHours";
+import { addHours } from "date-fns";
 import * as admin from "firebase-admin";
 import { getFirestore, Timestamp } from "firebase-admin/firestore";
 
@@ -9,6 +9,11 @@ if (admin.apps.length === 0) {
 
 const db = getFirestore();
 
+const version = "v2";
+const ttlHours = 3;
+
+const collectionKey = `caches_${version}`;
+
 type Cache<T = any> = {
   data: T | null;
   expiration: Timestamp;
@@ -16,27 +21,27 @@ type Cache<T = any> = {
 
 export const saveCache = async <T>(key: string, data: T): Promise<void> => {
   await db
-    .collection("caches")
+    .collection(collectionKey)
     .doc(_md5(key))
     .set({
       data,
-      expiration: addHours(new Date(), 2),
+      expiration: addHours(new Date(), ttlHours),
     });
 };
 
 export const loadCache = async <T>(key: string): Promise<Cache<T> | null> => {
-  const doc = await db.collection("caches").doc(_md5(key)).get();
-  if (!doc.exists) {
-    return null;
-  }
+  const docId = _md5(key);
+  const doc = await db.collection(collectionKey).doc(docId).get();
+  if (!doc.exists) return null;
 
   const cache = doc.data() as Cache;
-  if (new Date().getTime() > cache.expiration.toDate().getTime()) {
-    return null;
-  }
+  if (_isExpired(cache)) return null;
 
   return cache;
 };
+
+const _isExpired = (cache: Cache): boolean =>
+  new Date() > cache.expiration.toDate();
 
 const _md5 = (str: string) =>
   crypto.createHash("md5").update(str).digest("hex");
