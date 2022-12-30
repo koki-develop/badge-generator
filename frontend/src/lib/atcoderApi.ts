@@ -35,25 +35,24 @@ const _getRating = async (
   ];
   url.searchParams.set("contestType", contestType);
   url.searchParams.set("graph", "rating");
-  const endpoint = url.href;
 
-  const resp = await axios.get(endpoint, {
+  const resp = await axios.get(url.href, {
     validateStatus: (status) => [200, 404].includes(status),
   });
 
   if (resp.status === 404) {
-    return { data: 0, error: ApiError.UserNotFound };
+    return { data: null, error: ApiError.UserNotFound };
   }
 
   const $ = load(resp.data);
   const text = $('tr:contains("Rating"):nth(0)').text().trim().split(/\s+/)[0];
   if (!text.startsWith("Rating")) {
-    return { data: 0, error: ApiError.DataNotFound };
+    return { data: null, error: ApiError.DataNotFound };
   }
 
   const rating = Number(text.replaceAll("Rating", ""));
   if (Number.isNaN(rating)) {
-    return { data: 0, error: ApiError.DataNotFound };
+    return { data: null, error: ApiError.DataNotFound };
   }
 
   return { data: rating };

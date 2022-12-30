@@ -1,7 +1,12 @@
-export type ApiResult<T> = {
-  data: T;
-  error?: ApiError;
-};
+export type ApiResult<T> =
+  | {
+      data: T;
+      error?: undefined;
+    }
+  | {
+      data: null;
+      error: ApiError;
+    };
 
 export const ApiError = {
   UserNotFound: "USER_NOT_FOUND",
