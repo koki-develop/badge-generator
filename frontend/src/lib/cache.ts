@@ -14,8 +14,8 @@ const ttlHours = 3;
 
 const collectionKey = `caches_${version}`;
 
-type Cache<T = any> = {
-  data: T | null;
+type Cache<T> = {
+  data: T;
   expiration: Timestamp;
 };
 
@@ -34,13 +34,26 @@ export const loadCache = async <T>(key: string): Promise<Cache<T> | null> => {
   const doc = await db.collection(collectionKey).doc(docId).get();
   if (!doc.exists) return null;
 
-  const cache = doc.data() as Cache;
+  const cache = doc.data() as Cache<T>;
   if (_isExpired(cache)) return null;
 
   return cache;
 };
 
-const _isExpired = (cache: Cache): boolean =>
+export const withCache = async <T>(
+  key: string,
+  func: () => Promise<T>
+): Promise<T> => {
+  const cache = await loadCache<T>(key);
+  if (cache != null) return cache.data;
+
+  const value = await func();
+  await saveCache(key, value);
+
+  return value;
+};
+
+const _isExpired = <T>(cache: Cache<T>): boolean =>
   new Date() > cache.expiration.toDate();
 
 const _md5 = (str: string) =>
