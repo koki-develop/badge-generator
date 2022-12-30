@@ -12,7 +12,7 @@ export type QiitaBadgeType = "contributions" | "followers" | "articles";
 const _selectLabel = (type: QiitaBadgeType): string =>
   ({
     articles: "Articles",
-    followers: "followers",
+    followers: "Followers",
     contributions: "Contributions",
   }[type]);
 
