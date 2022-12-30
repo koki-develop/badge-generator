@@ -1,5 +1,5 @@
 import { NextApiHandler } from "next";
-import { render } from "@/api/api";
+import { renderSvg } from "@/api/api";
 import {
   getArticlesCount,
   getContributions,
@@ -17,7 +17,7 @@ const _selectLabel = (type: QiitaBadgeType): string =>
   }[type]);
 
 const _handler = (type: QiitaBadgeType): NextApiHandler =>
-  render(async (query) => {
+  renderSvg(async (query) => {
     const value = await {
       articles: getArticlesCount,
       followers: getFollowersCount,

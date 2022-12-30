@@ -1,5 +1,5 @@
 import { NextApiHandler } from "next";
-import { render } from "@/api/api";
+import { renderSvg } from "@/api/api";
 import {
   getArticlesCount,
   getBooksCount,
@@ -26,7 +26,7 @@ const _selectLabel = (type: ZennBadgeType): string =>
   }[type]);
 
 const _handler = (type: ZennBadgeType): NextApiHandler =>
-  render(async (query) => {
+  renderSvg(async (query) => {
     const value = await {
       articles: getArticlesCount,
       books: getBooksCount,

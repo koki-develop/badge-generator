@@ -15,7 +15,7 @@ const _selectStyle = (style?: BadgeStyle): BadgeStyle => {
   return defaultStyle;
 };
 
-export const render =
+export const renderSvg =
   (
     queryToRenderOptions: (
       query: Query

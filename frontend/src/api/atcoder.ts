@@ -1,5 +1,5 @@
 import { NextApiHandler } from "next";
-import { render } from "@/api/api";
+import { renderSvg } from "@/api/api";
 import { ApiResult, ApiError } from "@/lib/api/api";
 import { getAlgorithmRating, getHeuristicRating } from "@/lib/api/atcoderApi";
 import logos from "@/logos.json";
@@ -32,7 +32,7 @@ const _selectColor = (result: ApiResult<number>): string => {
 };
 
 const _handler = (type: AtCoderBadgeType): NextApiHandler =>
-  render(async (query) => {
+  renderSvg(async (query) => {
     const result = await {
       algorithm_rating: getAlgorithmRating,
       heuristic_rating: getHeuristicRating,
