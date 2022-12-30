@@ -9,11 +9,11 @@ export type Query = {
   label?: string;
 };
 
-export type Options = { logo: string; color: string; label: string } & (
+export type Options = { logo: string; label: string } & (
   | {
       error: ApiError;
     }
-  | { message: string; error?: undefined }
+  | { color: string; message: string; error?: undefined }
 );
 
 const _selectStyle = (style?: BadgeStyle): BadgeStyle => {
@@ -41,7 +41,6 @@ export const renderSvg =
     const badgeOptions = (() => {
       const base = {
         logoDataUrl: options.logo,
-        color: options.color,
         label: query.label?.trim() || options.label,
         style: _selectStyle(query.style),
       };
@@ -53,7 +52,7 @@ export const renderSvg =
           message: _selectErrorMessage(options.error),
         };
       }
-      return { ...base, message: options.message };
+      return { ...base, color: options.color, message: options.message };
     })();
 
     const svg = renderBadge({
