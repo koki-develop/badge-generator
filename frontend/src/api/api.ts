@@ -1,5 +1,6 @@
 import type { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import { BadgeStyle, RenderBadgeOptions } from "@/lib/badge";
+import { ApiError } from "@/lib/api/api";
+import { BadgeStyle } from "@/lib/badge";
 import { renderBadge } from "@/lib/renderBadge";
 
 export type Query = {
@@ -8,6 +9,13 @@ export type Query = {
   label?: string;
 };
 
+export type Options = { logo: string; color: string; label: string } & (
+  | {
+      error: ApiError;
+    }
+  | { message: string; error?: undefined }
+);
+
 const _selectStyle = (style?: BadgeStyle): BadgeStyle => {
   const defaultStyle = BadgeStyle.plastic;
   if (!style) return defaultStyle;
@@ -15,20 +23,41 @@ const _selectStyle = (style?: BadgeStyle): BadgeStyle => {
   return defaultStyle;
 };
 
+const _selectErrorMessage = (error: ApiError): string => {
+  switch (error) {
+    case ApiError.UserNotFound:
+      return "user not found";
+    case ApiError.DataNotFound:
+      return "data not found";
+  }
+};
+
 export const renderSvg =
-  (
-    queryToRenderOptions: (
-      query: Query
-    ) => Promise<Omit<RenderBadgeOptions, "style">>
-  ): NextApiHandler =>
+  (queryToRenderOptions: (query: Query) => Promise<Options>): NextApiHandler =>
   async (req: NextApiRequest, res: NextApiResponse) => {
     const query = req.query as Query;
     const options = await queryToRenderOptions(query);
 
+    const badgeOptions = (() => {
+      const base = {
+        logoDataUrl: options.logo,
+        color: options.color,
+        label: query.label?.trim() || options.label,
+        style: _selectStyle(query.style),
+      };
+
+      if (options.error) {
+        return {
+          ...base,
+          color: "#D1654D",
+          message: _selectErrorMessage(options.error),
+        };
+      }
+      return { ...base, message: options.message };
+    })();
+
     const svg = renderBadge({
-      ...options,
-      label: query.label?.trim() || options.label,
-      style: _selectStyle(query.style),
+      ...badgeOptions,
     });
 
     return res.status(200).setHeader("content-type", "image/svg+xml").send(svg);

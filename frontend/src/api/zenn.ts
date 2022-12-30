@@ -1,12 +1,6 @@
 import { NextApiHandler } from "next";
 import { renderSvg } from "@/api/api";
-import {
-  getArticlesCount,
-  getBooksCount,
-  getFollowersCount,
-  getLikesCount,
-  getScrapssCount,
-} from "@/lib/api/zennApi";
+import { getUser } from "@/lib/api/zennApi";
 import logos from "@/logos.json";
 
 export type ZennBadgeType =
@@ -27,19 +21,33 @@ const _selectLabel = (type: ZennBadgeType): string =>
 
 const _handler = (type: ZennBadgeType): NextApiHandler =>
   renderSvg(async (query) => {
-    const value = await {
-      articles: getArticlesCount,
-      books: getBooksCount,
-      followers: getFollowersCount,
-      scraps: getScrapssCount,
-      likes: getLikesCount,
-    }[type](query.username);
+    const base = {
+      logo: logos.zenn,
+      color: "#3EA8FF",
+      label: _selectLabel(type),
+    };
+
+    const result = await getUser(query.username);
+    if (result.error) return { ...base, error: result.error };
+
+    const value = (() => {
+      switch (type) {
+        case "articles":
+          return result.data.articles_count;
+        case "books":
+          return result.data.books_count;
+        case "followers":
+          return result.data.follower_count;
+        case "likes":
+          return result.data.total_liked_count;
+        case "scraps":
+          return result.data.scraps_count;
+      }
+    })();
 
     return {
-      logoDataUrl: logos.zenn,
-      color: value == null ? "#D1654D" : "#3EA8FF",
-      label: _selectLabel(type),
-      message: value?.toString() ?? "user not found",
+      ...base,
+      message: value.toString(),
     };
   });
 
