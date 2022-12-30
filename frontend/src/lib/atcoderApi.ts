@@ -1,58 +1,60 @@
 import axios from "axios";
 import { load } from "cheerio";
 import { ApiResult, ApiError } from "@/lib/api";
-import { loadCache, saveCache } from "@/lib/cache";
+import { withCache } from "@/lib/cache";
 
 export const getAlgorithmRating = async (
   username: string
 ): Promise<ApiResult<number>> => {
-  return _getRating(username, "algorithm");
+  return _getRatingWithCache(username, "algorithm");
 };
 
 export const getHeuristicRating = async (
   username: string
 ): Promise<ApiResult<number>> => {
-  return _getRating(username, "heuristic");
+  return _getRatingWithCache(username, "heuristic");
+};
+
+const _getRatingWithCache = async (
+  username: string,
+  type: "algorithm" | "heuristic"
+): Promise<ApiResult<number>> => {
+  const cacheKey = `atcoder_${type}_rating_${username}`;
+  return withCache(cacheKey, () => _getRating(username, type));
 };
 
 const _getRating = async (
   username: string,
   type: "algorithm" | "heuristic"
 ): Promise<ApiResult<number>> => {
-  const cacheKey = `atcoder_${type}_rating_${username}`;
-  const cache = await loadCache<ApiResult<number>>(cacheKey);
-  if (cache?.data != null) {
-    return cache.data;
-  }
+  const url = new URL(
+    `https://atcoder.jp/users/${encodeURIComponent(username)}`
+  );
+  const contestType: string = { algorithm: "algo", heuristic: "heuristic" }[
+    type
+  ];
+  url.searchParams.set("contestType", contestType);
+  url.searchParams.set("graph", "rating");
+  const endpoint = url.href;
 
-  const endpoint = `https://atcoder.jp/users/${encodeURIComponent(
-    username
-  )}?contestType=${type === "algorithm" ? "algo" : "heuristic"}&graph=rating`;
   const resp = await axios.get(endpoint, {
     validateStatus: (status) => [200, 404].includes(status),
   });
+
   if (resp.status === 404) {
-    const result = { data: 0, error: ApiError.UserNotFound };
-    await saveCache(cacheKey, result);
-    return result;
+    return { data: 0, error: ApiError.UserNotFound };
   }
 
   const $ = load(resp.data);
   const text = $('tr:contains("Rating"):nth(0)').text().trim().split(/\s+/)[0];
   if (!text.startsWith("Rating")) {
-    const result = { data: 0, error: ApiError.DataNotFound };
-    await saveCache(cacheKey, result);
-    return result;
+    return { data: 0, error: ApiError.DataNotFound };
   }
 
   const rating = Number(text.replaceAll("Rating", ""));
   if (Number.isNaN(rating)) {
-    const result = { data: 0, error: ApiError.DataNotFound };
-    await saveCache(cacheKey, result);
-    return result;
+    return { data: 0, error: ApiError.DataNotFound };
   }
 
-  const result = { data: rating };
-  await saveCache(cacheKey, result);
-  return result;
+  return { data: rating };
 };
