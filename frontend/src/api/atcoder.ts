@@ -1,7 +1,7 @@
 import { NextApiHandler } from "next";
 import { render } from "@/api/api";
-import { ApiResult, ApiError } from "@/lib/api";
-import { getAlgorithmRating, getHeuristicRating } from "@/lib/atcoderApi";
+import { ApiResult, ApiError } from "@/lib/api/api";
+import { getAlgorithmRating, getHeuristicRating } from "@/lib/api/atcoderApi";
 import logos from "@/logos.json";
 
 export type AtCoderBadgeType = "algorithm_rating" | "heuristic_rating";

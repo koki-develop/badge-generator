@@ -1,7 +1,7 @@
 import axios from "axios";
 import { load } from "cheerio";
-import { ApiError, ApiResult } from "@/lib/api";
-import { withCache } from "@/lib/cache";
+import { ApiError, ApiResult } from "@/lib/api/api";
+import { withCache } from "@/lib/api/cache";
 
 export type QiitaUser = {
   followers_count: number;

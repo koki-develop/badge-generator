@@ -2,7 +2,7 @@ import crypto from "crypto";
 import { addHours } from "date-fns";
 import * as admin from "firebase-admin";
 import { getFirestore, Timestamp } from "firebase-admin/firestore";
-import { ApiResult } from "@/lib/api";
+import { ApiResult } from "@/lib/api/api";
 import { logger } from "@/lib/logger";
 
 if (admin.apps.length === 0) {

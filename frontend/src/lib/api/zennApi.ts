@@ -1,5 +1,5 @@
 import axios from "axios";
-import { loadCache, saveCache } from "@/lib/cache";
+import { loadCache, saveCache } from "@/lib/api/cache";
 
 type ZennUser = {
   articles_count: number;

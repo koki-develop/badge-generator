@@ -4,7 +4,7 @@ import {
   getArticlesCount,
   getContributions,
   getFollowersCount,
-} from "@/lib/qiitaApi";
+} from "@/lib/api/qiitaApi";
 import logos from "@/logos.json";
 
 export type QiitaBadgeType = "contributions" | "followers" | "articles";

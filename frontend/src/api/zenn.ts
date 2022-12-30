@@ -6,7 +6,7 @@ import {
   getFollowersCount,
   getLikesCount,
   getScrapssCount,
-} from "@/lib/zennApi";
+} from "@/lib/api/zennApi";
 import logos from "@/logos.json";
 
 export type ZennBadgeType =
