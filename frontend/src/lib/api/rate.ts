@@ -2,6 +2,7 @@ import { addHours } from "date-fns";
 import { FieldValue, Timestamp } from "firebase-admin/firestore";
 import { ApiError, ApiResult } from "@/lib/api/api";
 import { db } from "@/lib/api/firestore";
+import { logger } from "@/lib/logger";
 
 const version = "v1";
 const resetHours = 1;
@@ -19,9 +20,11 @@ export const withRate =
   async (): Promise<ApiResult<T>> => {
     const meta = await _getMeta(key);
     if (!meta || _canReset(meta)) {
+      logger.info(`reset ${key} rate.`, { key });
       await _resetRate(key);
     } else {
       const current = await _getRate(key);
+      logger.info(`current ${key} rate: ${current}`, { key, rate: current });
       if (current > limit) {
         return { data: null, error: ApiError.RateLimit };
       }

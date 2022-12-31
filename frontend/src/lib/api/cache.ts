@@ -42,16 +42,16 @@ export const withCache = async <T>(
 ): Promise<ApiResult<T>> => {
   const cache = await loadCache<T>(key);
   if (cache != null) {
-    logger.info("cache found.", { key });
+    logger.info(`cache found:${key}`, { key });
     return cache.data;
   }
-  logger.info("cache not found.", { key });
+  logger.info(`cache not found: ${key}`, { key });
 
   const value = await func();
   if (value.error !== ApiError.RateLimit) {
     await saveCache(key, value);
   }
-  logger.info("cache saved.", { key });
+  logger.info(`cache saved: ${key}`, { key });
 
   return value;
 };
