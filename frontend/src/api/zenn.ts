@@ -30,20 +30,13 @@ const _handler = (type: ZennBadgeType): NextApiHandler =>
     const result = await getUser(query.username);
     if (result.error) return { ...base, error: result.error };
 
-    const value = (() => {
-      switch (type) {
-        case "articles":
-          return result.data.articles_count;
-        case "books":
-          return result.data.books_count;
-        case "followers":
-          return result.data.follower_count;
-        case "likes":
-          return result.data.total_liked_count;
-        case "scraps":
-          return result.data.scraps_count;
-      }
-    })();
+    const value = {
+      articles: result.data.articles_count,
+      books: result.data.books_count,
+      followers: result.data.follower_count,
+      likes: result.data.total_liked_count,
+      scraps: result.data.scraps_count,
+    }[type];
 
     return {
       ...base,
