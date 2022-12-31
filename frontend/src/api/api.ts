@@ -29,6 +29,8 @@ const _selectErrorMessage = (error: ApiError): string => {
       return "user not found";
     case ApiError.DataNotFound:
       return "data not found";
+    case ApiError.RateLimit:
+      return "service temporarily unavailable";
   }
 };
 

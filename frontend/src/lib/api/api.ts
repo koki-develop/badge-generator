@@ -11,6 +11,7 @@ export type ApiResult<T> =
 export const ApiError = {
   UserNotFound: "USER_NOT_FOUND",
   DataNotFound: "DATA_NOT_FOUND",
+  RateLimit: "RATE_LIMIT",
 } as const;
 
 export type ApiError = typeof ApiError[keyof typeof ApiError];
