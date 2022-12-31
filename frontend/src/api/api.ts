@@ -59,5 +59,9 @@ export const renderSvg =
       ...badgeOptions,
     });
 
-    return res.status(200).setHeader("content-type", "image/svg+xml").send(svg);
+    const status = options.error ? 404 : 200;
+    return res
+      .status(status)
+      .setHeader("content-type", "image/svg+xml")
+      .send(svg);
   };
