@@ -61,7 +61,18 @@ export const renderSvg =
       ...badgeOptions,
     });
 
-    const status = options.error ? 404 : 200;
+    const status = (() => {
+      switch (options.error) {
+        case ApiError.UserNotFound:
+        case ApiError.DataNotFound:
+          return 404;
+        case ApiError.RateLimit:
+          return 503;
+        default:
+          return 200;
+      }
+    })();
+
     return res
       .status(status)
       .setHeader("content-type", "image/svg+xml")
