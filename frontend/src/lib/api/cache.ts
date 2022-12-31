@@ -1,15 +1,9 @@
 import crypto from "crypto";
 import { addHours } from "date-fns";
-import * as admin from "firebase-admin";
-import { getFirestore, Timestamp } from "firebase-admin/firestore";
+import { Timestamp } from "firebase-admin/firestore";
 import { ApiResult } from "@/lib/api/api";
+import { db } from "@/lib/api/firestore";
 import { logger } from "@/lib/logger";
-
-if (admin.apps.length === 0) {
-  admin.initializeApp();
-}
-
-const db = getFirestore();
 
 const version = "v2";
 const ttlHours = 3;
