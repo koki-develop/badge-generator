@@ -2,6 +2,7 @@ import { load } from "cheerio";
 import { ApiError, ApiResult } from "@/lib/api/api";
 import { axiosInstance } from "@/lib/api/axios";
 import { withCache } from "@/lib/api/cache";
+import { withRate } from "@/lib/api/rate";
 
 export type QiitaUser = {
   followers_count: number;
@@ -20,7 +21,10 @@ const _getUserWithCache = async (
   username: string
 ): Promise<ApiResult<QiitaUser>> => {
   const cacheKey = `qiita_${username}`;
-  return withCache(cacheKey, () => _getUser(username));
+  return withCache(
+    cacheKey,
+    withRate("qiita", () => _getUser(username))
+  );
 };
 
 const _getUser = async (username: string): Promise<ApiResult<QiitaUser>> => {
@@ -42,7 +46,10 @@ const _getContributionsWithCache = async (
   username: string
 ): Promise<ApiResult<number>> => {
   const cacheKey = `qiita_contributions_${username}`;
-  return withCache(cacheKey, () => _getContributions(username));
+  return withCache(
+    cacheKey,
+    withRate("qiita", () => _getContributions(username))
+  );
 };
 
 const _getContributions = async (

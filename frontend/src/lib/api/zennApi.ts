@@ -1,6 +1,7 @@
 import { ApiError, ApiResult } from "@/lib/api/api";
 import { axiosInstance } from "@/lib/api/axios";
 import { withCache } from "@/lib/api/cache";
+import { withRate } from "./rate";
 
 export type ZennUser = {
   articles_count: number;
@@ -16,7 +17,10 @@ const _getUserWithCache = async (
   username: string
 ): Promise<ApiResult<ZennUser>> => {
   const cacheKey = `zenn_${username}`;
-  return withCache(cacheKey, () => _getUser(username));
+  return withCache(
+    cacheKey,
+    withRate("zenn", () => _getUser(username))
+  );
 };
 
 const _getUser = async (username: string): Promise<ApiResult<ZennUser>> => {

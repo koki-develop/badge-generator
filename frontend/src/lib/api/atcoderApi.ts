@@ -2,6 +2,7 @@ import { load } from "cheerio";
 import { ApiResult, ApiError } from "@/lib/api/api";
 import { axiosInstance } from "@/lib/api/axios";
 import { withCache } from "@/lib/api/cache";
+import { withRate } from "@/lib/api/rate";
 
 export const getAlgorithmRating = async (
   username: string
@@ -20,7 +21,10 @@ const _getRatingWithCache = async (
   type: "algorithm" | "heuristic"
 ): Promise<ApiResult<number>> => {
   const cacheKey = `atcoder_${type}_rating_${username}`;
-  return withCache(cacheKey, () => _getRating(username, type));
+  return withCache(
+    cacheKey,
+    withRate("atcoder", () => _getRating(username, type))
+  );
 };
 
 const _getRating = async (
