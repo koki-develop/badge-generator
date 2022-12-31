@@ -31,7 +31,7 @@ tests:
     steps:
       - name: Zenn - Likes
         http:
-          url: /img/zenn/{{env.zennUsername}}/likes
+          url: /img/zenn/${{env.zennUsername}}/likes
           method: GET
           check:
             status: 200
@@ -39,7 +39,7 @@ tests:
               content-type: image/svg+xml
       - name: Zenn - Followers
         http:
-          url: /img/zenn/{{env.zennUsername}}/followers
+          url: /img/zenn/${{env.zennUsername}}/followers
           method: GET
           check:
             status: 200
@@ -47,7 +47,7 @@ tests:
               content-type: image/svg+xml
       - name: Zenn - Articles
         http:
-          url: /img/zenn/{{env.zennUsername}}/articles
+          url: /img/zenn/${{env.zennUsername}}/articles
           method: GET
           check:
             status: 200
@@ -55,7 +55,7 @@ tests:
               content-type: image/svg+xml
       - name: Zenn - Books
         http:
-          url: /img/zenn/{{env.zennUsername}}/books
+          url: /img/zenn/${{env.zennUsername}}/books
           method: GET
           check:
             status: 200
@@ -63,7 +63,7 @@ tests:
               content-type: image/svg+xml
       - name: Zenn - Scraps
         http:
-          url: /img/zenn/{{env.zennUsername}}/scraps
+          url: /img/zenn/${{env.zennUsername}}/scraps
           method: GET
           check:
             status: 200
@@ -74,7 +74,7 @@ tests:
     steps:
       - name: Qiita - Contributions
         http:
-          url: /img/qiita/{{env.qiitaUsername}}/contributions
+          url: /img/qiita/${{env.qiitaUsername}}/contributions
           method: GET
           check:
             status: 200
@@ -82,7 +82,7 @@ tests:
               content-type: image/svg+xml
       - name: Qiita - Followers
         http:
-          url: /img/qiita/{{env.qiitaUsername}}/followers
+          url: /img/qiita/${{env.qiitaUsername}}/followers
           method: GET
           check:
             status: 200
@@ -90,7 +90,7 @@ tests:
               content-type: image/svg+xml
       - name: Qiita - Articles
         http:
-          url: /img/qiita/{{env.qiitaUsername}}/articles
+          url: /img/qiita/${{env.qiitaUsername}}/articles
           method: GET
           check:
             status: 200
@@ -101,7 +101,7 @@ tests:
     steps:
       - name: AtCoder - Rating
         http:
-          url: /img/atcoder/{{env.atcoderUsername}}/rating/algorithm
+          url: /img/atcoder/${{env.atcoderUsername}}/rating/algorithm
           method: GET
           check:
             status: 200
@@ -109,7 +109,7 @@ tests:
               content-type: image/svg+xml
       - name: AtCoder - Rating(Heuristic)
         http:
-          url: /img/atcoder/{{env.atcoderUsername}}/rating/heuristic
+          url: /img/atcoder/${{env.atcoderUsername}}/rating/heuristic
           method: GET
           check:
             status: 200
