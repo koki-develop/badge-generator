@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import { addHours } from "date-fns";
 import { Timestamp } from "firebase-admin/firestore";
-import { ApiResult } from "@/lib/api/api";
+import { ApiError, ApiResult } from "@/lib/api/api";
 import { db } from "@/lib/api/firestore";
 import { logger } from "@/lib/logger";
 
@@ -48,7 +48,9 @@ export const withCache = async <T>(
   logger.info("cache not found.", { key });
 
   const value = await func();
-  await saveCache(key, value);
+  if (value.error !== ApiError.RateLimit) {
+    await saveCache(key, value);
+  }
   logger.info("cache saved.", { key });
 
   return value;
