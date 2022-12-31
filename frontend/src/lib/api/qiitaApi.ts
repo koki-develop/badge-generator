@@ -1,6 +1,6 @@
-import axios from "axios";
 import { load } from "cheerio";
 import { ApiError, ApiResult } from "@/lib/api/api";
+import { axiosInstance } from "@/lib/api/axios";
 import { withCache } from "@/lib/api/cache";
 
 export type QiitaUser = {
@@ -27,7 +27,7 @@ const _getUser = async (username: string): Promise<ApiResult<QiitaUser>> => {
   const url = new URL(
     `https://qiita.com/api/v2/users/${encodeURIComponent(username)}`
   );
-  const resp = await axios.get<QiitaUser>(url.href, {
+  const resp = await axiosInstance.get<QiitaUser>(url.href, {
     headers: { authorization: `Bearer ${process.env.QIITA_ACCESS_TOKEN}` },
     validateStatus: (status) => [200, 404].includes(status),
   });
@@ -51,7 +51,7 @@ const _getContributions = async (
   const url = new URL(
     `https://qiita.com/${encodeURIComponent(username)}/contributions`
   );
-  const resp = await axios.get(url.href, {
+  const resp = await axiosInstance.get(url.href, {
     validateStatus: (status) => [200, 404].includes(status),
   });
   if (resp.status === 404) {

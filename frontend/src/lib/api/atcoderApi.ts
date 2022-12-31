@@ -1,6 +1,6 @@
-import axios from "axios";
 import { load } from "cheerio";
 import { ApiResult, ApiError } from "@/lib/api/api";
+import { axiosInstance } from "@/lib/api/axios";
 import { withCache } from "@/lib/api/cache";
 
 export const getAlgorithmRating = async (
@@ -36,7 +36,7 @@ const _getRating = async (
   url.searchParams.set("contestType", contestType);
   url.searchParams.set("graph", "rating");
 
-  const resp = await axios.get(url.href, {
+  const resp = await axiosInstance.get(url.href, {
     validateStatus: (status) => [200, 404].includes(status),
   });
 

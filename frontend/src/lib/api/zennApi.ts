@@ -1,5 +1,5 @@
-import axios from "axios";
 import { ApiError, ApiResult } from "@/lib/api/api";
+import { axiosInstance } from "@/lib/api/axios";
 import { withCache } from "@/lib/api/cache";
 
 export type ZennUser = {
@@ -23,7 +23,7 @@ const _getUser = async (username: string): Promise<ApiResult<ZennUser>> => {
   const url = new URL(
     `https://zenn.dev/api/users/${encodeURIComponent(username)}`
   );
-  const resp = await axios.get<{ user: ZennUser }>(url.href, {
+  const resp = await axiosInstance.get<{ user: ZennUser }>(url.href, {
     validateStatus: (status) => [200, 404].includes(status),
   });
   if (resp.status === 404) {
