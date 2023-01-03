@@ -34,6 +34,10 @@ const BadgeBlock: React.FC<BadgeBlockProps> = memo((props) => {
         label: "HTML",
         value: `<a href="${badge.link}"><img src="${badgeSrc}" alt="${badge.name}" /></a>`,
       },
+      {
+        label: "URL",
+        value: badgeSrc,
+      },
     ];
   }, [badge.link, badge.name, badgeSrc]);
 
