@@ -15,7 +15,6 @@
     "e2e": "stepci run e2e/workflow.yml"
   },
   "dependencies": {
-    "@google-cloud/logging-winston": "^5.2.3",
     "@headlessui/react": "^1.7.2",
     "axios": "^0.27.2",
     "badge-maker": "^3.3.1",
