@@ -1,4 +1,3 @@
-import { load } from "cheerio";
 import { ApiResult, ApiError } from "@/lib/api/api";
 import { axiosInstance } from "@/lib/api/axios";
 import { withCache } from "@/lib/api/cache";
@@ -32,32 +31,19 @@ const _getRating = async (
   type: "algorithm" | "heuristic"
 ): Promise<ApiResult<number>> => {
   const url = new URL(
-    `https://atcoder.jp/users/${encodeURIComponent(username)}`
+    `https://atcoder.jp/users/${encodeURIComponent(username)}/history/json`
   );
   const contestType: string = { algorithm: "algo", heuristic: "heuristic" }[
     type
   ];
   url.searchParams.set("contestType", contestType);
-  url.searchParams.set("graph", "rating");
 
-  const resp = await axiosInstance.get(url.href, {
-    validateStatus: (status) => [200, 404].includes(status),
-  });
-
-  if (resp.status === 404) {
-    return { data: null, error: ApiError.UserNotFound };
-  }
-
-  const $ = load(resp.data);
-  const text = $('tr:contains("Rating"):nth(0)').text().trim().split(/\s+/)[0];
-  if (!text.startsWith("Rating")) {
+  const resp = await axiosInstance.get<{ NewRating: number }[]>(url.href);
+  const { data } = resp;
+  if (data.length === 0) {
     return { data: null, error: ApiError.DataNotFound };
   }
 
-  const rating = Number(text.replaceAll("Rating", ""));
-  if (Number.isNaN(rating)) {
-    return { data: null, error: ApiError.DataNotFound };
-  }
-
-  return { data: rating };
+  // get last element
+  return { data: data[data.length - 1].NewRating };
 };
