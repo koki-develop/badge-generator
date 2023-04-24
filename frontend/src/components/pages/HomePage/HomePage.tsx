@@ -71,6 +71,12 @@ const HomePage: NextPage = () => {
         <meta name="description" content="シンプルなバッジ生成サービス。" />
       </Head>
 
+      <div className="mb-4 border-l-4 border-orange-500 bg-orange-100 p-4 text-orange-700">
+        <p className="font-bold">
+          2023/04/25 AtCoder バッジのサポートは終了しました。
+        </p>
+      </div>
+
       <div className="grid grid-cols-2 gap-4">
         {cards.map((card) => (
           <ServiceCard key={card.name} name={card.name} imgSrc={card.imgSrc} />
