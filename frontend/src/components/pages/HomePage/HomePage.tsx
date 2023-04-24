@@ -4,11 +4,7 @@ import BadgeBlocks from "@/components/pages/HomePage/BadgeBlocks";
 import ServiceCard from "@/components/pages/HomePage/ServiceCard";
 import { Badge } from "@/components/util/BadgeBlock";
 import Divider from "@/components/util/Divider";
-import {
-  buildAtCoderBadgeUrl,
-  buildQiitaBadgeUrl,
-  buildZennBadgeUrl,
-} from "@/lib/badgeUrl";
+import { buildQiitaBadgeUrl, buildZennBadgeUrl } from "@/lib/badgeUrl";
 import logos from "@/logos.json";
 import type { NextPage } from "next";
 
@@ -62,25 +58,9 @@ const usernameToQiitaBadges = (username: string): Badge[] => {
   ];
 };
 
-const usernameToAtCoderBadge = (username: string): Badge[] => {
-  return [
-    {
-      name: "Rating",
-      buildUrl: buildAtCoderBadgeUrl("algorithm_rating"),
-      link: `https://atcoder.jp/users/${username}?contestType=algo`,
-    },
-    {
-      name: "Rating(Heuristic)",
-      buildUrl: buildAtCoderBadgeUrl("heuristic_rating"),
-      link: `https://atcoder.jp/users/${username}?contestType=heuristic`,
-    },
-  ];
-};
-
 const cards = [
   { name: "Zenn", imgSrc: logos.zenn },
   { name: "Qiita", imgSrc: logos.qiita },
-  { name: "AtCoder", imgSrc: logos.atcoderBlack },
 ];
 
 const HomePage: NextPage = () => {
@@ -113,15 +93,6 @@ const HomePage: NextPage = () => {
         serviceUrl="https://qiita.com"
         defaultUsername="koki_develop"
         usernameToBadges={usernameToQiitaBadges}
-      />
-
-      <Divider />
-
-      <BadgeBlocks
-        title="AtCoder"
-        serviceUrl="https://atcoder.jp"
-        defaultUsername="chokudai"
-        usernameToBadges={usernameToAtCoderBadge}
       />
     </div>
   );

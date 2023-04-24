@@ -1,6 +1,6 @@
 import { NextApiHandler } from "next";
 import { renderSvg } from "@/api/api";
-import { getAlgorithmRating, getHeuristicRating } from "@/lib/api/atcoderApi";
+// import { getAlgorithmRating, getHeuristicRating } from "@/lib/api/atcoderApi";
 import logos from "@/logos.json";
 
 export type AtCoderBadgeType = "algorithm_rating" | "heuristic_rating";
@@ -27,22 +27,25 @@ const _handler = (type: AtCoderBadgeType): NextApiHandler =>
     const logo =
       query.style === "social" ? logos.atcoderBlack : logos.atcoderWhite;
 
-    const base = {
+    // end of provision
+    return {
       logo,
       label: _selectLabel(type),
+      color: "#000000",
+      message: `@${query.username}`,
     };
 
-    const result = await {
-      algorithm_rating: getAlgorithmRating,
-      heuristic_rating: getHeuristicRating,
-    }[type](query.username);
-    if (result.error) return { ...base, error: result.error };
+    // const result = await {
+    //   algorithm_rating: getAlgorithmRating,
+    //   heuristic_rating: getHeuristicRating,
+    // }[type](query.username);
+    // if (result.error) return { ...base, error: result.error };
 
-    return {
-      ...base,
-      color: _selectColor(result.data),
-      message: result.data.toString(),
-    };
+    // return {
+    //   ...base,
+    //   color: _selectColor(result.data),
+    //   message: result.data.toString(),
+    // };
   });
 
 export const algorithmRating = _handler("algorithm_rating");

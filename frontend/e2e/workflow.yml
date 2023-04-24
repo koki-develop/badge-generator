@@ -6,7 +6,6 @@ config:
 env:
   zennUsername: kou_pg_0131
   qiitaUsername: koki_develop
-  atcoderUsername: chokudai
 tests:
   app:
     steps:
@@ -91,25 +90,6 @@ tests:
       - name: Qiita - Articles
         http:
           url: /img/qiita/${{env.qiitaUsername}}/articles
-          method: GET
-          check:
-            status: 200
-            headers:
-              content-type: image/svg+xml
-
-  atcoder:
-    steps:
-      - name: AtCoder - Rating
-        http:
-          url: /img/atcoder/${{env.atcoderUsername}}/rating/algorithm
-          method: GET
-          check:
-            status: 200
-            headers:
-              content-type: image/svg+xml
-      - name: AtCoder - Rating(Heuristic)
-        http:
-          url: /img/atcoder/${{env.atcoderUsername}}/rating/heuristic
           method: GET
           check:
             status: 200
