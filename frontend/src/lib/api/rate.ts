@@ -30,8 +30,8 @@ export const withRate =
       }
     }
 
-    const result = await func();
     await _increment(key);
+    const result = await func();
     return result;
   };
 
