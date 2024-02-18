@@ -3,6 +3,7 @@ import {
   ProfileView,
   ProfileViewDetailed,
 } from "@atproto/api/dist/client/types/app/bsky/actor/defs";
+import { logger } from "@/lib/logger";
 import { ApiError, ApiResult } from "./api";
 import { withCache } from "./cache";
 import { withRate } from "./rate";
@@ -27,6 +28,7 @@ const _getProfile = async (
   handle: string
 ): Promise<ApiResult<ProfileViewDetailed>> => {
   if (!agent.session) {
+    logger.info("logging in to bluesky.");
     await agent.login({
       identifier: process.env.BLUESKY_IDENTIFIER!,
       password: process.env.BLUESKY_PASSWORD!,

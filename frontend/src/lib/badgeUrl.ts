@@ -1,6 +1,7 @@
 import path from "path";
 import { Query } from "@/api/api";
 import { AtCoderBadgeType } from "@/api/atcoder";
+import { BlueskyBadgeType } from "@/api/bluesky";
 import { QiitaBadgeType } from "@/api/qiita";
 import { ZennBadgeType } from "@/api/zenn";
 
@@ -35,4 +36,9 @@ export const buildAtCoderBadgeUrl =
     }[type];
 
     return _buildBadgeUrl(["img/atcoder", query.username, suffix], query);
+  };
+
+export const buildBlueskyBadgeUrl =
+  (type: BlueskyBadgeType) => (query: Query) => {
+    return _buildBadgeUrl(["img/bluesky", query.username, type], query);
   };

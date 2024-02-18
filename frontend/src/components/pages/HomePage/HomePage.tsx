@@ -6,6 +6,7 @@ import { Badge } from "@/components/util/BadgeBlock";
 import Divider from "@/components/util/Divider";
 import {
   buildAtCoderBadgeUrl,
+  buildBlueskyBadgeUrl,
   buildQiitaBadgeUrl,
   buildZennBadgeUrl,
 } from "@/lib/badgeUrl";
@@ -77,10 +78,26 @@ const usernameToAtCoderBadge = (username: string): Badge[] => {
   ];
 };
 
+const usernameToBlueskyBadges = (username: string): Badge[] => {
+  return [
+    {
+      name: "Followers",
+      buildUrl: buildBlueskyBadgeUrl("followers"),
+      link: `https://bsky.app/profile/${username}`,
+    },
+    {
+      name: "Posts",
+      buildUrl: buildBlueskyBadgeUrl("posts"),
+      link: `https://bsky.app/profile/${username}`,
+    },
+  ];
+};
+
 const cards = [
   { name: "Zenn", imgSrc: logos.zenn },
   { name: "Qiita", imgSrc: logos.qiita },
   { name: "AtCoder", imgSrc: logos.atcoderBlack },
+  { name: "Bluesky", imgSrc: logos.bluesky },
 ];
 
 const HomePage: NextPage = () => {
@@ -122,6 +139,15 @@ const HomePage: NextPage = () => {
         serviceUrl="https://atcoder.jp"
         defaultUsername="chokudai"
         usernameToBadges={usernameToAtCoderBadge}
+      />
+
+      <Divider />
+
+      <BadgeBlocks
+        title="Bluesky"
+        serviceUrl="https://bsky.app"
+        defaultUsername="koki.me"
+        usernameToBadges={usernameToBlueskyBadges}
       />
     </div>
   );
