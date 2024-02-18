@@ -4,7 +4,11 @@ import BadgeBlocks from "@/components/pages/HomePage/BadgeBlocks";
 import ServiceCard from "@/components/pages/HomePage/ServiceCard";
 import { Badge } from "@/components/util/BadgeBlock";
 import Divider from "@/components/util/Divider";
-import { buildQiitaBadgeUrl, buildZennBadgeUrl } from "@/lib/badgeUrl";
+import {
+  buildAtCoderBadgeUrl,
+  buildQiitaBadgeUrl,
+  buildZennBadgeUrl,
+} from "@/lib/badgeUrl";
 import logos from "@/logos.json";
 import type { NextPage } from "next";
 
@@ -58,9 +62,25 @@ const usernameToQiitaBadges = (username: string): Badge[] => {
   ];
 };
 
+const usernameToAtCoderBadge = (username: string): Badge[] => {
+  return [
+    {
+      name: "Rating",
+      buildUrl: buildAtCoderBadgeUrl("algorithm_rating"),
+      link: `https://atcoder.jp/users/${username}?contestType=algo`,
+    },
+    {
+      name: "Rating(Heuristic)",
+      buildUrl: buildAtCoderBadgeUrl("heuristic_rating"),
+      link: `https://atcoder.jp/users/${username}?contestType=heuristic`,
+    },
+  ];
+};
+
 const cards = [
   { name: "Zenn", imgSrc: logos.zenn },
   { name: "Qiita", imgSrc: logos.qiita },
+  { name: "AtCoder", imgSrc: logos.atcoderBlack },
 ];
 
 const HomePage: NextPage = () => {
@@ -70,12 +90,6 @@ const HomePage: NextPage = () => {
         <title>Badge Generator</title>
         <meta name="description" content="シンプルなバッジ生成サービス。" />
       </Head>
-
-      <div className="mb-4 border-l-4 border-orange-500 bg-orange-100 p-4 text-orange-700">
-        <p className="font-bold">
-          2023/04/25 AtCoder バッジのサポートは終了しました。
-        </p>
-      </div>
 
       <div className="grid grid-cols-2 gap-4">
         {cards.map((card) => (
@@ -99,6 +113,15 @@ const HomePage: NextPage = () => {
         serviceUrl="https://qiita.com"
         defaultUsername="koki_develop"
         usernameToBadges={usernameToQiitaBadges}
+      />
+
+      <Divider />
+
+      <BadgeBlocks
+        title="AtCoder"
+        serviceUrl="https://atcoder.jp"
+        defaultUsername="chokudai"
+        usernameToBadges={usernameToAtCoderBadge}
       />
     </div>
   );
