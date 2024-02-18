@@ -20,6 +20,7 @@ const logos = {
   qiita: { filename: "qiita.png", mime: mime.png },
   atcoderBlack: { filename: "atcoder_black.svg", mime: mime.svg },
   atcoderWhite: { filename: "atcoder_white.svg", mime: mime.svg },
+  bluesky: { filename: "bluesky.svg", mime: mime.svg },
 };
 
 const dataUrls = Object.entries(logos).reduce<Record<string, string>>(
