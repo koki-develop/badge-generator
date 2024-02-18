@@ -7,6 +7,7 @@ env:
   zennUsername: kou_pg_0131
   qiitaUsername: koki_develop
   atcoderUsername: chokudai
+  blueskyUsername: koki.me
 tests:
   app:
     steps:
@@ -110,6 +111,25 @@ tests:
       - name: AtCoder - Rating(Heuristic)
         http:
           url: /img/atcoder/${{env.atcoderUsername}}/rating/heuristic
+          method: GET
+          check:
+            status: 200
+            headers:
+              content-type: image/svg+xml
+
+  bluesky:
+    steps:
+      - name: Bluesky - Followers
+        http:
+          url: /img/bluesky/${{env.blueskyUsername}}/followers
+          method: GET
+          check:
+            status: 200
+            headers:
+              content-type: image/svg+xml
+      - name: Bluesky - Posts
+        http:
+          url: /img/bluesky/${{env.blueskyUsername}}/posts
           method: GET
           check:
             status: 200
