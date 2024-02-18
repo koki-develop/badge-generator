@@ -61,6 +61,8 @@ function deploy() {
   gcloud run deploy frontend \
     --image="${DOCKER_IMAGE}:latest" \
     --set-env-vars=QIITA_ACCESS_TOKEN="${QIITA_ACCESS_TOKEN}" \
+    --set-env-vars=BLUESKY_IDENTIFIER="${BLUESKY_IDENTIFIER}" \
+    --set-env-vars=BLUESKY_PASSWORD="${BLUESKY_PASSWORD}" \
     --region="${REGION}" \
     --project="${GCP_PROJECT_ID}" \
     --service-account="${SERVICE_ACCOUNT}"
