@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { GoLinkExternal } from "react-icons/go";
 import * as Scroll from "react-scroll";
@@ -8,13 +9,14 @@ import { BadgeStyle } from "@/lib/badge";
 
 export type BadgeBlocksProps = {
   title: string;
+  logo: string;
   serviceUrl: string;
   defaultUsername: string;
   usernameToBadges: (username: string) => Badge[];
 };
 
 const BadgeBlocks: React.FC<BadgeBlocksProps> = memo((props) => {
-  const { title, serviceUrl, defaultUsername, usernameToBadges } = props;
+  const { title, logo, serviceUrl, defaultUsername, usernameToBadges } = props;
 
   const [username, setUsername] = useState<string>("");
   const [style, setStyle] = useState<BadgeStyle>(BadgeStyle.plastic);
@@ -53,6 +55,7 @@ const BadgeBlocks: React.FC<BadgeBlocksProps> = memo((props) => {
           external
           href={serviceUrl}
         >
+          <Image width={24} height={24} src={logo} alt="" />
           <span className="text-2xl">{title}</span>
           <GoLinkExternal />
         </Link>

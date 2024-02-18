@@ -118,6 +118,7 @@ const HomePage: NextPage = () => {
 
       <BadgeBlocks
         title="Zenn"
+        logo={logos.zenn}
         serviceUrl="https://zenn.dev"
         defaultUsername="kou_pg_0131"
         usernameToBadges={usernameToZennBadges}
@@ -127,6 +128,7 @@ const HomePage: NextPage = () => {
 
       <BadgeBlocks
         title="Qiita"
+        logo={logos.qiita}
         serviceUrl="https://qiita.com"
         defaultUsername="koki_develop"
         usernameToBadges={usernameToQiitaBadges}
@@ -136,6 +138,7 @@ const HomePage: NextPage = () => {
 
       <BadgeBlocks
         title="AtCoder"
+        logo={logos.atcoderBlack}
         serviceUrl="https://atcoder.jp"
         defaultUsername="chokudai"
         usernameToBadges={usernameToAtCoderBadge}
@@ -145,6 +148,7 @@ const HomePage: NextPage = () => {
 
       <BadgeBlocks
         title="Bluesky"
+        logo={logos.bluesky}
         serviceUrl="https://bsky.app"
         defaultUsername="koki.me"
         usernameToBadges={usernameToBlueskyBadges}
