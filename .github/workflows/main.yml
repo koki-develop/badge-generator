@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - enable-atcoder # TODO: remove
 
 jobs:
   test:
