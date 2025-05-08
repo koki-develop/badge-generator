@@ -10,17 +10,8 @@ jobs:
       run:
         working-directory: frontend
     steps:
-      - name: checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
-      - name: setup node
-        uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610 # v3.9.1
-        with:
-          node-version-file: "frontend/package.json"
-          cache: npm
-          cache-dependency-path: frontend/package-lock.json
-      - name: install dependencies
-        run: npm ci
-      - name: e2e
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+      - uses: ./.github/actions/setup-frontend
+      - run: npm run e2e
         env:
           STEPCI_DISABLE_ANALYTICS: "1"
-        run: npm run e2e
