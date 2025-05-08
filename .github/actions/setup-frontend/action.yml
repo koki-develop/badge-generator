@@ -1,0 +1,24 @@
+name: Setup Frontend
+description: Setup Frontend
+
+runs:
+  using: composite
+  steps:
+    - uses: jdx/mise-action@7a111ead46986ccad89a74ad013ba2a7c08c9e67 # v2.2.1
+
+    - name: Get npm cache directory
+      id: cache-dir
+      shell: bash
+      run: echo "dir=$(npm config get cache)" >> "${GITHUB_OUTPUT}"
+      working-directory: frontend
+
+    - uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+      with:
+        path: ${{ steps.cache-dir.outputs.dir }}
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - run: npm ci
+      working-directory: frontend
+      shell: bash

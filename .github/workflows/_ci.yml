@@ -1,10 +1,10 @@
-name: e2e
+name: CI
 
 on:
   workflow_call:
 
 jobs:
-  e2e:
+  build:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -12,6 +12,5 @@ jobs:
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
       - uses: ./.github/actions/setup-frontend
-      - run: npm run e2e
-        env:
-          STEPCI_DISABLE_ANALYTICS: "1"
+
+      - run: npm run build

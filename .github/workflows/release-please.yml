@@ -1,4 +1,4 @@
-name: main
+name: release-please
 
 on:
   push:
@@ -9,29 +9,23 @@ concurrency:
   group: ${{ github.workflow }}
 
 jobs:
-  test:
-    uses: ./.github/workflows/_test.yml
+  # TODO: release-please
 
   build:
-    needs:
-      - test
     permissions:
       contents: 'read'
       id-token: 'write'
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
-      - name: build docker image
-        run: ./bin/ctrl.sh build
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+      - run: ./bin/ctrl.sh build
         env:
           GA_MEASUREMENT_ID: ${{ secrets.GA_MEASUREMENT_ID }}
       - uses: google-github-actions/auth@09cecabe1f169596b81c2ef22b40faff87acc460 # v0.9.0
         with:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-      - name: push docker image
-        run: ./bin/ctrl.sh push
+      - run: ./bin/ctrl.sh push
 
   deploy:
     needs:
@@ -47,14 +41,12 @@ jobs:
         with:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-      - name: deploy
-        run: ./bin/ctrl.sh deploy
+      - run: ./bin/ctrl.sh deploy
         env:
           QIITA_ACCESS_TOKEN: ${{ secrets.QIITA_ACCESS_TOKEN }}
           BLUESKY_IDENTIFIER: ${{ secrets.BLUESKY_IDENTIFIER }}
           BLUESKY_PASSWORD: ${{ secrets.BLUESKY_PASSWORD }}
-      - name: clean images
-        run: ./bin/ctrl.sh clean_images
+      - run: ./bin/ctrl.sh clean_images
 
   e2e:
     needs:
