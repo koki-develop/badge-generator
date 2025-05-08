@@ -10,6 +10,7 @@ runs:
       id: cache-dir
       shell: bash
       run: echo "dir=$(npm config get cache)" >> "${GITHUB_OUTPUT}"
+      working-directory: frontend
 
     - uses: actions/cache@v4
       with:
@@ -19,4 +20,5 @@ runs:
           ${{ runner.os }}-node-
 
     - run: npm ci
+      working-directory: frontend
       shell: bash
