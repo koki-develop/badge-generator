@@ -1,7 +1,7 @@
 FROM node:16-alpine AS deps
 WORKDIR /app
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+COPY package.json package-lock.json ./
+RUN npm ci
 
 FROM node:16-alpine AS builder
 WORKDIR /app
@@ -10,7 +10,7 @@ ARG GA_MEASUREMENT_ID
 ENV NEXT_PUBLIC_GA_MEASUREMENT_ID $GA_MEASUREMENT_ID
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN yarn build
+RUN npm run build
 
 FROM node:16-alpine AS runner
 WORKDIR /app
