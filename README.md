@@ -1,4 +1,4 @@
-[![GitHub Actions](https://github.com/koki-develop/badge-generator/actions/workflows/main.yml/badge.svg)](https://github.com/koki-develop/badge-generator/actions/workflows/main.yml)
+[![GitHub Actions](https://github.com/koki-develop/badge-generator/actions/workflows/ci.yml/badge.svg)](https://github.com/koki-develop/badge-generator/actions/workflows/ci.yml)
 [![Twitter Follow](https://img.shields.io/twitter/follow/koki_develop?style=social)](https://twitter.com/koki_develop)
 
 # Badge Generator
