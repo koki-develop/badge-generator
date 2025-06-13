@@ -9,9 +9,24 @@ concurrency:
   group: ${{ github.workflow }}
 
 jobs:
-  # TODO: release-please
+  release-please:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    outputs:
+      release-created: ${{ steps.release-please.outputs.release_created }}
+    steps:
+      - id: release-please
+        uses: googleapis/release-please-action@a02a34c4d625f9be7cb89156071d8567266a2445 # v4.2.0
+        with:
+          release-type: simple
 
   build:
+    needs:
+      - release-please
+    if: ${{ needs.release-please.outputs.release-created == 'true' }}
     permissions:
       contents: 'read'
       id-token: 'write'
