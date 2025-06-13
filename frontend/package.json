@@ -44,7 +44,7 @@
     "eslint-config-next": "12.3.7",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-unused-imports": "2.0.0",
-    "postcss": "8.4.16",
+    "postcss": "8.4.31",
     "prettier": "2.7.1",
     "prettier-plugin-tailwindcss": "0.1.13",
     "stepci": "2.5.6",
