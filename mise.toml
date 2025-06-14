@@ -1,4 +1,4 @@
 [tools]
 bun = "1.2.16"
-node = "18.20.6"
+node = "18.20.8"
 terraform = "1.5.7"
