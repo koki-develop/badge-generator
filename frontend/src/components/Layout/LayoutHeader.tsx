@@ -4,7 +4,7 @@ import Link from "@/components/util/Link";
 
 const LayoutHeader: React.FC = memo(() => {
   return (
-    <header className="border-b p-4 shadow-sm">
+    <header className="border-b border-gray-200 p-4 shadow-sm">
       <div className="container mx-auto">
         <h1 className="inline-block text-2xl font-semibold">
           <Link className="flex items-center" href="/">
