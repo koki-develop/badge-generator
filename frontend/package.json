@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@atproto/api": "0.9.7",
-    "@headlessui/react": "1.7.15",
+    "@headlessui/react": "2.2.4",
     "axios": "0.30.0",
     "badge-maker": "3.3.1",
     "cheerio": "1.0.0-rc.12",
@@ -28,7 +28,7 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-icons": "4.4.0",
-    "react-scroll": "1.8.7",
+    "react-scroll": "1.9.3",
     "winston": "3.8.2"
   },
   "devDependencies": {
