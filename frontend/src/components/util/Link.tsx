@@ -16,8 +16,8 @@ const Link: React.FC<LinkProps> = React.memo((props) => {
   const { href, ...otherLinkProps } = linkProps;
 
   return (
-    <NextLink href={href}>
-      <a {...otherLinkProps} />
+    <NextLink href={href} {...otherLinkProps}>
+
     </NextLink>
   );
 });
