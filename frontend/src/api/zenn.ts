@@ -17,7 +17,7 @@ const _selectLabel = (type: ZennBadgeType): string =>
     followers: "Followers",
     scraps: "Scraps",
     likes: "Likes",
-  }[type]);
+  })[type];
 
 const _handler = (type: ZennBadgeType): NextApiHandler =>
   renderSvg(async (query) => {

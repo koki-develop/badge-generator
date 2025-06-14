@@ -14,18 +14,18 @@ export type ZennUser = {
 export const getUser = async (username: string) => _getUserWithCache(username);
 
 const _getUserWithCache = async (
-  username: string
+  username: string,
 ): Promise<ApiResult<ZennUser>> => {
   const cacheKey = `zenn_${username}`;
   return withCache(
     cacheKey,
-    withRate("zenn", () => _getUser(username))
+    withRate("zenn", () => _getUser(username)),
   );
 };
 
 const _getUser = async (username: string): Promise<ApiResult<ZennUser>> => {
   const url = new URL(
-    `https://zenn.dev/api/users/${encodeURIComponent(username)}`
+    `https://zenn.dev/api/users/${encodeURIComponent(username)}`,
   );
   const resp = await axiosInstance.get<{ user: ZennUser }>(url.href, {
     validateStatus: (status) => [200, 404].includes(status),

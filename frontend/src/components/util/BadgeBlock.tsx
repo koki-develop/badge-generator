@@ -21,7 +21,7 @@ const BadgeBlock: React.FC<BadgeBlockProps> = memo((props) => {
 
   const [label, setLabel] = useState<string>("");
   const [badgeSrc, setBadgeSrc] = useState<string>(
-    badge.buildUrl({ username, style, label })
+    badge.buildUrl({ username, style, label }),
   );
 
   const inputs = useMemo(() => {
@@ -45,7 +45,7 @@ const BadgeBlock: React.FC<BadgeBlockProps> = memo((props) => {
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setLabel(event.currentTarget.value);
     },
-    []
+    [],
   );
 
   useEffect(() => {

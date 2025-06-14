@@ -29,7 +29,7 @@ const dataUrls = Object.entries(logos).reduce<Record<string, string>>(
     result[name] = _base64ToDataUrl(base64, logo.mime);
     return result;
   },
-  {}
+  {},
 );
 
 fs.writeFileSync("src/logos.json", JSON.stringify(dataUrls));

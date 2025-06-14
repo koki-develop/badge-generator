@@ -10,26 +10,26 @@ export type QiitaUser = {
 };
 
 export const getContributions = async (
-  username: string
+  username: string,
 ): Promise<ApiResult<number>> => _getContributionsWithCache(username);
 
 export const getUser = async (
-  username: string
+  username: string,
 ): Promise<ApiResult<QiitaUser>> => _getUserWithCache(username);
 
 const _getUserWithCache = async (
-  username: string
+  username: string,
 ): Promise<ApiResult<QiitaUser>> => {
   const cacheKey = `qiita_${username}`;
   return withCache(
     cacheKey,
-    withRate("qiita", () => _getUser(username))
+    withRate("qiita", () => _getUser(username)),
   );
 };
 
 const _getUser = async (username: string): Promise<ApiResult<QiitaUser>> => {
   const url = new URL(
-    `https://qiita.com/api/v2/users/${encodeURIComponent(username)}`
+    `https://qiita.com/api/v2/users/${encodeURIComponent(username)}`,
   );
   const resp = await axiosInstance.get<QiitaUser>(url.href, {
     headers: { authorization: `Bearer ${process.env.QIITA_ACCESS_TOKEN}` },
@@ -43,20 +43,20 @@ const _getUser = async (username: string): Promise<ApiResult<QiitaUser>> => {
 };
 
 const _getContributionsWithCache = async (
-  username: string
+  username: string,
 ): Promise<ApiResult<number>> => {
   const cacheKey = `qiita_contributions_${username}`;
   return withCache(
     cacheKey,
-    withRate("qiita", () => _getContributions(username))
+    withRate("qiita", () => _getContributions(username)),
   );
 };
 
 const _getContributions = async (
-  username: string
+  username: string,
 ): Promise<ApiResult<number>> => {
   const url = new URL(
-    `https://qiita.com/${encodeURIComponent(username)}/contributions`
+    `https://qiita.com/${encodeURIComponent(username)}/contributions`,
   );
   const resp = await axiosInstance.get(url.href, {
     validateStatus: (status) => [200, 404].includes(status),

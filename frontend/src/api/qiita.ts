@@ -10,7 +10,7 @@ const _selectLabel = (type: QiitaBadgeType): string =>
     articles: "Articles",
     followers: "Followers",
     contributions: "Contributions",
-  }[type]);
+  })[type];
 
 const _handler = (type: QiitaBadgeType): NextApiHandler =>
   renderSvg(async (query) => {

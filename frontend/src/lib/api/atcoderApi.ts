@@ -4,34 +4,34 @@ import { withCache } from "@/lib/api/cache";
 import { withRate } from "@/lib/api/rate";
 
 export const getAlgorithmRating = async (
-  username: string
+  username: string,
 ): Promise<ApiResult<number>> => {
   return _getRatingWithCache(username, "algorithm");
 };
 
 export const getHeuristicRating = async (
-  username: string
+  username: string,
 ): Promise<ApiResult<number>> => {
   return _getRatingWithCache(username, "heuristic");
 };
 
 const _getRatingWithCache = async (
   username: string,
-  type: "algorithm" | "heuristic"
+  type: "algorithm" | "heuristic",
 ): Promise<ApiResult<number>> => {
   const cacheKey = `atcoder_${type}_rating_${username}`;
   return withCache(
     cacheKey,
-    withRate("atcoder", () => _getRating(username, type))
+    withRate("atcoder", () => _getRating(username, type)),
   );
 };
 
 const _getRating = async (
   username: string,
-  type: "algorithm" | "heuristic"
+  type: "algorithm" | "heuristic",
 ): Promise<ApiResult<number>> => {
   const url = new URL(
-    `https://atcoder.jp/users/${encodeURIComponent(username)}/history/json`
+    `https://atcoder.jp/users/${encodeURIComponent(username)}/history/json`,
   );
   const contestType: string = { algorithm: "algo", heuristic: "heuristic" }[
     type

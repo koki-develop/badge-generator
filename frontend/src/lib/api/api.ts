@@ -14,4 +14,4 @@ export const ApiError = {
   RateLimit: "RATE_LIMIT",
 } as const;
 
-export type ApiError = typeof ApiError[keyof typeof ApiError];
+export type ApiError = (typeof ApiError)[keyof typeof ApiError];

@@ -34,7 +34,7 @@ const Select: React.FC<SelectProps> = memo((props) => {
       {...selectProps}
       className={classNames(
         selectProps.className,
-        "rounded-sm border border-gray-200 p-2 outline-hidden hover:bg-gray-50"
+        "rounded-sm border border-gray-200 p-2 outline-hidden hover:bg-gray-50",
       )}
     >
       {options.map((option) => (
@@ -84,7 +84,7 @@ const Input: React.FC<InputProps> = memo((props) => {
       <span className="flex">
         {withCopy && (
           <button
-            className="rounded-l border border-gray-200 border-r-0 px-3 outline-hidden hover:bg-gray-50 active:bg-gray-100"
+            className="rounded-l border border-r-0 border-gray-200 px-3 outline-hidden hover:bg-gray-50 active:bg-gray-100"
             onClick={handleCopy}
           >
             {copied ? (
@@ -104,7 +104,7 @@ const Input: React.FC<InputProps> = memo((props) => {
                 "w-full": fullWidth,
                 rounded: !withCopy,
                 "bg-gray-50": inputProps.readOnly,
-              }
+              },
             )}
           />
         )}

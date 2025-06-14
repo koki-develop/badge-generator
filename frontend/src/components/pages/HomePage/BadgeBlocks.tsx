@@ -21,21 +21,21 @@ const BadgeBlocks: React.FC<BadgeBlocksProps> = memo((props) => {
   const [username, setUsername] = useState<string>("");
   const [style, setStyle] = useState<BadgeStyle>(BadgeStyle.plastic);
   const [badges, setBadges] = useState<Badge[]>(
-    usernameToBadges(defaultUsername)
+    usernameToBadges(defaultUsername),
   );
 
   const handleChangeUsername = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setUsername(event.currentTarget.value);
     },
-    []
+    [],
   );
 
   const handleChangeStyle = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
       setStyle(event.currentTarget.value as BadgeStyle);
     },
-    []
+    [],
   );
 
   const badgeUsername = useMemo(() => {

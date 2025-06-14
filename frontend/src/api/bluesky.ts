@@ -9,7 +9,7 @@ const _selectLabel = (type: BlueskyBadgeType): string =>
   ({
     followers: "Followers",
     posts: "Posts",
-  }[type]);
+  })[type];
 
 const _handler = (type: BlueskyBadgeType): NextApiHandler =>
   renderSvg(async (query) => {

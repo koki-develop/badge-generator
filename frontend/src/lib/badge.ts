@@ -6,7 +6,7 @@ export const BadgeStyle = {
   forTheBadge: "for-the-badge",
 } as const;
 
-export type BadgeStyle = typeof BadgeStyle[keyof typeof BadgeStyle];
+export type BadgeStyle = (typeof BadgeStyle)[keyof typeof BadgeStyle];
 
 export type RenderBadgeOptions = {
   logoDataUrl: string;

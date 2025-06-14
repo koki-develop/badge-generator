@@ -38,7 +38,7 @@ export const loadCache = async <T>(key: string): Promise<Cache<T> | null> => {
 
 export const withCache = async <T>(
   key: string,
-  func: () => Promise<ApiResult<T>>
+  func: () => Promise<ApiResult<T>>,
 ): Promise<ApiResult<T>> => {
   const cache = await loadCache<T>(key);
   if (cache != null) {

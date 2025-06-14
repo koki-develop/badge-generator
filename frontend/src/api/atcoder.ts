@@ -9,7 +9,7 @@ const _selectLabel = (type: AtCoderBadgeType): string =>
   ({
     algorithm_rating: "Rating",
     heuristic_rating: "Rating(Heuristic)",
-  }[type]);
+  })[type];
 
 const _selectColor = (rating: number): string => {
   if (rating >= 2800) return "#ff0000"; // 赤

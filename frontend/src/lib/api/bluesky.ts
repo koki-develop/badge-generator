@@ -11,21 +11,21 @@ import { withRate } from "./rate";
 const agent = new BskyAgent({ service: "https://bsky.social" });
 
 export const getProfile = async (
-  handle: string
+  handle: string,
 ): Promise<ApiResult<ProfileViewDetailed>> => _getProfileWithCache(handle);
 
 const _getProfileWithCache = async (
-  handle: string
+  handle: string,
 ): Promise<ApiResult<ProfileView>> => {
   const cacheKey = `bluesky_${handle}`;
   return withCache(
     cacheKey,
-    withRate("bluesky", () => _getProfile(handle))
+    withRate("bluesky", () => _getProfile(handle)),
   );
 };
 
 const _getProfile = async (
-  handle: string
+  handle: string,
 ): Promise<ApiResult<ProfileViewDetailed>> => {
   if (!agent.session) {
     logger.info("logging in to bluesky.");
