@@ -36,7 +36,7 @@
     "@types/react-dom": "18.0.6",
     "@types/react-scroll": "1.8.4",
     "@typescript-eslint/eslint-plugin": "5.62.0",
-    "autoprefixer": "10.4.12",
+    "autoprefixer": "10.4.21",
     "eslint": "8.24.0",
     "eslint-config-next": "^14.2.30",
     "eslint-config-prettier": "8.5.0",
