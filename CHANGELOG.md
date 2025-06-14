@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3](https://github.com/koki-develop/badge-generator/compare/v0.0.2...v0.0.3) (2025-06-14)
+
+
+### Bug Fixes
+
+* migrate from npm to bun ([#41](https://github.com/koki-develop/badge-generator/issues/41)) ([94cf810](https://github.com/koki-develop/badge-generator/commit/94cf810134645a8767a5765c130a78feac2fac6d))
+
 ## [0.0.2](https://github.com/koki-develop/badge-generator/compare/v0.0.1...v0.0.2) (2025-06-14)
 
 
