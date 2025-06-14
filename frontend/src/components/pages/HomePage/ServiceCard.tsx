@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import React, { memo } from "react";
 import * as Scroll from "react-scroll";
 

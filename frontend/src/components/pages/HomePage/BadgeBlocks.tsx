@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { GoLinkExternal } from "react-icons/go";
 import * as Scroll from "react-scroll";
