@@ -9,6 +9,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "fmt": "prettier --write .",
     "e2e": "stepci run e2e/workflow.yml"
   },
   "dependencies": {
