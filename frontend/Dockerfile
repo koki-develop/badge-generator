@@ -1,16 +1,16 @@
-FROM node:18.20.6-alpine AS deps
+FROM oven/bun:1.2.16-alpine AS deps
 WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci
+COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile
 
-FROM node:18.20.6-alpine AS builder
+FROM oven/bun:1.2.16-alpine AS builder
 WORKDIR /app
 ENV NODE_ENV production
 ARG GA_MEASUREMENT_ID
 ENV NEXT_PUBLIC_GA_MEASUREMENT_ID $GA_MEASUREMENT_ID
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npm run build
+RUN bun run build
 
 FROM node:18.20.6-alpine AS runner
 WORKDIR /app
