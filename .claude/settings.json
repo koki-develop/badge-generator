@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(docker build:*)",
+
+      "Bash(bun install:*)",
+      "Bash(bun run build:*)",
+      "Bash(bun run lint)",
+      "Bash(bun run e2e:*)",
+
+      "WebFetch(domain:nextjs.org)",
+      "WebFetch(domain:www.npmjs.com)"
+    ],
+    "deny": []
+  }
+}
