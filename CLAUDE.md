@@ -21,7 +21,7 @@ npm run build
 # リント実行
 npm run lint
 
-# E2Eテスト実行
+# E2Eテスト実行（Stepciを使用、本番環境に対して実行）
 npm run e2e
 
 # ロゴファイルのビルド（通常はbuild時に自動実行）
@@ -60,12 +60,17 @@ npm run build:logos
 plastic, flat, flat-square, social, for-the-badge
 
 ## 技術スタック
-- Next.js 12.3.1 (React 18.2.0)
+- Next.js 14.2.30 (React 18.2.0)
 - TypeScript 4.8.4
 - Node.js 18.20.6
 - Firebase Admin SDK（Firestore）
 - Tailwind CSS
 - badge-maker（SVG生成）
+
+## テスト環境
+- E2EテストはStepciを使用し、`e2e/workflow.yml`で定義
+- 本番環境（badgen.org）に対してAPIエンドポイントをテスト
+- 全サービス（Zenn、Qiita、AtCoder、Bluesky）のバッジ生成を検証
 
 ## デプロイメント
 - Terraformでインフラ管理（App Engine, Cloud Run）
