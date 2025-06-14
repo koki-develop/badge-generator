@@ -17,7 +17,7 @@ const Disclosure: React.FC<DisclosureProps> = memo((props) => {
         <>
           <HeadlessDisclosure.Button
             className={classNames(
-              "flex w-full items-center space-x-2 rounded border px-4 py-2 hover:bg-gray-50 active:bg-gray-100",
+              "flex w-full items-center space-x-2 rounded-sm border px-4 py-2 hover:bg-gray-50 active:bg-gray-100",
               { "rounded-b-none": open }
             )}
           >

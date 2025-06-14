@@ -14,7 +14,7 @@ const ServiceCard: React.FC<ServiceCardProps> = memo((props) => {
       to={name}
       smooth
       duration={300}
-      className="flex cursor-pointer flex-col items-center justify-center rounded border py-4 hover:bg-gray-50 active:bg-gray-100"
+      className="flex cursor-pointer flex-col items-center justify-center rounded-sm border py-4 hover:bg-gray-50 active:bg-gray-100"
     >
       <Image width={80} height={80} src={imgSrc} alt="" />
       <span>{name}</span>
