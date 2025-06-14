@@ -99,7 +99,7 @@ const Input: React.FC<InputProps> = memo((props) => {
             {...inputProps}
             className={classNames(
               inputClassname,
-              "rounded-r border border-gray-200 p-2 outline-hidden",
+              "rounded-r border border-gray-200 p-2 outline-hidden placeholder:text-gray-400!",
               {
                 "w-full": fullWidth,
                 rounded: !withCopy,
