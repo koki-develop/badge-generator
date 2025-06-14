@@ -2,9 +2,6 @@
   "name": "frontend",
   "license": "MIT",
   "private": true,
-  "engines": {
-    "node": "18.20.6"
-  },
   "scripts": {
     "dev": "next dev",
     "build:logos": "bun run ./src/tasks/buildLogos.ts",
