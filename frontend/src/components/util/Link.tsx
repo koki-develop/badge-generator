@@ -7,17 +7,15 @@ export type LinkProps = Omit<React.HTMLProps<HTMLAnchorElement>, "href"> & {
 };
 
 const Link: React.FC<LinkProps> = React.memo((props) => {
-  const { external, ...linkProps } = props;
+  const { external, href, children, className, ...anchorProps } = props;
 
   if (external) {
-    return <a target="_blank" rel="noreferrer noopener" {...linkProps} />;
+    return <a target="_blank" rel="noreferrer noopener" href={href} className={className} {...anchorProps}>{children}</a>;
   }
 
-  const { href, ...otherLinkProps } = linkProps;
-
   return (
-    <NextLink href={href} {...otherLinkProps}>
-
+    <NextLink href={href} className={className}>
+      {children}
     </NextLink>
   );
 });
