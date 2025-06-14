@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.4](https://github.com/koki-develop/badge-generator/compare/v0.0.3...v0.0.4) (2025-06-14)
+
+
+### Bug Fixes
+
+* Update Tailwind CSS v3 -&gt; v4 ([#49](https://github.com/koki-develop/badge-generator/issues/49)) ([ad277d0](https://github.com/koki-develop/badge-generator/commit/ad277d01b473396768e37a5957e52ab282052195))
+
 ## [0.0.3](https://github.com/koki-develop/badge-generator/compare/v0.0.2...v0.0.3) (2025-06-14)
 
 
