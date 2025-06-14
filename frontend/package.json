@@ -7,8 +7,8 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build:logos": "ts-node ./src/tasks/buildLogos.ts",
-    "prebuild": "npm run build:logos",
+    "build:logos": "bun run ./src/tasks/buildLogos.ts",
+    "prebuild": "bun run build:logos",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
