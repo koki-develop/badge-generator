@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.8](https://github.com/koki-develop/badge-generator/compare/v0.0.7...v0.0.8) (2026-03-31)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v0.30.3 [security] ([#56](https://github.com/koki-develop/badge-generator/issues/56)) ([754e766](https://github.com/koki-develop/badge-generator/commit/754e766e1f37eb771bbc849fba55afa0b871413e))
+* **deps:** update dependency next to v15.5.14 [security] ([#66](https://github.com/koki-develop/badge-generator/issues/66)) ([d5c2d74](https://github.com/koki-develop/badge-generator/commit/d5c2d74cd1688381d560aa2c2dd34d8fc4a6d577))
+
 ## [0.0.7](https://github.com/koki-develop/badge-generator/compare/v0.0.6...v0.0.7) (2026-01-31)
 
 
