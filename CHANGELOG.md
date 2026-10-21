@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.12](https://github.com/koki-develop/badge-generator/compare/v0.0.11...v0.0.12) (2026-10-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency next to v15.5.27 [security] ([#81](https://github.com/koki-develop/badge-generator/issues/81)) ([851d561](https://github.com/koki-develop/badge-generator/commit/851d561ec0dbb63e5d9f8f39cda9b7535432f02c))
+
 ## [0.0.11](https://github.com/koki-develop/badge-generator/compare/v0.0.10...v0.0.11) (2026-09-16)
 
 
