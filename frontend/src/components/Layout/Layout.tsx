@@ -13,8 +13,8 @@ const Layout: React.FC<LayoutProps> = memo((props) => {
     <div className="min-h-screen">
       <LayoutHeader />
 
-      <main className="mb-4 px-4">
-        <div className="container mx-auto py-4">{children}</div>
+      <main className="mx-auto mb-4 max-w-5xl px-4 py-4 sm:px-8 md:py-8">
+        {children}
       </main>
 
       <LayoutFooter />

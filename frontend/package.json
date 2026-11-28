@@ -25,7 +25,6 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "4.4.0",
-    "react-scroll": "1.8.7",
     "winston": "3.8.2"
   },
   "devDependencies": {
@@ -35,7 +34,6 @@
     "@types/node": "18.19.130",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
-    "@types/react-scroll": "1.8.4",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "eslint": "8.24.0",
     "eslint-config-next": "14.2.35",

@@ -1,22 +1,15 @@
-import Image from "next/image";
 import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
-import { GoLinkExternal } from "react-icons/go";
-import * as Scroll from "react-scroll";
 import BadgeBlock, { Badge } from "@/components/util/BadgeBlock";
 import Input from "@/components/util/Input";
-import Link from "@/components/util/Link";
 import { BadgeStyle } from "@/lib/badge";
 
 export type BadgeBlocksProps = {
-  title: string;
-  logo: string;
-  serviceUrl: string;
   defaultUsername: string;
   usernameToBadges: (username: string) => Badge[];
 };
 
 const BadgeBlocks: React.FC<BadgeBlocksProps> = memo((props) => {
-  const { title, logo, serviceUrl, defaultUsername, usernameToBadges } = props;
+  const { defaultUsername, usernameToBadges } = props;
 
   const [username, setUsername] = useState<string>("");
   const [style, setStyle] = useState<BadgeStyle>(BadgeStyle.plastic);
@@ -48,19 +41,6 @@ const BadgeBlocks: React.FC<BadgeBlocksProps> = memo((props) => {
 
   return (
     <div>
-      <Scroll.Element name={title} />
-      <h2 className="mb-2 inline-block font-semibold">
-        <Link
-          className="flex items-center space-x-1"
-          external
-          href={serviceUrl}
-        >
-          <Image width={24} height={24} src={logo} alt="" />
-          <span className="text-2xl">{title}</span>
-          <GoLinkExternal />
-        </Link>
-      </h2>
-
       <div className="mb-4 space-y-1">
         <Input
           className="text-sm"

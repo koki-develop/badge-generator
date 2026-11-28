@@ -1,9 +1,7 @@
 import Head from "next/head";
 import React from "react";
-import BadgeBlocks from "@/components/pages/HomePage/BadgeBlocks";
-import ServiceCard from "@/components/pages/HomePage/ServiceCard";
+import ServiceTabs, { Service } from "@/components/pages/HomePage/ServiceTabs";
 import { Badge } from "@/components/util/BadgeBlock";
-import Divider from "@/components/util/Divider";
 import {
   buildAtCoderBadgeUrl,
   buildBlueskyBadgeUrl,
@@ -93,11 +91,31 @@ const usernameToBlueskyBadges = (username: string): Badge[] => {
   ];
 };
 
-const cards = [
-  { name: "Zenn", imgSrc: logos.zenn },
-  { name: "Qiita", imgSrc: logos.qiita },
-  { name: "AtCoder", imgSrc: logos.atcoderBlack },
-  { name: "Bluesky", imgSrc: logos.bluesky },
+const services: Service[] = [
+  {
+    name: "Zenn",
+    logo: logos.zenn,
+    defaultUsername: "kou_pg_0131",
+    usernameToBadges: usernameToZennBadges,
+  },
+  {
+    name: "Qiita",
+    logo: logos.qiita,
+    defaultUsername: "koki_develop",
+    usernameToBadges: usernameToQiitaBadges,
+  },
+  {
+    name: "AtCoder",
+    logo: logos.atcoderBlack,
+    defaultUsername: "chokudai",
+    usernameToBadges: usernameToAtCoderBadge,
+  },
+  {
+    name: "Bluesky",
+    logo: logos.bluesky,
+    defaultUsername: "koki.me",
+    usernameToBadges: usernameToBlueskyBadges,
+  },
 ];
 
 const HomePage: NextPage = () => {
@@ -108,51 +126,7 @@ const HomePage: NextPage = () => {
         <meta name="description" content="シンプルなバッジ生成サービス。" />
       </Head>
 
-      <div className="grid grid-cols-2 gap-4">
-        {cards.map((card) => (
-          <ServiceCard key={card.name} name={card.name} imgSrc={card.imgSrc} />
-        ))}
-      </div>
-
-      <Divider />
-
-      <BadgeBlocks
-        title="Zenn"
-        logo={logos.zenn}
-        serviceUrl="https://zenn.dev"
-        defaultUsername="kou_pg_0131"
-        usernameToBadges={usernameToZennBadges}
-      />
-
-      <Divider />
-
-      <BadgeBlocks
-        title="Qiita"
-        logo={logos.qiita}
-        serviceUrl="https://qiita.com"
-        defaultUsername="koki_develop"
-        usernameToBadges={usernameToQiitaBadges}
-      />
-
-      <Divider />
-
-      <BadgeBlocks
-        title="AtCoder"
-        logo={logos.atcoderBlack}
-        serviceUrl="https://atcoder.jp"
-        defaultUsername="chokudai"
-        usernameToBadges={usernameToAtCoderBadge}
-      />
-
-      <Divider />
-
-      <BadgeBlocks
-        title="Bluesky"
-        logo={logos.bluesky}
-        serviceUrl="https://bsky.app"
-        defaultUsername="koki.me"
-        usernameToBadges={usernameToBlueskyBadges}
-      />
+      <ServiceTabs services={services} />
     </div>
   );
 };
