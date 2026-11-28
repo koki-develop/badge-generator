@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.17](https://github.com/koki-develop/badge-generator/compare/v0.0.16...v0.0.17) (2026-11-28)
+
+
+### Bug Fixes
+
+* **ci:** update GitHub Actions to Node 24 versions ([#92](https://github.com/koki-develop/badge-generator/issues/92)) ([c24df55](https://github.com/koki-develop/badge-generator/commit/c24df55f6cae5205ea1e880c7aaf5837ed67ffa0))
+
 ## [0.0.16](https://github.com/koki-develop/badge-generator/compare/v0.0.15...v0.0.16) (2026-11-28)
 
 
