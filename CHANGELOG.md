@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.15](https://github.com/koki-develop/badge-generator/compare/v0.0.14...v0.0.15) (2026-11-28)
+
+
+### Bug Fixes
+
+* stop release image cleanup from failing on image indexes ([#87](https://github.com/koki-develop/badge-generator/issues/87)) ([23b1415](https://github.com/koki-develop/badge-generator/commit/23b14153540f2d124df5f2ca50c81718914f46fd))
+
 ## [0.0.14](https://github.com/koki-develop/badge-generator/compare/v0.0.13...v0.0.14) (2026-11-21)
 
 
