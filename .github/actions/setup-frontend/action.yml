@@ -4,7 +4,7 @@ description: Setup Frontend
 runs:
   using: composite
   steps:
-    - uses: jdx/mise-action@c37c93293d6b742fc901e1406b8f764f6fb19dac # v2.4.4
+    - uses: jdx/mise-action@90f833d396d0cc3674b631d2d225e306476c303a # v5.2.10
 
     - name: Get bun cache directory
       id: cache-dir
@@ -12,7 +12,7 @@ runs:
       run: echo "dir=$(bun pm cache)" >> "${GITHUB_OUTPUT}"
       working-directory: frontend
 
-    - uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+    - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       with:
         path: ${{ steps.cache-dir.outputs.dir }}
         key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
