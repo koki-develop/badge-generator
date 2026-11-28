@@ -1,6 +1,6 @@
 import { ApiResult, ApiError } from "@/lib/api/api";
-import { axiosInstance } from "@/lib/api/axios";
 import { withCache } from "@/lib/api/cache";
+import { httpGet } from "@/lib/api/http";
 import { withRate } from "@/lib/api/rate";
 
 export const getAlgorithmRating = async (
@@ -38,8 +38,8 @@ const _getRating = async (
   ];
   url.searchParams.set("contestType", contestType);
 
-  const resp = await axiosInstance.get<{ NewRating: number }[]>(url.href);
-  const { data } = resp;
+  const resp = await httpGet(url);
+  const data = (await resp.json()) as { NewRating: number }[];
   if (data.length === 0) {
     return { data: null, error: ApiError.DataNotFound };
   }

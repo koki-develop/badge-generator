@@ -1,7 +1,7 @@
 import { load } from "cheerio";
 import { ApiError, ApiResult } from "@/lib/api/api";
-import { axiosInstance } from "@/lib/api/axios";
 import { withCache } from "@/lib/api/cache";
+import { httpGet } from "@/lib/api/http";
 import { withRate } from "@/lib/api/rate";
 
 export type QiitaUser = {
@@ -31,15 +31,15 @@ const _getUser = async (username: string): Promise<ApiResult<QiitaUser>> => {
   const url = new URL(
     `https://qiita.com/api/v2/users/${encodeURIComponent(username)}`,
   );
-  const resp = await axiosInstance.get<QiitaUser>(url.href, {
+  const resp = await httpGet(url, {
     headers: { authorization: `Bearer ${process.env.QIITA_ACCESS_TOKEN}` },
-    validateStatus: (status) => [200, 404].includes(status),
+    acceptStatuses: [200, 404],
   });
   if (resp.status === 404) {
     return { data: null, error: ApiError.UserNotFound };
   }
 
-  return { data: resp.data };
+  return { data: (await resp.json()) as QiitaUser };
 };
 
 const _getContributionsWithCache = async (
@@ -58,14 +58,12 @@ const _getContributions = async (
   const url = new URL(
     `https://qiita.com/${encodeURIComponent(username)}/contributions`,
   );
-  const resp = await axiosInstance.get(url.href, {
-    validateStatus: (status) => [200, 404].includes(status),
-  });
+  const resp = await httpGet(url, { acceptStatuses: [200, 404] });
   if (resp.status === 404) {
     return { data: null, error: ApiError.UserNotFound };
   }
 
-  const $ = load(resp.data);
+  const $ = load(await resp.text());
   const text = $('a:contains("Contributions")').text();
   if (!text.endsWith("Contributions")) {
     return { data: null, error: ApiError.DataNotFound };

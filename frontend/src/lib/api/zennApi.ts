@@ -1,7 +1,7 @@
 import { ApiError, ApiResult } from "@/lib/api/api";
-import { axiosInstance } from "@/lib/api/axios";
 import { withCache } from "@/lib/api/cache";
-import { withRate } from "./rate";
+import { httpGet } from "@/lib/api/http";
+import { withRate } from "@/lib/api/rate";
 
 export type ZennUser = {
   articles_count: number;
@@ -27,12 +27,11 @@ const _getUser = async (username: string): Promise<ApiResult<ZennUser>> => {
   const url = new URL(
     `https://zenn.dev/api/users/${encodeURIComponent(username)}`,
   );
-  const resp = await axiosInstance.get<{ user: ZennUser }>(url.href, {
-    validateStatus: (status) => [200, 404].includes(status),
-  });
+  const resp = await httpGet(url, { acceptStatuses: [200, 404] });
   if (resp.status === 404) {
     return { data: null, error: ApiError.UserNotFound };
   }
 
-  return { data: resp.data.user };
+  const { user } = (await resp.json()) as { user: ZennUser };
+  return { data: user };
 };
