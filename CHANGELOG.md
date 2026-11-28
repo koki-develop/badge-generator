@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.0](https://github.com/koki-develop/badge-generator/compare/v0.0.18...v0.1.0) (2026-11-28)
+
+
+### Features
+
+* switch services with a sidebar (tabs on phones) on the top page ([#98](https://github.com/koki-develop/badge-generator/issues/98)) ([2131f6c](https://github.com/koki-develop/badge-generator/commit/2131f6cd9ad7ff1f3aa444cd1a3b7a0f810d6aa1))
+
 ## [0.0.18](https://github.com/koki-develop/badge-generator/compare/v0.0.17...v0.0.18) (2026-11-28)
 
 
