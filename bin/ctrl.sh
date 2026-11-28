@@ -45,7 +45,13 @@ echo ""
 # ----------
 
 function build() {
+  # --provenance=false: Docker 29 uses the containerd image store by default,
+  # which keeps BuildKit's default provenance attestation, so the push becomes
+  # an image index (image + attestation) instead of a single image. Nothing
+  # reads the attestation, and the children of an index cannot be deleted
+  # while the index exists.
   docker build \
+    --provenance=false \
     -t "${DOCKER_IMAGE}:latest" \
     --platform=linux/amd64 \
     --build-arg GA_MEASUREMENT_ID="${GA_MEASUREMENT_ID}" \
@@ -72,17 +78,39 @@ function deploy() {
     --project="${GCP_PROJECT_ID}"
 }
 
-function list_old_image_digests() {
+function list_images() {
   gcloud artifacts docker images list "${DOCKER_IMAGE}" \
     --include-tags \
-    --filter="TAGS!=latest" \
-    --format="value(DIGEST)"
+    --format=json
+}
+
+# Reads list_images output and prints the digests without the latest tag.
+# "indexes" keeps only image indexes (manifest lists), "all" keeps everything.
+function select_old_digests() {
+  jq -r --arg kind "${1}" '
+    .[]
+    | select((.tags // []) | index("latest") | not)
+    | select($kind == "all" or (.metadata.mediaType | IN(
+        "application/vnd.oci.image.index.v1+json",
+        "application/vnd.docker.distribution.manifest.list.v2+json")))
+    | .version'
+}
+
+function delete_old_images() {
+  local _digests
+  _digests="$(list_images | select_old_digests "${1}")"
+  for _digest in ${_digests}; do
+    gcloud artifacts docker images delete "${DOCKER_IMAGE}@${_digest}" --quiet
+  done
 }
 
 function clean_images() {
-  for _digest in $(list_old_image_digests); do
-    gcloud artifacts docker images delete "${DOCKER_IMAGE}@${_digest}" --quiet
-  done
+  # Indexes go first: Artifact Registry refuses to delete a manifest that an
+  # index still references.
+  delete_old_images indexes
+  # Listed again, because whether deleting an index also deletes the
+  # manifests it references is not documented.
+  delete_old_images all
 }
 
 function commands_contains() {
