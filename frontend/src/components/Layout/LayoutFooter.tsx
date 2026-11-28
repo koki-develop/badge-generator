@@ -4,8 +4,8 @@ import Link from "@/components/util/Link";
 
 const LayoutFooter: React.FC = memo(() => {
   return (
-    <footer className="p-4">
-      <div className="container mx-auto">
+    <footer className="py-4">
+      <div className="mx-auto max-w-5xl px-4 sm:px-8">
         <ul className="flex flex-col items-center justify-center space-y-2 text-sm text-gray-500">
           <li>
             <p>&copy;2022 Koki Sato</p>
