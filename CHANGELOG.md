@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.16](https://github.com/koki-develop/badge-generator/compare/v0.0.15...v0.0.16) (2026-11-28)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @headlessui/react to v1.7.19 ([#68](https://github.com/koki-develop/badge-generator/issues/68)) ([6a4fc86](https://github.com/koki-develop/badge-generator/commit/6a4fc8696aa65f7277d922835170714ddc99e952))
+* **deps:** update dependency axios to v0.34.0 [security] ([#76](https://github.com/koki-develop/badge-generator/issues/76)) ([45358ec](https://github.com/koki-develop/badge-generator/commit/45358ec756d125c56c11cd5952d69441b01cfbf3))
+
 ## [0.0.15](https://github.com/koki-develop/badge-generator/compare/v0.0.14...v0.0.15) (2026-11-28)
 
 
