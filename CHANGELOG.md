@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.18](https://github.com/koki-develop/badge-generator/compare/v0.0.17...v0.0.18) (2026-11-28)
+
+
+### Bug Fixes
+
+* replace axios with fetch and stop logging request headers ([#96](https://github.com/koki-develop/badge-generator/issues/96)) ([57fea2b](https://github.com/koki-develop/badge-generator/commit/57fea2bfb921cab8dd85be6a2089e1e3d2183818))
+
 ## [0.0.17](https://github.com/koki-develop/badge-generator/compare/v0.0.16...v0.0.17) (2026-11-28)
 
 
